@@ -22,7 +22,14 @@ AI 에이전트로 프론트엔드 코드를 작성할 때 아래 규칙을 따�
 | 플레인 CSS/기타 | `@import '@careernote/tokens/tokens.css';` → `var(--cn-color-*)` |
 | JS/TS | `import tokens from '@careernote/tokens/tokens.json'` |
 
-주의: `theme-v4.css`는 **spacing·breakpoint를 의도적으로 제외**한다 (career-pencil은 기본 rem 스케일과 자체 `@custom-variant`를 사용).
+주의: breakpoint 는 `theme-v4.css`에서 의도적으로 제외한다 (career-pencil 은 자체 `@custom-variant` 보유).
+
+## Spacing 규칙 (2026-08-07 표준 복원)
+
+- **spacing 은 표준 Tailwind 스케일만 쓴다** (1키 = 0.25rem = 4px): `gap-1`=4px, `p-4`=16px, `py-3.5`=14px.
+- config 에서 spacing 을 px 로 오버라이드하지 않는다 (`4: '4px'` 식 매핑 금지 — 과거 careernote-web 의 실수).
+- `gap-[4px]` 같은 arbitrary px 값도 표준 키가 있으면 쓰지 않는다: `gap-[4px]`→`gap-1`, `w-[32px]`→`w-8`.
+- 표준 키가 없는 값(60px, 홀수 px 등)만 arbitrary 유지: `mt-[60px]`.
 
 ## 컴포넌트 인벤토리 (@careernote/react)
 
