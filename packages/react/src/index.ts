@@ -5,7 +5,7 @@ export { Button, ToggleButton } from './buttons';
 export { TextInput, Textarea, Selector } from './inputs';
 
 // Display
-export { Chip, Badge, ProChip, TemplateChips, Information, Icon, CheckIcon, Tooltip, NumberBadge } from './display';
+export { Chip, Badge, type BadgeVariant, ProChip, TemplateChips, Information, Icon, CheckIcon, Tooltip, NumberBadge } from './display';
 export type { IconProps, BaseIconProps } from './display';
 
 // Feedback
