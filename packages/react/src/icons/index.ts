@@ -303,3 +303,8 @@ export const iconMap: Record<string, React.ComponentType<BaseIconProps>> = {
 };
 
 export type IconName = keyof typeof iconMap;
+
+// 배럴 누락분 보수 (파일은 있었으나 미export — 2026-08-07)
+export { Arrow2Icon } from './Arrow2Icon';
+export { CheckCircleIcon } from './CheckCircleIcon';
+export { FilledBadge } from './FilledBadge';

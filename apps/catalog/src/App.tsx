@@ -1,5 +1,21 @@
 import React, { useState } from 'react';
 import * as DS from '@careernote/react';
+import * as ExtraIcons from '@careernote/react/icons-extra';
+import { iconMap } from '@careernote/react';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+  Checkbox,
+  RadioGroup,
+  RadioGroupItem,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+  Button as ShadcnButton,
+} from '@careernote/react/ui';
 import tokens from '@careernote/tokens/tokens.json';
 
 const {
@@ -234,16 +250,83 @@ function NavigationSection() {
   );
 }
 
-function IconSection() {
-  const icons = Object.entries(DS).filter(
-    ([name, v]) => name !== 'Icon' && name.endsWith('Icon') && typeof v === 'function',
-  ) as Array<[string, React.ComponentType<{ size?: number }>]>;
+function ShadcnSection() {
+  const [checked, setChecked] = useState(true);
   return (
-    <Section title={`Icons (${icons.length})`}>
+    <Section title="Shadcn Layer (ui/*)">
+      <p className="text-body2 text-gray700 mb-16">
+        Radix 기반 제2 레이어 — <code className="font-mono text-sky">@careernote/react/ui</code> (18종:
+        Accordion · AlertDialog · AspectRatio · Button · Card · Carousel · Checkbox · DropdownMenu · Pagination ·
+        Popover · RadioGroup · ScrollArea · Selector · Table · Tabs 등)
+      </p>
+      <div className="grid grid-cols-2 tablet:grid-cols-1 gap-24 max-w-[720px]">
+        <Accordion type="single" collapsible className="w-full">
+          <AccordionItem value="a">
+            <AccordionTrigger>Accordion 항목</AccordionTrigger>
+            <AccordionContent>펼쳐지는 내용입니다.</AccordionContent>
+          </AccordionItem>
+        </Accordion>
+        <Tabs defaultValue="one">
+          <TabsList>
+            <TabsTrigger value="one">탭 1</TabsTrigger>
+            <TabsTrigger value="two">탭 2</TabsTrigger>
+          </TabsList>
+          <TabsContent value="one" className="text-body2 text-gray700">첫 번째 탭 내용</TabsContent>
+          <TabsContent value="two" className="text-body2 text-gray700">두 번째 탭 내용</TabsContent>
+        </Tabs>
+        <div className="flex items-center gap-12">
+          <Checkbox checked={checked} onCheckedChange={(v) => setChecked(v === true)} id="cb" />
+          <label htmlFor="cb" className="text-body2 text-gray800">Checkbox</label>
+          <RadioGroup defaultValue="r1" className="flex items-center gap-12 ml-24">
+            <RadioGroupItem value="r1" id="r1" />
+            <label htmlFor="r1" className="text-body2 text-gray800">라디오 A</label>
+            <RadioGroupItem value="r2" id="r2" />
+            <label htmlFor="r2" className="text-body2 text-gray800">라디오 B</label>
+          </RadioGroup>
+        </div>
+        <div className="flex items-center gap-12">
+          <ShadcnButton>shadcn Button</ShadcnButton>
+          <ShadcnButton variant="outline">outline</ShadcnButton>
+          <ShadcnButton variant="destructive">destructive</ShadcnButton>
+        </div>
+      </div>
+    </Section>
+  );
+}
+
+function IconSection() {
+  const entries = Object.entries(iconMap) as Array<[string, React.ComponentType<{ size?: number }>]>;
+  return (
+    <Section title={`Icons — iconMap (${entries.length})`}>
+      <p className="text-body2 text-gray700 mb-16">
+        <code className="font-mono text-sky">{'<Icon name="..." />'}</code> 로 사용. 이름이 곧 API.
+      </p>
+      <div className="grid grid-cols-6 tablet:grid-cols-3 gap-16">
+        {entries.map(([name, IconComp]) => (
+          <div key={name} className="flex flex-col items-center gap-8 p-12 rounded-medium border border-border_gray2 bg-white100">
+            <IconComp size={22} />
+            <span className="text-detail text-gray700 text-center break-all">{name}</span>
+          </div>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
+function ExtraIconSection() {
+  const icons = Object.entries(ExtraIcons).filter(([, v]) => typeof v === 'function') as Array<
+    [string, React.ComponentType<{ className?: string }>]
+  >;
+  return (
+    <Section title={`Icons — icons-extra (${icons.length})`}>
+      <p className="text-body2 text-gray700 mb-16">
+        design-system 밖 <code className="font-mono text-sky">src/icons</code> 이관분 —{' '}
+        <code className="font-mono text-sky">@careernote/react/icons-extra</code>
+      </p>
       <div className="grid grid-cols-6 tablet:grid-cols-3 gap-16">
         {icons.map(([name, IconComp]) => (
           <div key={name} className="flex flex-col items-center gap-8 p-12 rounded-medium border border-border_gray2 bg-white100">
-            <IconComp size={22} />
+            <span className="flex items-center justify-center w-[24px] h-[24px] overflow-hidden"><IconComp /></span>
             <span className="text-detail text-gray700 text-center break-all">{name}</span>
           </div>
         ))}
@@ -270,7 +353,9 @@ export default function App() {
       <InputSection />
       <FeedbackSection />
       <NavigationSection />
+      <ShadcnSection />
       <IconSection />
+      <ExtraIconSection />
     </div>
   );
 }
