@@ -36,3 +36,4 @@ bun run build:tokens     # tokens.json 수정 후 dist 재생성
 ## AI 에이전트
 
 에이전트로 프론트 작업 시 [AGENTS.md](./AGENTS.md)의 규칙(hex 직접 입력 금지, 토큰 이름 사용, 컴포넌트 재사용)을 따를 것.
+작업 유형별 절차·실패 사례·검증 루프는 [docs/agentic-coding-guide.md](./docs/agentic-coding-guide.md) 참조.

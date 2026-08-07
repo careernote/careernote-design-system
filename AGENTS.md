@@ -2,6 +2,7 @@
 
 이 레포는 CareerNote 전 프로젝트(careernote-web, career-pencil, 신규 프로젝트)의 **스타일 단일 정본**이다.
 AI 에이전트로 프론트엔드 코드를 작성할 때 아래 규칙을 따른다.
+상세 플레이북(작업 유형별 절차·실패 사례·검증 루프): [docs/agentic-coding-guide.md](./docs/agentic-coding-guide.md)
 
 ## 절대 규칙
 
