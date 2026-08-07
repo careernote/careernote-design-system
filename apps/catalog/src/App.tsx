@@ -6,6 +6,7 @@ import tokens from '@careernote/tokens/tokens.json';
 
 const {
   Button,
+  AddDashedButton,
   ToggleButton,
   Chip,
   Badge,
@@ -123,6 +124,9 @@ function ButtonSection() {
             ))}
           </div>
         ))}
+        <div className="max-w-[420px]">
+          <AddDashedButton onClick={() => {}} />
+        </div>
         <div className="flex items-center gap-3">
           <span className="text-detail text-gray700">disabled</span>
           <Button color="sky" disabled onClick={noop}>disabled</Button>
