@@ -1,6 +1,7 @@
 /* 자동 생성 파일 — 직접 수정 금지. src/tokens.json 수정 후 build:tokens 실행 */
 @theme {
   --color-sky: #00A3FF;
+  --color-sky-dark: #0090E0;
   --color-main-color: #00A3FF;
   --color-sky80: #00A3FFCC;
   --color-sky60: #00A3FF99;
@@ -10,17 +11,22 @@
   --color-gray800: #4B4D57;
   --color-gray700: #727180;
   --color-gray600: #9E9EAA;
+  --color-gray650: #6B6E7B;
   --color-gray500: #C3C3CD;
+  --color-gray450: #D7DBE2;
   --color-gray400: #DEE0E6;
   --color-border-gray: #E9EBF1;
   --color-border-gray2: #F0F2F9;
+  --color-border-gray3: #ECEDF0;
   --color-bg-light: #FBFBFB;
   --color-bg-gray1: #F8F8F8;
   --color-bg-gray2: #F5F7FC;
+  --color-bg-gray3: #F6F7F8;
   --color-red: #F10000;
   --color-red10: #FFF0F0;
   --color-blue100: #2F65FF;
   --color-blue200: #0267FF;
+  --color-blue300: #0075FF;
   --color-blue10: #EFF3FF;
   --color-green100: #03C75A;
   --color-green10: #ECFBEE;

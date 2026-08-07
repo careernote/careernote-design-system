@@ -12,10 +12,20 @@ interface TextInputProps {
   essential?: boolean;
   lefticon?: IconName;
   righticon?: IconName;
+  /** controlled 모드: 전달 시 내부 state 대신 이 값을 표시 */
+  value?: string;
+  type?: React.HTMLInputTypeAttribute;
   onChange?: (value: string) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  maxLength?: number;
   errorMessage?: string;
   state?: TextInputState;
   size?: 'medium' | 'large';
+  /** 기본 고정폭(w-[289px]) 대신 w-full */
+  fullWidth?: boolean;
+  /** 루트 래퍼에 추가할 클래스 */
+  className?: string;
+  'data-testid'?: string;
 }
 
 const TextInput: React.FC<TextInputProps> = ({
@@ -26,12 +36,21 @@ const TextInput: React.FC<TextInputProps> = ({
   essential = false,
   lefticon,
   righticon,
+  value,
+  type = 'text',
   onChange,
+  onKeyDown,
+  maxLength,
   errorMessage,
   state: propState,
   size = 'medium',
+  fullWidth = false,
+  className = '',
+  'data-testid': testId,
 }) => {
   const [inputValue, setInputValue] = useState('');
+  const isControlled = value !== undefined;
+  const currentValue = isControlled ? value : inputValue;
   const [isFocused, setIsFocused] = useState(false);
   const [internalState, setInternalState] = useState<TextInputState>('normal');
 
@@ -39,9 +58,9 @@ const TextInput: React.FC<TextInputProps> = ({
   const inputId = label ? `text-input-${label.replace(/\s/g, '-')}` : `text-input-${Math.random().toString(36).substring(2, 9)}`;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setInputValue(value);
-    onChange?.(value);
+    const next = e.target.value;
+    if (!isControlled) setInputValue(next);
+    onChange?.(next);
   };
 
   const handleFocus = () => {
@@ -57,10 +76,10 @@ const TextInput: React.FC<TextInputProps> = ({
       setInternalState(propState);
     } else {
       if (!isFocused) {
-        setInternalState(inputValue ? 'filled' : 'normal');
+        setInternalState(currentValue ? 'filled' : 'normal');
       }
     }
-  }, [propState, isFocused, inputValue]);
+  }, [propState, isFocused, currentValue]);
 
   const getInputClasses = (): string => {
     const baseClasses = `w-full h-auto flex items-center gap-2 self-stretch border rounded-small ${getContainerClasses()}`;
@@ -97,7 +116,7 @@ const TextInput: React.FC<TextInputProps> = ({
   const isInteractionDisabled = internalState === 'only_view' || disabled;
 
   return (
-    <div className="w-[289px] h-auto flex flex-col items-start gap-3">
+    <div className={`${fullWidth ? 'w-full' : 'w-[289px]'} h-auto flex flex-col items-start gap-3 ${className}`.trim()}>
       {(label || sublabel) && (
         <div className="w-full h-auto flex flex-col items-start gap-1 self-stretch">
           {label && (
@@ -127,11 +146,14 @@ const TextInput: React.FC<TextInputProps> = ({
           )}
           <input
             id={inputId}
-            type="text"
+            type={type}
+            data-testid={testId}
+            maxLength={maxLength}
             placeholder={placeholder}
             disabled={isInteractionDisabled}
-            value={inputValue}
+            value={currentValue}
             onChange={handleChange}
+            onKeyDown={onKeyDown}
             onFocus={!isInteractionDisabled ? handleFocus : undefined}
             onBlur={!isInteractionDisabled ? handleBlur : undefined}
             className="w-full h-auto max-h-[18px] flex-1 outline-none bg-transparent"

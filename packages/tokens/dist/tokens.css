@@ -1,6 +1,7 @@
 /* 자동 생성 파일 — 직접 수정 금지. src/tokens.json 수정 후 build:tokens 실행 */
 :root {
   --cn-color-sky: #00A3FF;
+  --cn-color-sky-dark: #0090E0;
   --cn-color-main-color: #00A3FF;
   --cn-color-sky80: #00A3FFCC;
   --cn-color-sky60: #00A3FF99;
@@ -10,17 +11,22 @@
   --cn-color-gray800: #4B4D57;
   --cn-color-gray700: #727180;
   --cn-color-gray600: #9E9EAA;
+  --cn-color-gray650: #6B6E7B;
   --cn-color-gray500: #C3C3CD;
+  --cn-color-gray450: #D7DBE2;
   --cn-color-gray400: #DEE0E6;
   --cn-color-border-gray: #E9EBF1;
   --cn-color-border-gray2: #F0F2F9;
+  --cn-color-border-gray3: #ECEDF0;
   --cn-color-bg-light: #FBFBFB;
   --cn-color-bg-gray1: #F8F8F8;
   --cn-color-bg-gray2: #F5F7FC;
+  --cn-color-bg-gray3: #F6F7F8;
   --cn-color-red: #F10000;
   --cn-color-red10: #FFF0F0;
   --cn-color-blue100: #2F65FF;
   --cn-color-blue200: #0267FF;
+  --cn-color-blue300: #0075FF;
   --cn-color-blue10: #EFF3FF;
   --cn-color-green100: #03C75A;
   --cn-color-green10: #ECFBEE;
