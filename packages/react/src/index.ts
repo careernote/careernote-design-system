@@ -1,5 +1,5 @@
 // Buttons
-export { Button, ToggleButton } from './buttons';
+export { Button, ButtonRound, ToggleButton } from './buttons';
 
 // Inputs
 export { TextInput, Textarea, Selector } from './inputs';
