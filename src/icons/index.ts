@@ -308,3 +308,5 @@ export type IconName = keyof typeof iconMap;
 export { Arrow2Icon } from './Arrow2Icon';
 export { CheckCircleIcon } from './CheckCircleIcon';
 export { FilledBadge } from './FilledBadge';
+export { LogoutIcon } from './LogoutIcon';
+export { DotMenuIcon } from './DotMenuIcon';
