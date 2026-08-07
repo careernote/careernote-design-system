@@ -7,7 +7,7 @@ CareerNote 디자인 시스템 모노레포 — 토큰 정본 + React 컴포넌�
 | 패키지 | 내용 |
 |---|---|
 | `packages/tokens` (`@careernote/tokens`) | 디자인 토큰 정본(`src/tokens.json`) + 생성물: `tokens.css`(CSS 변수) · `tailwind-v3-preset`(careernote-web) · `theme-v4.css`(career-pencil) |
-| `packages/react` (`@careernote/react`) | careernote-web 이관 React 컴포넌트 — 프리미티브 22종 + shadcn 레이어 18종(`/ui`) + 아이콘 109종(iconMap) + 보조 아이콘 17종(`/icons-extra`) |
+| `packages/react` (`@careernote/react`) | careernote-web 이관 React 컴포넌트 — 프리미티브 22종 + 아이콘 109종(iconMap) + 보조 아이콘 17종(`/icons-extra`) |
 | `apps/catalog` | 전 컴포넌트·토큰 시각 카탈로그 (Vite) |
 
 ## 빠른 시작

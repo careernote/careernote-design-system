@@ -26,18 +26,13 @@ AI 에이전트로 프론트엔드 코드를 작성할 때 아래 규칙을 따�
 
 ## 컴포넌트 인벤토리 (@careernote/react)
 
-**레이어 1 — CareerNote 프리미티브** (`@careernote/react` 메인 배럴):
+**CareerNote 프리미티브** (`@careernote/react` 메인 배럴):
 - buttons: `Button`(5 color × 3 size), `ToggleButton`
 - inputs: `TextInput`, `Textarea`, `Selector`
 - display: `Chip`(7 color × 4 size × 2 variant), `ProChip`, `TemplateChips`, `Icon`, `Tooltip`, `Information`, `NumberBadge`
 - feedback: `Alert`, `Snackbar`(notistack 필요)
 - overlays: `Modal`
 - navigation: `SubHeader`, `InHeader`, `ProgressBarItem`, `HeaderMenuItem`
-
-**레이어 2 — shadcn/Radix** (`@careernote/react/ui`): Accordion, AlertDialog, AspectRatio, Button(cva), Card,
-Carousel, Checkbox, CustomAccordion, DropdownItems, DropdownMenu, GoogleSignInButton, Pagination, Popover,
-RadioGroup, ScrollArea, Selector, Table, Tabs — **사용 시 `@careernote/react/ui/shadcn.css` import 필수** (hsl 변수 공급).
-같은 이름이 레이어 1에도 있으면(Button·Selector) import 경로로 구분한다.
 
 **아이콘**:
 - `iconMap` 109종 — `<Icon name="..." />` 로 사용 (개별 named export 는 그중 53종만)

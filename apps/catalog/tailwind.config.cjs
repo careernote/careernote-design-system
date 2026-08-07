@@ -2,5 +2,4 @@
 module.exports = {
   presets: [require('@careernote/tokens/tailwind-v3-preset')],
   content: ['./index.html', './src/**/*.{ts,tsx}', '../../packages/react/src/**/*.{ts,tsx}'],
-  plugins: [require('tailwindcss-animate')],
 };

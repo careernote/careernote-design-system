@@ -2,20 +2,6 @@ import React, { useState } from 'react';
 import * as DS from '@careernote/react';
 import * as ExtraIcons from '@careernote/react/icons-extra';
 import { iconMap } from '@careernote/react';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-  Checkbox,
-  RadioGroup,
-  RadioGroupItem,
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-  Button as ShadcnButton,
-} from '@careernote/react/ui';
 import tokens from '@careernote/tokens/tokens.json';
 
 const {
@@ -35,7 +21,7 @@ const {
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <section className="mb-60">
+    <section>
       <h2 className="text-title2 font-bold text-gray900 mb-24 pb-8 border-b border-border_gray">{title}</h2>
       {children}
     </section>
@@ -58,7 +44,7 @@ function ColorSection() {
       {Object.entries(tokens.color).map(([group, colors]) => (
         <div key={group} className="mb-24">
           <h3 className="text-subtitle3 font-semibold text-gray800 mb-12 capitalize">{group}</h3>
-          <div className="grid grid-cols-3 tablet:grid-cols-2 md:grid-cols-6 gap-16">
+          <div className="grid grid-cols-4 tablet:grid-cols-2 gap-16">
             {Object.entries(colors as Record<string, string>).map(([name, value]) => (
               <Swatch key={name} name={name} value={value} />
             ))}
@@ -250,50 +236,6 @@ function NavigationSection() {
   );
 }
 
-function ShadcnSection() {
-  const [checked, setChecked] = useState(true);
-  return (
-    <Section title="Shadcn Layer (ui/*)">
-      <p className="text-body2 text-gray700 mb-16">
-        Radix 기반 제2 레이어 — <code className="font-mono text-sky">@careernote/react/ui</code> (18종:
-        Accordion · AlertDialog · AspectRatio · Button · Card · Carousel · Checkbox · DropdownMenu · Pagination ·
-        Popover · RadioGroup · ScrollArea · Selector · Table · Tabs 등)
-      </p>
-      <div className="grid grid-cols-2 tablet:grid-cols-1 gap-24 max-w-[720px]">
-        <Accordion type="single" collapsible className="w-full">
-          <AccordionItem value="a">
-            <AccordionTrigger>Accordion 항목</AccordionTrigger>
-            <AccordionContent>펼쳐지는 내용입니다.</AccordionContent>
-          </AccordionItem>
-        </Accordion>
-        <Tabs defaultValue="one">
-          <TabsList>
-            <TabsTrigger value="one">탭 1</TabsTrigger>
-            <TabsTrigger value="two">탭 2</TabsTrigger>
-          </TabsList>
-          <TabsContent value="one" className="text-body2 text-gray700">첫 번째 탭 내용</TabsContent>
-          <TabsContent value="two" className="text-body2 text-gray700">두 번째 탭 내용</TabsContent>
-        </Tabs>
-        <div className="flex items-center gap-12">
-          <Checkbox checked={checked} onCheckedChange={(v) => setChecked(v === true)} id="cb" />
-          <label htmlFor="cb" className="text-body2 text-gray800">Checkbox</label>
-          <RadioGroup defaultValue="r1" className="flex items-center gap-12 ml-24">
-            <RadioGroupItem value="r1" id="r1" />
-            <label htmlFor="r1" className="text-body2 text-gray800">라디오 A</label>
-            <RadioGroupItem value="r2" id="r2" />
-            <label htmlFor="r2" className="text-body2 text-gray800">라디오 B</label>
-          </RadioGroup>
-        </div>
-        <div className="flex items-center gap-12">
-          <ShadcnButton>shadcn Button</ShadcnButton>
-          <ShadcnButton variant="outline">outline</ShadcnButton>
-          <ShadcnButton variant="destructive">destructive</ShadcnButton>
-        </div>
-      </div>
-    </Section>
-  );
-}
-
 function IconSection() {
   const entries = Object.entries(iconMap) as Array<[string, React.ComponentType<{ size?: number }>]>;
   return (
@@ -335,27 +277,51 @@ function ExtraIconSection() {
   );
 }
 
+const NAV = [
+  { id: 'colors', label: 'Colors', el: <ColorSection /> },
+  { id: 'typography', label: 'Typography', el: <TypographySection /> },
+  { id: 'surface', label: 'Radius & Shadow', el: <SurfaceSection /> },
+  { id: 'buttons', label: 'Buttons', el: <ButtonSection /> },
+  { id: 'chips', label: 'Chips', el: <ChipSection /> },
+  { id: 'inputs', label: 'Inputs', el: <InputSection /> },
+  { id: 'feedback', label: 'Feedback & Overlays', el: <FeedbackSection /> },
+  { id: 'navigation', label: 'Navigation', el: <NavigationSection /> },
+  { id: 'icons', label: 'Icons', el: <IconSection /> },
+  { id: 'icons-extra', label: 'Icons Extra', el: <ExtraIconSection /> },
+];
+
 export default function App() {
+  const [active, setActive] = useState('colors');
+  const current = NAV.find((n) => n.id === active) ?? NAV[0];
   return (
-    <div className="max-w-[1080px] mx-auto px-32 py-40">
-      <header className="mb-40">
-        <h1 className="text-title1 font-bold text-gray900">CareerNote Design System</h1>
-        <p className="text-body1 text-gray700 mt-8">
-          정본: <code className="font-mono text-sky">@careernote/tokens</code> ·{' '}
-          <code className="font-mono text-sky">@careernote/react</code> — careernote-web / career-pencil 공용
+    <div className="flex min-h-screen">
+      <aside className="w-[240px] shrink-0 border-r border-border_gray bg-white100 px-16 py-32 fixed top-0 bottom-0 left-0 overflow-y-auto">
+        <h1 className="text-subtitle2 font-bold text-gray900 px-12">
+          CareerNote
+          <span className="block text-detail font-medium text-gray700 mt-2">Design System</span>
+        </h1>
+        <nav className="mt-24 flex flex-col gap-2">
+          {NAV.map((item) => (
+            <button
+              key={item.id}
+              onClick={() => setActive(item.id)}
+              className={`text-left px-12 py-8 rounded-small text-body2 transition-colors ${
+                active === item.id
+                  ? 'bg-sky_bg text-sky font-semibold'
+                  : 'text-gray800 font-medium hover:bg-bg_gray2'
+              }`}
+            >
+              {item.label}
+            </button>
+          ))}
+        </nav>
+        <p className="mt-32 px-12 text-detail text-gray600 leading-4">
+          정본: @careernote/tokens
+          <br />
+          @careernote/react
         </p>
-      </header>
-      <ColorSection />
-      <TypographySection />
-      <SurfaceSection />
-      <ButtonSection />
-      <ChipSection />
-      <InputSection />
-      <FeedbackSection />
-      <NavigationSection />
-      <ShadcnSection />
-      <IconSection />
-      <ExtraIconSection />
+      </aside>
+      <main className="ml-[240px] flex-1 px-40 py-40 max-w-[1080px]">{current.el}</main>
     </div>
   );
 }

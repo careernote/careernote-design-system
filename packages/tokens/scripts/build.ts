@@ -39,37 +39,17 @@ for (const group of Object.values(tokens.color)) Object.assign(flatColors, group
   const screens = Object.fromEntries(
     Object.entries(tokens.breakpoint).map(([k, v]) => [k, typeof v === 'string' ? v : v]),
   );
-  // shadcn(ui/*) 레이어용 변수 매핑 — 값은 @careernote/react/ui/shadcn.css 가 공급
-  const shadcnColors = Object.fromEntries(
-    ['border', 'input', 'ring', 'background', 'foreground'].map((k) => [k, `hsl(var(--${k}))`]),
-  ) as Record<string, unknown>;
-  for (const k of ['primary', 'secondary', 'destructive', 'muted', 'accent', 'popover', 'card']) {
-    shadcnColors[k] = { DEFAULT: `hsl(var(--${k}))`, foreground: `hsl(var(--${k}-foreground))` };
-  }
   const preset = {
     theme: {
       screens,
       extend: {
-        colors: { ...flatColors, ...shadcnColors },
+        colors: flatColors,
         backgroundImage: tokens.gradient,
         fontSize,
         fontWeight: tokens.typography.fontWeight,
         spacing: tokens.spacing,
-        borderRadius: {
-          ...tokens.radius,
-          lg: 'var(--radius)',
-          md: 'calc(var(--radius) - 2px)',
-          sm: 'calc(var(--radius) - 4px)',
-        },
+        borderRadius: tokens.radius,
         boxShadow: tokens.shadow,
-        keyframes: {
-          'accordion-down': { from: { height: '0' }, to: { height: 'var(--radix-accordion-content-height)' } },
-          'accordion-up': { from: { height: 'var(--radix-accordion-content-height)' }, to: { height: '0' } },
-        },
-        animation: {
-          'accordion-down': 'accordion-down 0.2s ease-out',
-          'accordion-up': 'accordion-up 0.2s ease-out',
-        },
       },
     },
   };
