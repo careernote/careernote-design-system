@@ -2,6 +2,8 @@
 
 CareerNote 디자인 시스템 모노레포 — 토큰 정본 + React 컴포넌트 + 시각 카탈로그.
 
+**🔗 라이브 카탈로그: https://careernote.github.io/careernote-design-system/** (main 푸시마다 자동 배포)
+
 ## 구성
 
 | 패키지 | 내용 |
