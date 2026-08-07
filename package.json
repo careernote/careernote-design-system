@@ -1,0 +1,12 @@
+{
+  "name": "@careernote/tokens",
+  "version": "0.1.0",
+  "private": false,
+  "description": "CareerNote 디자인 토큰 정본 (색상·타이포·spacing·radius·shadow·breakpoint)",
+  "exports": {
+    "./tokens.json": "./src/tokens.json",
+    "./tokens.css": "./dist/tokens.css",
+    "./tailwind-v3-preset": "./dist/tailwind-v3-preset.cjs",
+    "./theme-v4.css": "./dist/theme-v4.css"
+  }
+}
