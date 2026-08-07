@@ -13,8 +13,8 @@ interface ButtonRoundProps {
 }
 
 const sizeStyles = {
-  small: 'px-[16px] py-[8px] text-body2 font-medium',
-  big: 'px-[20px] py-[16px] text-body1 font-medium',
+  small: 'px-4 py-2 text-body2 font-medium',
+  big: 'px-5 py-4 text-body1 font-medium',
 };
 
 const ButtonRound = ({
@@ -37,7 +37,7 @@ const ButtonRound = ({
       aria-label={ariaLabel}
       data-testid={testId}
       className={`
-        flex items-center gap-[10px] rounded-[16px] whitespace-nowrap transition-colors
+        flex items-center gap-2.5 rounded-[16px] whitespace-nowrap transition-colors
         ${sizeStyles[size]}
         ${
           disabled

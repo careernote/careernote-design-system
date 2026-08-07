@@ -16,7 +16,7 @@ const HeaderMenuItem: React.FC<HeaderMenuItemProps> = ({
 }) => {
   return (
     <div className={`relative inline-flex h-full flex-col items-center justify-center group ${className}`}>
-      <div className="inline-flex items-center gap-[4px]">
+      <div className="inline-flex items-center gap-1">
         <p className="text-body1 font-semibold whitespace-nowrap">{label}</p>
         {showNew && (
           <>

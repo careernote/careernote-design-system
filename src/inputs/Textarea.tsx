@@ -70,7 +70,7 @@ const TextArea: React.FC<TextAreaProps> = ({
   }, [propState, currentValue]);
 
   const getInputClasses = (): string => {
-    const baseClasses = `w-full ${size === 'large' ? 'h-[200px]' : 'h-[120px]'} min-h-[100px] p-[16px] rounded-[6px] font-pretendard text-body2 font-regular resize-none outline-none`;
+    const baseClasses = `w-full ${size === 'large' ? 'h-[200px]' : 'h-[120px]'} min-h-[100px] p-4 rounded-[6px] font-pretendard text-body2 font-regular resize-none outline-none`;
 
     if (disabled) {
       return `${baseClasses} border border-gray400 bg-gray100 text-gray500 cursor-not-allowed`;
@@ -103,9 +103,9 @@ const TextArea: React.FC<TextAreaProps> = ({
   const isInteractionDisabled = internalState === 'only_view' || disabled;
 
   return (
-    <div className={`${fullWidth ? 'w-full' : 'w-[289px]'} flex flex-col items-start gap-[12px]`}>
+    <div className={`${fullWidth ? 'w-full' : 'w-[289px]'} flex flex-col items-start gap-3`}>
       {(label || sublabel) && (
-        <div className="w-full h-auto flex flex-col items-start gap-[4px] self-stretch">
+        <div className="w-full h-auto flex flex-col items-start gap-1 self-stretch">
           {label && (
             <label
               htmlFor={!isInteractionDisabled ? inputId : undefined}
@@ -122,10 +122,10 @@ const TextArea: React.FC<TextAreaProps> = ({
           )}
         </div>
       )}
-      <div className="w-full flex flex-col items-start gap-[8px] self-stretch">
+      <div className="w-full flex flex-col items-start gap-2 self-stretch">
         {internalState === 'generated' ? (
           <div
-            className={`w-[289px] ${size === 'large' ? 'h-[204px]' : 'h-[124px]'} rounded-[6px] p-[2px] bg-gradient-to-b from-[#4095FF] to-[#08E3C9]`}
+            className={`w-[289px] ${size === 'large' ? 'h-[204px]' : 'h-[124px]'} rounded-[6px] p-0.5 bg-gradient-to-b from-[#4095FF] to-[#08E3C9]`}
           >
             <textarea
               id={inputId}

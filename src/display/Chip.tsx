@@ -6,10 +6,10 @@ interface Props {
 }
 
 const sizeStyles = {
-  S: 'py-[2px] px-[4px] text-xs font-normal gap-[2px] leading-4',
-  M: 'py-[4px] px-[8px] text-xs font-medium gap-[4px] leading-4',
-  L: 'py-[4px] px-[8px] text-sm font-medium gap-[4px] leading-[18px]',
-  XL: 'py-[8px] px-[12px] text-sm font-medium gap-[4px] leading-[18px]',
+  S: 'py-0.5 px-1 text-xs font-normal gap-0.5 leading-4',
+  M: 'py-1 px-2 text-xs font-medium gap-1 leading-4',
+  L: 'py-1 px-2 text-sm font-medium gap-1 leading-[18px]',
+  XL: 'py-2 px-3 text-sm font-medium gap-1 leading-[18px]',
 };
 
 const colorStyles = {

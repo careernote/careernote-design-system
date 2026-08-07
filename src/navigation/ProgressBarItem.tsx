@@ -26,7 +26,7 @@ const ProgressBarItem: React.FC<ProgressBarItemProps> = ({ status, text, number 
   const textClass = status === 'waiting' ? 'text-gray800' : 'text-sky';
 
   return (
-    <div className={`inline-flex items-center gap-[8px] ${className}`}>
+    <div className={`inline-flex items-center gap-2 ${className}`}>
       {renderIcon()}
       <span className={`text-body1 font-semibold ${textClass}`}>{text}</span>
     </div>

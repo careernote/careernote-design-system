@@ -118,13 +118,13 @@ const Selector: React.FC<SelectorProps> = ({
     : '';
 
   const getContainerClasses = () => {
-    if (size === 'large') return 'p-[16px]';
-    return 'px-[16px] py-[12px]';
+    if (size === 'large') return 'p-4';
+    return 'px-4 py-3';
   };
 
   const getSelectorClasses = () => {
     const heightClass = size === 'medium' ? 'h-[42px]' : 'h-[50px]';
-    const baseClasses = `w-full ${heightClass} flex items-center gap-[8px] rounded-small border outline-none cursor-pointer ${getContainerClasses()}`;
+    const baseClasses = `w-full ${heightClass} flex items-center gap-2 rounded-small border outline-none cursor-pointer ${getContainerClasses()}`;
 
     if (internalState === 'disabled') {
       return `${baseClasses} border-gray400 bg-bg_gray1 text-gray600 cursor-not-allowed`;
@@ -144,10 +144,10 @@ const Selector: React.FC<SelectorProps> = ({
   };
 
   return (
-    <div className={`w-full h-auto flex flex-col items-start gap-[12px] ${className ?? ''}`}>
+    <div className={`w-full h-auto flex flex-col items-start gap-3 ${className ?? ''}`}>
       {/* Label */}
       {(label || sublabel) && (
-        <div className="w-full h-auto flex flex-col items-start gap-[4px] self-stretch">
+        <div className="w-full h-auto flex flex-col items-start gap-1 self-stretch">
           {label && (
             <label
               htmlFor={internalState !== 'disabled' ? selectorId : undefined}
@@ -167,7 +167,7 @@ const Selector: React.FC<SelectorProps> = ({
       {/* Wrap */}
       <div
         ref={containerRef}
-        className="w-full h-auto flex flex-col items-start gap-[8px] self-stretch relative"
+        className="w-full h-auto flex flex-col items-start gap-2 self-stretch relative"
         onBlur={handleBlur}
         onFocus={handleFocus}
       >
@@ -198,14 +198,14 @@ const Selector: React.FC<SelectorProps> = ({
           />
         </div>
         {isOpen && options && (
-          <ul className="absolute w-full mt-[8px] p-[6px] bg-white rounded-[12px] shadow-[0px_2px_28px_0px_rgba(0,0,0,0.08)] max-h-[240px] overflow-y-auto z-[1000] top-[100%] [&::-webkit-scrollbar]:w-[6px] [&::-webkit-scrollbar-thumb]:bg-gray-200 [&::-webkit-scrollbar-thumb]:rounded-full">
+          <ul className="absolute w-full mt-2 p-1.5 bg-white rounded-[12px] shadow-[0px_2px_28px_0px_rgba(0,0,0,0.08)] max-h-60 overflow-y-auto z-[1000] top-[100%] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-gray-200 [&::-webkit-scrollbar-thumb]:rounded-full">
             {options.map((option) => {
               const optValue = getOptionValue(option);
               const optLabel = getOptionLabel(option);
               return (
                 <li
                   key={optValue}
-                  className={`px-[16px] py-[10px] text-[14px] font-medium text-[#4B4D57] rounded-[8px] cursor-pointer transition-colors truncate ${
+                  className={`px-4 py-2.5 text-[14px] font-medium text-[#4B4D57] rounded-[8px] cursor-pointer transition-colors truncate ${
                     optValue === selectedValue ? 'bg-[#F6F7F8] font-semibold text-[#222]' : 'hover:bg-[#F6F7F8]'
                   }`}
                   onClick={(e) => {

@@ -38,13 +38,13 @@ export const TemplateChips: React.FC<TemplateChipsProps> = ({ template, classNam
   const getMainChip = () => {
     if (template.isFree) {
       return (
-        <Chip size="XL" color="sky" variant="solid" className="w-auto h-auto flex px-8 py-4 rounded-small justify-center items-center gap-[4px] text-body2 font-medium">
+        <Chip size="XL" color="sky" variant="solid" className="w-auto h-auto flex px-2 py-1 rounded-small justify-center items-center gap-1 text-body2 font-medium">
           Free
         </Chip>
       );
     } else {
       return (
-        <Chip size="XL" color="purple" variant="solid" className="w-auto h-auto flex px-8 py-4 rounded-small justify-center items-center gap-[4px] text-body2 font-medium">
+        <Chip size="XL" color="purple" variant="solid" className="w-auto h-auto flex px-2 py-1 rounded-small justify-center items-center gap-1 text-body2 font-medium">
           <img src="/icon/left_icon.svg" alt="check" width={18} height={18} />
           Pro
         </Chip>
@@ -59,7 +59,7 @@ export const TemplateChips: React.FC<TemplateChipsProps> = ({ template, classNam
       return freeFeatures.map((feature, index) => (
         <div
           key={index}
-          className="w-auto h-auto flex items-center justify-center px-[12px] py-[8px] gap-[4px] rounded-small border border-gray500 bg-white100 text-body2 font-medium text-gray700"
+          className="w-auto h-auto flex items-center justify-center px-3 py-2 gap-1 rounded-small border border-gray500 bg-white100 text-body2 font-medium text-gray700"
         >
           {renderColoredText(feature)}
         </div>
@@ -70,7 +70,7 @@ export const TemplateChips: React.FC<TemplateChipsProps> = ({ template, classNam
       return proFeatures.map((feature, index) => (
         <div
           key={index}
-          className="w-auto h-auto flex items-center justify-center px-[12px] py-[8px] gap-[4px] rounded-small border border-gray500 bg-white100 text-body2 font-medium text-gray700"
+          className="w-auto h-auto flex items-center justify-center px-3 py-2 gap-1 rounded-small border border-gray500 bg-white100 text-body2 font-medium text-gray700"
         >
           {renderColoredText(feature)}
         </div>
@@ -79,7 +79,7 @@ export const TemplateChips: React.FC<TemplateChipsProps> = ({ template, classNam
   };
 
   return (
-    <div className={`flex flex-wrap justify-center gap-[8px] ${className}`}>
+    <div className={`flex flex-wrap justify-center gap-2 ${className}`}>
       {getMainChip()}
       {getFeatureChips()}
     </div>
