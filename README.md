@@ -20,13 +20,19 @@ bun run build:tokens     # tokens.json 수정 후 dist 재생성
 
 ## 다른 레포에서 설치 (git dependency)
 
+yarn v1 은 git 의존의 하위 폴더를 못 읽으므로, main 푸시마다 CI 가 패키지별 브랜치를 자동 생성한다
+(`.github/workflows/split-packages.yml` → `pkg/react`, `pkg/tokens`).
+
 ```json
 "dependencies": {
-  "@careernote/tokens": "github:careernote/careernote-design-system#v0.1.0&path:packages/tokens"
+  "@careernote/react": "github:careernote/careernote-design-system#pkg/react",
+  "@careernote/tokens": "github:careernote/careernote-design-system#pkg/tokens"
 }
 ```
 
-또는 레포 전체를 받아 workspace 패키지로 참조. 소비 방법 상세는 [AGENTS.md](./AGENTS.md) 참조.
+Next.js 소비자는 추가로: `next.config`에 `transpilePackages: ['@careernote/react', '@careernote/tokens']`,
+tailwind `content`에 `'./node_modules/@careernote/react/src/**/*.{ts,tsx}'`.
+소비 방법 상세는 [AGENTS.md](./AGENTS.md) 참조.
 
 ## 버전 규칙
 
