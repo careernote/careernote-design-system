@@ -44,6 +44,7 @@ module.exports = {
         "red": "#F10000",
         "red10": "#FFF0F0",
         "blue100": "#2F65FF",
+        "blue200": "#0267FF",
         "blue10": "#EFF3FF",
         "green100": "#03C75A",
         "green10": "#ECFBEE",

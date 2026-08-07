@@ -8,6 +8,7 @@ const {
   Button,
   ToggleButton,
   Chip,
+  Badge,
   TextInput,
   Textarea,
   Selector,
@@ -211,7 +212,11 @@ function FeedbackSection() {
         <Information type="normal" title="일반 안내" subtext="normal 정보 문구" />
       </div>
       <div className="flex items-center gap-6 mt-6">
-        <span className="text-detail text-gray700">NumberBadge</span>
+        <span className="text-detail text-gray700">Badge</span>
+        {(['Soon', 'New', 'Beta'] as const).map((v) => (
+          <Badge key={v} variant={v} />
+        ))}
+        <span className="text-detail text-gray700 ml-6">NumberBadge</span>
         {[1, 2, 3].map((n) => (
           <NumberBadge key={n} number={n} />
         ))}

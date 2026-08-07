@@ -1,4 +1,5 @@
 export { default as Chip } from './Chip';
+export { Badge, type BadgeVariant } from './Badge';
 export { ProChip } from './ProChip';
 export { TemplateChips } from './TemplateChips';
 export { default as Information } from './Information';
