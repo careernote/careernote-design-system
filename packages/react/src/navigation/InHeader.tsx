@@ -34,7 +34,7 @@ const InHeader: React.FC<InHeaderProps> = ({
 
   return (
     <div
-      className={`flex flex-col items-center gap-[8px] py-[20px] tablet:gap-[4px] mobile:py-[16px] ${className}`}
+      className={`flex flex-col items-center gap-2 py-5 tablet:gap-1 mobile:py-4 ${className}`}
     >
       <div className={titleClassName ?? `text-center ${titleDesktop} ${titleMobile}`}>{title}</div>
       {description && (

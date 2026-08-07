@@ -25,7 +25,7 @@ export default function Tooltip({
     >
       {/* 툴팁 컨텐츠 */}
       <div
-        className="px-[12px] py-[8px] rounded-[6px] flex gap-[4px] items-center justify-center"
+        className="px-3 py-2 rounded-[6px] flex gap-1 items-center justify-center"
         style={{ backgroundColor }}
       >
         <p

@@ -17,9 +17,9 @@ interface Props {
 }
 
 const sizeStyles = {
-  sm: 'px-16 py-8 text-body2 font-medium rounded-small',
-  md: 'px-24 py-14 text-body2 font-semibold rounded-small',
-  lg: 'px-28 py-16 text-body1 font-bold rounded-medium',
+  sm: 'px-4 py-2 text-body2 font-medium rounded-small',
+  md: 'px-6 py-3.5 text-body2 font-semibold rounded-small',
+  lg: 'px-7 py-4 text-body1 font-bold rounded-medium',
 };
 
 const colorStyles = {
@@ -136,7 +136,7 @@ const Button = ({
       }}
       onDragEnd={() => draggable && setIsDragged(false)}
       className={`
-        relative flex items-center justify-center gap-8 transition-all duration-150 ease-in-out whitespace-nowrap
+        relative flex items-center justify-center gap-2 transition-all duration-150 ease-in-out whitespace-nowrap
         ${sizeStyles[size]}
         ${mobileSize ? toTabletPrefixed(sizeStyles[mobileSize]) : ''}
         ${typeof colorStyles[color] === 'string' ? colorStyles[color] : colorStyles[color]}

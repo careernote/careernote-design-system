@@ -46,8 +46,8 @@ const Information: React.FC<InformationProps> = ({
     const subtextTextClass = isMobile ? "text-body2 font-semibold" : "text-body2 font-medium";
 
     return (
-        <div className={`${widthClass} flex p-[20px] flex-col justify-center items-start gap-[8px] rounded-large ${bgColorMap[type]}`}>
-            <div className="w-full flex items-center gap-[8px] self-stretch">
+        <div className={`${widthClass} flex p-5 flex-col justify-center items-start gap-2 rounded-large ${bgColorMap[type]}`}>
+            <div className="w-full flex items-center gap-2 self-stretch">
                 <span className={emojiTextClass}>{emojiMap[type]}</span>
                 {title && <span className={`flex flex-1 ${textColorMap[type]} ${titleTextClass}`}>{title}</span>}
             </div>

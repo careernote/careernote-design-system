@@ -12,16 +12,16 @@ interface ToggleButtonProps {
 
 const sizeStyles = {
   sm: {
-    track: 'w-[32px] h-[18px]',
-    thumb: 'w-[14px] h-[14px]',
-    thumbOn: 'left-[16px]',
-    thumbOff: 'left-[2px]',
+    track: 'w-8 h-[18px]',
+    thumb: 'w-3.5 h-3.5',
+    thumbOn: 'left-4',
+    thumbOff: 'left-0.5',
   },
   md: {
-    track: 'w-[38px] h-[20px]',
-    thumb: 'w-[16px] h-[16px]',
-    thumbOn: 'left-[20px]',
-    thumbOff: 'left-[2px]',
+    track: 'w-[38px] h-5',
+    thumb: 'w-4 h-4',
+    thumbOn: 'left-5',
+    thumbOff: 'left-0.5',
   },
 };
 
@@ -77,7 +77,7 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({
       <span
         className={`
           absolute
-          top-[2px]
+          top-0.5
           ${styles.thumb}
           bg-white
           rounded-full

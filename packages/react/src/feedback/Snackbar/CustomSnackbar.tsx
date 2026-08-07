@@ -60,7 +60,7 @@ const CustomSnackbar = forwardRef<HTMLDivElement, CustomSnackbarProps>(
       <SnackbarContent ref={ref} role="alert">
         <div
           onClick={handleClose}
-          className={`flex items-center gap-[12px] px-[20px] py-[14px] rounded-[12px] font-semibold text-body1 shadow-lg min-w-[320px] cursor-pointer hover:opacity-90 transition-opacity ${styleClass}`}
+          className={`flex items-center gap-3 px-5 py-3.5 rounded-[12px] font-semibold text-body1 shadow-lg min-w-80 cursor-pointer hover:opacity-90 transition-opacity ${styleClass}`}
         >
           {showLeftIcon && displayLeftIcon && (
             <span className="flex-shrink-0">{displayLeftIcon}</span>

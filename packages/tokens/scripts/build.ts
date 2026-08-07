@@ -47,7 +47,6 @@ for (const group of Object.values(tokens.color)) Object.assign(flatColors, group
         backgroundImage: tokens.gradient,
         fontSize,
         fontWeight: tokens.typography.fontWeight,
-        spacing: tokens.spacing,
         borderRadius: tokens.radius,
         boxShadow: tokens.shadow,
       },

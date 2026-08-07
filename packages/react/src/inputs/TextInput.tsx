@@ -63,7 +63,7 @@ const TextInput: React.FC<TextInputProps> = ({
   }, [propState, isFocused, inputValue]);
 
   const getInputClasses = (): string => {
-    const baseClasses = `w-full h-auto flex items-center gap-[8px] self-stretch border rounded-small ${getContainerClasses()}`;
+    const baseClasses = `w-full h-auto flex items-center gap-2 self-stretch border rounded-small ${getContainerClasses()}`;
 
     if (disabled) {
       return `${baseClasses} border-gray400 bg-bg_gray1 text-gray500 text-body2 font-regular placeholder:text-gray500 cursor-not-allowed`;
@@ -89,17 +89,17 @@ const TextInput: React.FC<TextInputProps> = ({
 
   const getContainerClasses = () => {
     if (size === 'large') {
-      return `p-[16px]`;
+      return `p-4`;
     }
-    return `px-[16px] py-[14px]`;
+    return `px-4 py-3.5`;
   };
 
   const isInteractionDisabled = internalState === 'only_view' || disabled;
 
   return (
-    <div className="w-[289px] h-auto flex flex-col items-start gap-[12px]">
+    <div className="w-[289px] h-auto flex flex-col items-start gap-3">
       {(label || sublabel) && (
-        <div className="w-full h-auto flex flex-col items-start gap-[4px] self-stretch">
+        <div className="w-full h-auto flex flex-col items-start gap-1 self-stretch">
           {label && (
             <label
               htmlFor={!isInteractionDisabled ? inputId : undefined}
@@ -117,7 +117,7 @@ const TextInput: React.FC<TextInputProps> = ({
         </div>
       )}
 
-      <div className="w-full h-auto flex flex-col items-start gap-[8px] self-stretch">
+      <div className="w-full h-auto flex flex-col items-start gap-2 self-stretch">
         <div className={getInputClasses()}>
           {lefticon && (
             <Icon

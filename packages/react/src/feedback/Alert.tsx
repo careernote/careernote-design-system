@@ -23,8 +23,8 @@ const Alert: React.FC<AlertProps> = ({
   };
 
   return (
-    <div className="w-[400px] min-w-[300px] max-w-[400px] p-[24px] flex flex-col items-start gap-[40px] rounded-medium bg-white shadow-normal-normal">
-      <div className="w-full flex flex-col items-start gap-[12px] self-stretch">
+    <div className="w-[400px] min-w-[300px] max-w-[400px] p-6 flex flex-col items-start gap-10 rounded-medium bg-white shadow-normal-normal">
+      <div className="w-full flex flex-col items-start gap-3 self-stretch">
         {title && (
           <p className="self-stretch text-gray900 text-body1 font-semibold font-pretendard">
             {title}
@@ -36,7 +36,7 @@ const Alert: React.FC<AlertProps> = ({
           </p>
         )}
       </div>
-      <div className="w-full h-[46px] flex justify-end gap-[12px] items-center self-stretch">
+      <div className="w-full h-[46px] flex justify-end gap-3 items-center self-stretch">
         <Button size="md" onClick={onCancel || (() => {})}>
           취소
         </Button>
