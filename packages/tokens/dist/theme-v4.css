@@ -7,6 +7,8 @@
   --color-sky60: #00A3FF99;
   --color-sky-bg: #EDF8FF;
   --color-light-sky: #FAFDFF;
+  --color-sky-selected: #F7FCFF;
+  --color-sky-navy: #0A3D62;
   --color-gray900: #222222;
   --color-gray800: #4B4D57;
   --color-gray700: #727180;
@@ -33,6 +35,7 @@
   --color-naver-green: #03C75A;
   --color-orange100: #FF9500;
   --color-orange10: #FFF3E5;
+  --color-red-soft: #E5484D;
   --color-white10: rgba(255, 255, 255, 0.1);
   --color-white20: rgba(255, 255, 255, 0.2);
   --color-white50: rgba(255, 255, 255, 0.5);
@@ -78,4 +81,8 @@
   --text-body2--line-height: 18px;
   --text-detail: 12px;
   --text-detail--line-height: 16px;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
 }

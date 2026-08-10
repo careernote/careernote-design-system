@@ -70,6 +70,10 @@ for (const group of Object.values(tokens.color)) Object.assign(flatColors, group
   for (const [k, v] of Object.entries(tokens.typography.fontSize)) {
     css += `  --text-${k}: ${v.size};\n  --text-${k}--line-height: ${v.lineHeight};\n`;
   }
+  // v3 preset 과 클래스명 호환 (font-regular 등) — React 스펙을 Vue 로 복붙 가능하게
+  for (const [k, v] of Object.entries(tokens.typography.fontWeight)) {
+    css += `  --font-weight-${k}: ${v};\n`;
+  }
   css += '}\n';
   writeFileSync(join(OUT, 'theme-v4.css'), css);
 }

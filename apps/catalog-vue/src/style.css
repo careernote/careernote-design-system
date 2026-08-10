@@ -5,6 +5,7 @@
 
 /* careernote-web 브레이크포인트 미러 (컴포넌트의 mobile: variant 지원) */
 @custom-variant mobile (@media (max-width: 850px));
+@custom-variant tablet (@media (max-width: 780px));
 
 body {
   font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif;
