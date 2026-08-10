@@ -1,6 +1,9 @@
 export { default as Chip } from './Chip';
 export { CategoryChip } from './CategoryChip';
 export { SelectCard } from './SelectCard';
+export { PlanCard } from './PlanCard';
+export { PlanFeature } from './PlanFeature';
+export { RibbonBadge } from './RibbonBadge';
 export { Badge, type BadgeVariant } from './Badge';
 export { ActivityCard } from './ActivityCard';
 export { ProChip } from './ProChip';
