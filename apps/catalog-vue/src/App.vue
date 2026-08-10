@@ -3,11 +3,17 @@ import { ref } from 'vue'
 import {
   Button, ButtonRound, ToggleButton, AddDashedButton, IconButton,
   Chip, CategoryChip, SelectCard, SelectableChip, PlanCard, PlanFeature, RibbonBadge, StarGrid, Badge, NumberBadge, Tooltip, Information, ActivityCard,
-  SubHeader, NextStepFooter, SearchInput, TextLink, Spinner, Checkbox,
+  SubHeader, NextStepFooter, SearchInput, TextLink, Spinner, Checkbox, LottieLoadingDots,
   TextInput, Textarea, Selector, Modal, InHeader, HeaderMenuItem, ProgressBarItem,
   Icon, ICON_NAME_MAP,
 } from '@careernote/vue'
 import tokens from '@careernote/tokens/tokens.json'
+import LottiePreview from './LottiePreview.vue'
+import lottieAi from '@careernote/assets/lottie/ai.json'
+import lottieCheck from '@careernote/assets/lottie/check.json'
+import lottieEvaluation from '@careernote/assets/lottie/evaluation.json'
+import lottieSearch from '@careernote/assets/lottie/search.json'
+import lottieLoadingDots from '@careernote/assets/lottie/LoadingDots.json'
 
 const NAV = [
   { id: 'colors', label: 'Colors' },
@@ -202,6 +208,22 @@ const iconNames = Object.keys(ICON_NAME_MAP)
         </div>
         <h3 class="text-subtitle3 font-semibold text-gray800 mt-8 mb-2">Spinner</h3>
         <div class="flex items-center gap-8"><Spinner /><Spinner :size="20" :border="2" label="로딩 중" /></div>
+        <h3 class="text-subtitle3 font-semibold text-gray800 mt-8 mb-2">Lottie — @careernote/assets 정본 5종</h3>
+        <div class="flex flex-wrap items-end gap-8">
+          <div v-for="l in [
+            { name: 'ai', data: lottieAi },
+            { name: 'check', data: lottieCheck },
+            { name: 'evaluation', data: lottieEvaluation },
+            { name: 'search', data: lottieSearch },
+          ]" :key="l.name" class="flex flex-col items-center gap-1">
+            <LottiePreview :animation-data="l.data" />
+            <span class="text-detail text-gray700 font-mono">{{ l.name }}.json</span>
+          </div>
+          <div class="flex flex-col items-center gap-1">
+            <div class="flex h-[80px] items-center"><LottieLoadingDots :animation-data="lottieLoadingDots" /></div>
+            <span class="text-detail text-gray700 font-mono">LottieLoadingDots (DS 컴포넌트)</span>
+          </div>
+        </div>
       </section>
 
       <!-- Navigation -->

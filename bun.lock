@@ -9,9 +9,11 @@
       "name": "@careernote/catalog",
       "version": "0.1.0",
       "dependencies": {
+        "@careernote/assets": "workspace:*",
         "@careernote/react": "workspace:*",
         "@careernote/tokens": "workspace:*",
         "@radix-ui/react-alert-dialog": "^1.1.23",
+        "lottie-react": "^2.4.1",
         "notistack": "^3.0.2",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
@@ -32,8 +34,10 @@
       "name": "@careernote/catalog-vue",
       "version": "0.1.0",
       "dependencies": {
+        "@careernote/assets": "workspace:*",
         "@careernote/tokens": "workspace:*",
         "@careernote/vue": "workspace:*",
+        "lottie-web": "^5.13.0",
         "reka-ui": "^2.10.3",
         "vue": "^3.5.13",
       },
@@ -44,6 +48,10 @@
         "typescript": "^5.6.3",
         "vite": "^6.0.3",
       },
+    },
+    "packages/assets": {
+      "name": "@careernote/assets",
+      "version": "0.1.0",
     },
     "packages/react": {
       "name": "@careernote/react",
@@ -68,10 +76,12 @@
       "name": "@careernote/vue",
       "version": "0.1.0",
       "peerDependencies": {
+        "lottie-web": ">=5.0",
         "reka-ui": ">=2.0",
         "vue": ">=3.4",
       },
       "optionalPeers": [
+        "lottie-web",
         "reka-ui",
       ],
     },
@@ -116,6 +126,8 @@
     "@babel/traverse": ["@babel/traverse@7.29.8", "", { "dependencies": { "@babel/code-frame": "^7.29.7", "@babel/generator": "^7.29.8", "@babel/helper-globals": "^7.29.7", "@babel/parser": "^7.29.8", "@babel/template": "^7.29.7", "@babel/types": "^7.29.8", "debug": "^4.3.1" } }, "sha512-I5z7H3bf/41ktsNVLtpN0wAa336HkqIHQ5BuPLEhTkt1jVSyZpeNKIzTgEWmlxjdg81R0IgUCcaE+Ok3NvrfZg=="],
 
     "@babel/types": ["@babel/types@7.29.8", "", { "dependencies": { "@babel/helper-string-parser": "^7.29.7", "@babel/helper-validator-identifier": "^7.29.7" } }, "sha512-Vj1jF3cPfxg7OAfoI7QnVKLoILlm2JF9pnVHrX8qx7AHMiYWT+NDAA7jChlNgRS4WTLc/fD1lXLmPixluj+3Gg=="],
+
+    "@careernote/assets": ["@careernote/assets@workspace:packages/assets"],
 
     "@careernote/catalog": ["@careernote/catalog@workspace:apps/catalog"],
 
@@ -510,6 +522,10 @@
     "lines-and-columns": ["lines-and-columns@1.2.4", "", {}, "sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg=="],
 
     "loose-envify": ["loose-envify@1.4.0", "", { "dependencies": { "js-tokens": "^3.0.0 || ^4.0.0" }, "bin": { "loose-envify": "cli.js" } }, "sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q=="],
+
+    "lottie-react": ["lottie-react@2.4.1", "", { "dependencies": { "lottie-web": "^5.10.2" }, "peerDependencies": { "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0", "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0" } }, "sha512-LQrH7jlkigIIv++wIyrOYFLHSKQpEY4zehPicL9bQsrt1rnoKRYCYgpCUe5maqylNtacy58/sQDZTkwMcTRxZw=="],
+
+    "lottie-web": ["lottie-web@5.13.0", "", {}, "sha512-+gfBXl6sxXMPe8tKQm7qzLnUy5DUPJPKIyRHwtpCpyUEYjHYRJC/5gjUvdkuO2c3JllrPtHXH5UJJK8LRYl5yQ=="],
 
     "lru-cache": ["lru-cache@5.1.1", "", { "dependencies": { "yallist": "^3.0.2" } }, "sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w=="],
 

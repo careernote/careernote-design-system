@@ -3,6 +3,12 @@ import * as DS from '@careernote/react';
 import * as ExtraIcons from '@careernote/react/icons-extra';
 import { iconMap } from '@careernote/react';
 import tokens from '@careernote/tokens/tokens.json';
+import Lottie from 'lottie-react';
+import lottieAi from '@careernote/assets/lottie/ai.json';
+import lottieCheck from '@careernote/assets/lottie/check.json';
+import lottieEvaluation from '@careernote/assets/lottie/evaluation.json';
+import lottieSearch from '@careernote/assets/lottie/search.json';
+import lottieLoadingDots from '@careernote/assets/lottie/LoadingDots.json';
 
 const {
   Button,
@@ -270,6 +276,23 @@ function FeedbackSection() {
         </div>
         <div className="mt-3 border border-border_gray rounded-medium overflow-hidden max-w-[720px]">
           <ModalHeader title="어떤 일을 찾고 계신가요" description="닫기 버튼 없는 변형입니다." />
+        </div>
+      </div>
+      <div className="mb-6">
+        <span className="text-detail text-gray700">Lottie — @careernote/assets 정본 5종</span>
+        <div className="mt-2 flex flex-wrap items-end gap-8">
+          {[
+            { name: 'ai', data: lottieAi },
+            { name: 'check', data: lottieCheck },
+            { name: 'evaluation', data: lottieEvaluation },
+            { name: 'search', data: lottieSearch },
+            { name: 'LoadingDots', data: lottieLoadingDots },
+          ].map(l => (
+            <div key={l.name} className="flex flex-col items-center gap-1">
+              <Lottie animationData={l.data} loop style={{ width: 80, height: 80 }} />
+              <span className="text-detail text-gray700 font-mono">{l.name}.json</span>
+            </div>
+          ))}
         </div>
       </div>
       <div className="flex flex-col gap-3 max-w-[560px]">
