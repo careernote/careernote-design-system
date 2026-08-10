@@ -4,6 +4,8 @@ export { default as ToggleButton } from './ToggleButton.vue';
 export { default as AddDashedButton } from './AddDashedButton.vue';
 export { default as IconButton } from './IconButton.vue';
 export { default as Chip } from './Chip.vue';
+export { default as CategoryChip } from './CategoryChip.vue';
+export { default as SelectCard } from './SelectCard.vue';
 export { default as Badge } from './Badge.vue';
 export { default as NumberBadge } from './NumberBadge.vue';
 export { default as Tooltip } from './Tooltip.vue';
