@@ -22,4 +22,5 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git subtree split --prefix=packages/react -b pkg/react
           git subtree split --prefix=packages/tokens -b pkg/tokens
-          git push -f origin pkg/react pkg/tokens
+          git subtree split --prefix=packages/vue -b pkg/vue
+          git push -f origin pkg/react pkg/tokens pkg/vue

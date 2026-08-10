@@ -44,4 +44,4 @@ tailwind `content`에 `'./node_modules/@careernote/react/src/**/*.{ts,tsx}'`.
 ## AI 에이전트
 
 에이전트로 프론트 작업 시 [AGENTS.md](./AGENTS.md)의 규칙(hex 직접 입력 금지, 토큰 이름 사용, 컴포넌트 재사용)을 따를 것.
-작업 유형별 절차·실패 사례·검증 루프는 [docs/agentic-coding-guide.md](./docs/agentic-coding-guide.md) 참조.
+작업 유형별 절차·실패 사례·검증 루프는 [docs/agentic-coding-guide.md](./docs/agentic-coding-guide.md), 작업 방향 지시서는 [docs/WORKPLAN.md](./docs/WORKPLAN.md) 참조.
