@@ -121,7 +121,7 @@ bun update @careernote/vue @careernote/tokens
 </table>
 
 <h2><span class="num">7</span>에이전트 프롬프트 템플릿</h2>
-<p>에이전트에게 UI 작업을 시킬 때 아래를 붙여 넣으면 규칙이 컨텍스트에 실린다 (각 레포 CLAUDE.md에도 요약이 박혀 있어 기본 적용됨):</p>
+<p>에이전트에게 UI 작업을 시킬 때 아래를 붙여 넣으면 규칙이 컨텍스트에 실린다. 레포 강제층: pencil은 <code>CLAUDE.md</code>, frontend는 <code>AGENTS.md</code>(공유) — <b>Claude Code는 AGENTS.md를 자동으로 읽지 않으므로</b> frontend에서 Claude를 쓰면 개인 CLAUDE.md 맨 위에 <code>@AGENTS.md</code> 한 줄을 추가할 것 (Codex·Cursor는 네이티브 지원):</p>
 <pre><code>이 작업은 CareerNote 디자인시스템 규칙을 따른다:
 1. 색은 hex 금지, @careernote/tokens 토큰 클래스만 (frontend=언더스코어, pencil=하이픈 표기)
 2. UI는 @careernote/react 또는 @careernote/vue 기존 컴포넌트 우선 — 카탈로그에서 확인:
