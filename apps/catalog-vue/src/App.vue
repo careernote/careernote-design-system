@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import {
   Button, ButtonRound, ToggleButton, AddDashedButton, IconButton,
   Chip, CategoryChip, SelectCard, SelectableChip, PlanCard, PlanFeature, RibbonBadge, StarGrid, Badge, NumberBadge, Tooltip, Information, ActivityCard,
-  SubHeader, NextStepFooter, SearchInput, TextLink, Spinner, Checkbox, LottieLoadingDots,
+  SubHeader, NextStepFooter, SearchInput, TextLink, Spinner, Checkbox, LottieLoadingDots, ConfirmModal, ResponsiveModal,
   TextInput, Textarea, Selector, Modal, InHeader, HeaderMenuItem, ProgressBarItem,
   Icon, ICON_NAME_MAP,
 } from '@careernote/vue'
@@ -33,6 +33,8 @@ const toggleOn = ref(true)
 const inputVal = ref('')
 const selVal = ref('')
 const modalOpen = ref(false)
+const confirmOpen = ref(false)
+const responsiveOpen = ref(false)
 const iconNames = Object.keys(ICON_NAME_MAP)
 </script>
 
@@ -186,6 +188,8 @@ const iconNames = Object.keys(ICON_NAME_MAP)
         <h2 class="text-title2 font-bold text-gray900 mb-6 pb-2 border-b border-border-gray">Feedback & Overlays</h2>
         <div class="flex items-center gap-3 mb-6">
           <Button color="sky" @click="modalOpen = true">Modal 열기</Button>
+        <Button color="white" @click="confirmOpen = true">ConfirmModal 열기</Button>
+        <Button color="black" @click="responsiveOpen = true">ResponsiveModal 열기</Button>
         </div>
         <Modal
           :is-open="modalOpen" title="모달 제목" subtitle="모달 서브타이틀" description="모달 설명 텍스트입니다."
@@ -224,6 +228,21 @@ const iconNames = Object.keys(ICON_NAME_MAP)
             <span class="text-detail text-gray700 font-mono">LottieLoadingDots (DS 컴포넌트)</span>
           </div>
         </div>
+        <ConfirmModal
+          :open="confirmOpen"
+          title="정말 삭제하시겠어요?"
+          description="삭제하면 되돌릴 수 없습니다."
+          dismissable
+          @close="confirmOpen = false"
+          @confirm="confirmOpen = false"
+          @dismiss="confirmOpen = false"
+        />
+        <ResponsiveModal :open="responsiveOpen" pc-class="max-w-[480px]" @close="responsiveOpen = false">
+          <div class="p-6">
+            <p class="text-subtitle3 font-semibold text-gray900">ResponsiveModal</p>
+            <p class="mt-2 text-body2 text-gray700">데스크톱=센터 모달 / ≤850px=하단 드로어. 창 폭을 줄여 확인하세요.</p>
+          </div>
+        </ResponsiveModal>
       </section>
 
       <!-- Navigation -->
