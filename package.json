@@ -11,10 +11,14 @@
   },
   "peerDependencies": {
     "vue": ">=3.4",
-    "reka-ui": ">=2.0"
+    "reka-ui": ">=2.0",
+    "lottie-web": ">=5.0"
   },
   "peerDependenciesMeta": {
     "reka-ui": {
+      "optional": true
+    },
+    "lottie-web": {
       "optional": true
     }
   }

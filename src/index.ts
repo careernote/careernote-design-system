@@ -31,5 +31,6 @@ export { default as SelectableChip } from './SelectableChip.vue';
 export { default as SearchInput } from './SearchInput.vue';
 export { default as TextLink } from './TextLink.vue';
 export { default as Spinner } from './Spinner.vue';
+export { default as LottieLoadingDots } from './LottieLoadingDots.vue';
 export { default as Checkbox } from './Checkbox.vue';
 export * from './icons';
