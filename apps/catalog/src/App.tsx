@@ -14,6 +14,9 @@ const {
   Chip,
   CategoryChip,
   SelectCard,
+  PlanCard,
+  PlanFeature,
+  RibbonBadge,
   Badge,
   TextInput,
   Textarea,
@@ -359,6 +362,31 @@ function CardSection() {
         <SelectCard selected title="선택됨">데이터 분석가</SelectCard>
         <SelectCard title="기본">게임 기획자</SelectCard>
         <SelectCard title="긴 이름 말줄임">라이프스타일·뷰티·웰니스 매니저</SelectCard>
+      </div>
+      <h3 className="text-subtitle3 font-semibold text-gray800 mt-8 mb-2">PlanCard + PlanFeature + RibbonBadge — 요금제 카드 (옵션 선택 플로우)</h3>
+      <div className="flex flex-row items-stretch gap-[20px]">
+        <PlanCard className="w-[300px]">
+          <div className="flex flex-col gap-[12px] px-[12px]">
+            <Chip size="L" color="black">Basic</Chip>
+            <span className="text-[20px] font-bold leading-[24px] text-gray900">일반 포트폴리오</span>
+            <span className="text-[16px] font-semibold leading-[20px] text-gray600">무료</span>
+          </div>
+          <div className="flex flex-col gap-[12px]">
+            <PlanFeature emoji="📋" title="내 이력에 기반한 포트폴리오" description="AI가 내 이력을 분석해 강점을 찾아줘요." />
+          </div>
+        </PlanCard>
+        <PlanCard selected className="w-[420px]">
+          <RibbonBadge>
+            <span className="text-[18px] font-semibold leading-[22px] text-white">합격률 35%</span>
+          </RibbonBadge>
+          <div className="flex flex-col gap-[12px] px-[12px]">
+            <Chip size="L" color="sky">Fit</Chip>
+            <span className="text-[20px] font-bold leading-[24px] text-gray900">선택된 카드 (selected)</span>
+          </div>
+          <div className="flex flex-col gap-[28px]">
+            <PlanFeature layout="row" emoji="📆" title="row 레이아웃 기능 항목" description="이모지 옆에 텍스트가 배치됩니다." />
+          </div>
+        </PlanCard>
       </div>
     </Section>
   );
