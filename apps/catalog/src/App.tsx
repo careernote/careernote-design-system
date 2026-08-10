@@ -18,6 +18,7 @@ const {
   Selector,
   Alert,
   Modal,
+  ModalHeader,
   Information,
   NumberBadge,
   Tooltip,
@@ -225,6 +226,19 @@ function FeedbackSection() {
         primaryButton={{ label: '확인', onClick: () => setModalOpen(false) }}
         secondaryButton={{ label: '취소', onClick: () => setModalOpen(false) }}
       />
+      <div className="mb-6">
+        <span className="text-detail text-gray700">ModalHeader — 대형 다이얼로그 상단 (닫기 유/무)</span>
+        <div className="mt-2 border border-border_gray rounded-medium overflow-hidden max-w-[720px]">
+          <ModalHeader
+            title="희망 직업 변경하기"
+            description="지원을 원하는 직업을 모두 선택해주세요. 중복 선택할 수 있어요."
+            onClose={() => {}}
+          />
+        </div>
+        <div className="mt-3 border border-border_gray rounded-medium overflow-hidden max-w-[720px]">
+          <ModalHeader title="어떤 일을 찾고 계신가요" description="닫기 버튼 없는 변형입니다." />
+        </div>
+      </div>
       <div className="flex flex-col gap-3 max-w-[560px]">
         <Information type="positive" title="긍정 안내" subtext="positive 정보 문구" />
         <Information type="negative" title="경고 안내" subtext="negative 정보 문구" />
