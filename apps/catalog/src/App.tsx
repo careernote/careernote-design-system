@@ -7,6 +7,8 @@ import tokens from '@careernote/tokens/tokens.json';
 const {
   Button,
   AddDashedButton,
+  IconButton,
+  Icon,
   ToggleButton,
   Chip,
   Badge,
@@ -126,6 +128,18 @@ function ButtonSection() {
         ))}
         <div className="max-w-[420px]">
           <AddDashedButton onClick={() => {}} />
+        </div>
+        <div className="flex items-center gap-3">
+          <span className="text-detail text-gray700">IconButton</span>
+          <IconButton aria-label="수정" onClick={() => {}}>
+            <Icon name="edit" size="md" />
+          </IconButton>
+          <IconButton aria-label="삭제" onClick={() => {}}>
+            <Icon name="delete" size="md" />
+          </IconButton>
+          <IconButton aria-label="더보기" variant="ghost" onClick={() => {}}>
+            <Icon name="dotmenu" size="md" />
+          </IconButton>
         </div>
         <div className="flex items-center gap-3">
           <span className="text-detail text-gray700">disabled</span>
