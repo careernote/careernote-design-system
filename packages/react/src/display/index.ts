@@ -4,6 +4,7 @@ export { SelectCard } from './SelectCard';
 export { PlanCard } from './PlanCard';
 export { PlanFeature } from './PlanFeature';
 export { RibbonBadge } from './RibbonBadge';
+export { StarGrid, STAR_DISPLAY, type StarValues } from './StarGrid';
 export { Badge, type BadgeVariant } from './Badge';
 export { ActivityCard } from './ActivityCard';
 export { ProChip } from './ProChip';

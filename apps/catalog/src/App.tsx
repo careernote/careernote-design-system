@@ -17,6 +17,7 @@ const {
   PlanCard,
   PlanFeature,
   RibbonBadge,
+  StarGrid,
   Badge,
   TextInput,
   Textarea,
@@ -362,6 +363,17 @@ function CardSection() {
         <SelectCard selected title="선택됨">데이터 분석가</SelectCard>
         <SelectCard title="기본">게임 기획자</SelectCard>
         <SelectCard title="긴 이름 말줄임">라이프스타일·뷰티·웰니스 매니저</SelectCard>
+      </div>
+      <h3 className="text-subtitle3 font-semibold text-gray800 mt-8 mb-2">StarGrid — STAR 2×2 요약 (활동 카드 본문)</h3>
+      <div className="max-w-[720px]">
+        <StarGrid
+          star={{
+            situation: '업무 맥락이 정리되지 않은 초기 단계에서 단편적인 정보만 주어졌습니다.',
+            task: '입력을 이력서·포트폴리오에 적합한 형태로 다듬어야 했습니다.',
+            action: '핵심 의도를 파악하고 문맥상 자연스러운 배경을 보완했습니다.',
+            result: '일관된 품질의 활동 소개를 빠르게 산출했습니다.',
+          }}
+        />
       </div>
       <h3 className="text-subtitle3 font-semibold text-gray800 mt-8 mb-2">PlanCard + PlanFeature + RibbonBadge — 요금제 카드 (옵션 선택 플로우)</h3>
       <div className="flex flex-row items-stretch gap-[20px]">

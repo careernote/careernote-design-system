@@ -9,6 +9,7 @@ export { default as SelectCard } from './SelectCard.vue';
 export { default as PlanCard } from './PlanCard.vue';
 export { default as PlanFeature } from './PlanFeature.vue';
 export { default as RibbonBadge } from './RibbonBadge.vue';
+export { default as StarGrid } from './StarGrid.vue';
 export { default as Badge } from './Badge.vue';
 export { default as NumberBadge } from './NumberBadge.vue';
 export { default as Tooltip } from './Tooltip.vue';
