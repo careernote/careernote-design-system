@@ -9,6 +9,7 @@
   --color-light-sky: #FAFDFF;
   --color-sky-selected: #F7FCFF;
   --color-sky-navy: #0A3D62;
+  --color-sky-pressed: #007ACC;
   --color-gray900: #222222;
   --color-gray800: #4B4D57;
   --color-gray700: #727180;
@@ -24,6 +25,7 @@
   --color-bg-gray1: #F8F8F8;
   --color-bg-gray2: #F5F7FC;
   --color-bg-gray3: #F6F7F8;
+  --color-bg-pressed: #ECEEF4;
   --color-red: #F10000;
   --color-red10: #FFF0F0;
   --color-blue100: #2F65FF;
