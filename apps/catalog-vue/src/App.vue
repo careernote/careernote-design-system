@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import {
   Button, ButtonRound, ToggleButton, AddDashedButton, IconButton,
-  Chip, Badge, NumberBadge, Tooltip, Information, ActivityCard,
+  Chip, CategoryChip, SelectCard, Badge, NumberBadge, Tooltip, Information, ActivityCard,
   TextInput, Textarea, Selector, Modal, InHeader, HeaderMenuItem, ProgressBarItem,
   Icon, ICON_NAME_MAP,
 } from '@careernote/vue'
@@ -141,6 +141,13 @@ const iconNames = Object.keys(ICON_NAME_MAP)
             </Chip>
           </div>
         </div>
+        <h3 class="text-subtitle3 font-semibold text-gray800 mt-8 mb-2">CategoryChip — 카테고리 필터 (pencil /make/job)</h3>
+        <div class="flex flex-wrap gap-2">
+          <CategoryChip active>전체</CategoryChip>
+          <CategoryChip>개발</CategoryChip>
+          <CategoryChip>데이터·AI</CategoryChip>
+          <CategoryChip>디자인</CategoryChip>
+        </div>
       </section>
 
       <!-- Inputs -->
@@ -220,6 +227,13 @@ const iconNames = Object.keys(ICON_NAME_MAP)
             <template #media><Icon name="image" :size="24" color="#C3C3CD" /></template>
             <p class="text-subtitle2 font-semibold text-gray900">선택된 카드 (selected)</p>
           </ActivityCard>
+        </div>
+        <h3 class="text-subtitle3 font-semibold text-gray800 mt-8 mb-2">SelectCard — 체크서클 선택 카드 (pencil /make/job)</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-[12px] max-w-[720px]">
+          <SelectCard representative selected title="대표 직업">백엔드 개발</SelectCard>
+          <SelectCard selected title="선택됨">데이터 분석가</SelectCard>
+          <SelectCard title="기본">게임 기획자</SelectCard>
+          <SelectCard title="긴 이름 말줄임">라이프스타일·뷰티·웰니스 매니저</SelectCard>
         </div>
       </section>
 
