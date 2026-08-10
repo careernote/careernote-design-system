@@ -41,10 +41,10 @@ const ButtonRound = ({
         ${sizeStyles[size]}
         ${
           disabled
-            ? 'bg-[#F5F7FC] text-[#999] cursor-not-allowed'
+            ? 'bg-bg_gray2 text-[#999] cursor-not-allowed'
             : selected
-              ? 'bg-[#222] text-white'
-              : 'bg-[#F5F7FC] text-[#222] hover:bg-[#E9EBF1]'
+              ? 'bg-gray900 text-white'
+              : 'bg-bg_gray2 text-gray900 hover:bg-border_gray'
         }
         ${className}
       `}

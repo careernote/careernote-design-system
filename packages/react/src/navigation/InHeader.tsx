@@ -26,10 +26,10 @@ const InHeader: React.FC<InHeaderProps> = ({
   const titleDesktop =
     type === 'default'
       ? 'text-title2 font-semibold text-sky'
-      : 'text-subtitle1 font-semibold text-[#4B4D57]';
+      : 'text-subtitle1 font-semibold text-gray800';
   const titleMobile = 'tablet:text-subtitle3 tablet:font-semibold ' + (type === 'default' ? 'tablet:text-sky' : '');
 
-  const descDesktop = 'text-body1 font-medium text-[#727180]';
+  const descDesktop = 'text-body1 font-medium text-gray700';
   const descMobile = 'tablet:text-body2 tablet:font-regular';
 
   return (

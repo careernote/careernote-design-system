@@ -14,21 +14,21 @@ const sizeStyles = {
 
 const colorStyles = {
   solid: {
-    black: 'bg-[#4B4D57] text-white',
-    basic: 'bg-[#222222] text-white',
-    sky: 'bg-[#00A3FF] text-white',
-    red: 'bg-[#F10000] text-white',
-    blue: 'bg-[#0267FF] text-white',
-    green: 'bg-[#03C75A] text-white',
+    black: 'bg-gray800 text-white',
+    basic: 'bg-gray900 text-white',
+    sky: 'bg-sky text-white',
+    red: 'bg-red text-white',
+    blue: 'bg-blue200 text-white',
+    green: 'bg-green100 text-white',
     purple: 'bg-[#B100ED] text-white',
   },
   soft: {
-    black: 'bg-[#F8F8F8] text-[#727180]',
-    basic: 'bg-white border border-[#C3C3CD] text-[#727180]',
-    sky: 'bg-[#EDF8FF] text-[#00A3FF]',
-    red: 'bg-[#FFF0F0] text-[#F10000]',
-    blue: 'bg-[#EFF3FF] text-[#2F65FF]',
-    green: 'bg-[#ECFBEE] text-[#03C75A]',
+    black: 'bg-bg_gray1 text-gray700',
+    basic: 'bg-white border border-gray500 text-gray700',
+    sky: 'bg-sky_bg text-sky',
+    red: 'bg-red10 text-red',
+    blue: 'bg-blue10 text-blue100',
+    green: 'bg-green10 text-green100',
     purple: 'bg-[#F9E7FF] text-[#B100ED]',
   },
 };
