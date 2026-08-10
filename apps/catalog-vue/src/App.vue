@@ -58,6 +58,7 @@ const iconNames = Object.keys(ICON_NAME_MAP)
         </button>
       </nav>
       <a href="../" class="mt-8 mx-3 inline-block text-detail text-sky hover:underline">↗ React 카탈로그</a>
+      <a href="../guide/" class="mt-1 mx-3 inline-block text-detail text-sky hover:underline">↗ UI 작업 규칙 가이드</a>
       <p class="mt-2 px-3 text-detail text-gray600 leading-4">정본: @careernote/vue<br />(React 스펙과 클래스 동일)</p>
     </aside>
 

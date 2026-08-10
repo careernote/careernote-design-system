@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CareerNote UI 작업 규칙 — 에이전트 코딩 가이드</title>
+<style>
+  :root{--sky:#00A3FF;--sky-bg:#EDF8FF;--g900:#222;--g800:#4B4D57;--g700:#727180;--g600:#9E9EAA;--bd:#E9EBF1;--bg1:#F8F8F8;--bg2:#F5F7FC;--red:#E5484D;--green:#03C75A}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Pretendard,'Pretendard Variable',-apple-system,sans-serif;color:var(--g900);background:#fff;line-height:1.65}
+  .wrap{max-width:880px;margin:0 auto;padding:48px 24px 120px}
+  h1{font-size:30px;line-height:1.3}
+  h1 small{display:block;font-size:14px;color:var(--g700);font-weight:500;margin-top:6px}
+  h2{font-size:21px;margin:44px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--bd)}
+  h3{font-size:16px;margin:22px 0 8px;color:var(--g800)}
+  p,li{font-size:14.5px;color:var(--g800)}
+  ul,ol{padding-left:22px;margin:6px 0}
+  li{margin:3px 0}
+  code{background:var(--bg2);border:1px solid var(--bd);border-radius:4px;padding:1px 6px;font-size:12.5px;font-family:ui-monospace,Menlo,monospace}
+  pre{background:#16181d;color:#e6e8ee;border-radius:10px;padding:14px 16px;overflow-x:auto;font-size:12.5px;line-height:1.6;margin:10px 0}
+  pre code{background:none;border:none;color:inherit;padding:0}
+  table{border-collapse:collapse;width:100%;margin:10px 0;font-size:13.5px}
+  th,td{border:1px solid var(--bd);padding:7px 10px;text-align:left;vertical-align:top}
+  th{background:var(--bg2);font-weight:600}
+  .rule{border-left:4px solid var(--sky);background:var(--sky-bg);border-radius:0 8px 8px 0;padding:10px 14px;margin:12px 0;font-weight:600;font-size:14.5px}
+  .ban{border-left:4px solid var(--red);background:#FFF0F0;border-radius:0 8px 8px 0;padding:10px 14px;margin:12px 0}
+  .tip{border-left:4px solid var(--green);background:#ECFBEE;border-radius:0 8px 8px 0;padding:10px 14px;margin:12px 0}
+  .chip{display:inline-block;background:var(--g900);color:#fff;border-radius:4px;padding:2px 8px;font-size:12px;font-weight:600;margin-right:6px}
+  a{color:var(--sky);font-weight:600;text-decoration:underline;text-underline-offset:2px}
+  .toc{background:var(--bg1);border:1px solid var(--bd);border-radius:12px;padding:16px 20px;margin:20px 0}
+  .toc ol{margin:0;padding-left:20px}
+  .num{color:var(--sky);font-weight:700;margin-right:4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>CareerNote UI 작업 규칙<small>frontend(careernote-web) · career-pencil 공통 — 에이전트 코딩 전제 · 2026-08 기준</small></h1>
+
+<div class="rule">모든 UI 작업의 첫 질문: "디자인시스템에 이미 있는가?" — 카탈로그(<a href="https://careernote.github.io/careernote-design-system/">React</a> · <a href="https://careernote.github.io/careernote-design-system/vue/">Vue</a>)를 먼저 연다.</div>
+
+<div class="toc"><b>목차</b><ol>
+<li>절대 규칙 5</li><li>토큰 — hex 금지와 대응표</li><li>기존 컴포넌트 소비법</li>
+<li>새 컴포넌트 승격 절차</li><li>검증 — 픽셀 diff와 A/B 승인</li><li>레포별 함정</li><li>에이전트 프롬프트 템플릿</li>
+</ol></div>
+
+<h2><span class="num">1</span>절대 규칙 5</h2>
+<ol>
+<li><b>hex 직접 입력 금지.</b> 색은 토큰 클래스만. 필요한 색이 토큰에 없으면 → 값이 기존 토큰과 같은지 먼저 확인(오타·변종이 많다) → 정말 새 색이면 tokens.json에 추가 후 사용.</li>
+<li><b>같은 UI 두 번 만들지 않는다.</b> 반복 패턴(2곳 이상, 또는 web·pencil 양쪽)은 DS로 승격하고 소비한다.</li>
+<li><b>승격 = 카탈로그 데모 동시 등록.</b> 데모 없는 승격은 미완성 (React는 apps/catalog, Vue는 apps/catalog-vue, 패리티면 양쪽).</li>
+<li><b>시각 무영향 원칙.</b> 리팩토링·토큰화는 before/after 캡처 픽셀 diff 0가 기본. 의도된 시각 변경은 A/B 리포트로 승인받고 커밋.</li>
+<li><b>페이지(도메인) 단위 커밋.</b> 롤백 가능하게. 커밋 태그는 한글 규칙([FEAT]/[FIX]/[REFACTOR]…).</li>
+</ol>
+
+<h2><span class="num">2</span>토큰 — hex 금지와 대응표</h2>
+<p>정본: <code>packages/tokens/src/tokens.json</code>. 수정 후 <code>bun run build:tokens</code>. <b>표기 차이 주의:</b></p>
+<table>
+<tr><th></th><th>frontend (Tailwind v3 preset)</th><th>career-pencil (Tailwind v4 theme)</th></tr>
+<tr><td>클래스 표기</td><td>언더스코어 — <code>bg-bg_gray2</code> <code>border-border_gray</code> <code>bg-sky_selected</code></td><td>하이픈 — <code>bg-bg-gray2</code> <code>border-border-gray</code> <code>bg-sky-selected</code></td></tr>
+</table>
+<h3>자주 틀리는 값 (전부 이미 토큰 있음)</h3>
+<table>
+<tr><th>hex</th><th>토큰</th><th>비고</th></tr>
+<tr><td>#00A3FF / #0090E0 / #007ACC</td><td>sky / sky_dark / sky_pressed</td><td>호버 변종 #0091E6·#0092E6·#0093e6은 전부 오타 → sky_dark</td></tr>
+<tr><td>#222222 / #4B4D57 / #727180 / #9E9EAA</td><td>gray900 / gray800 / gray700 / gray600</td><td>Tailwind 기본 gray-900(#101828)와 다름 — 혼용 금지</td></tr>
+<tr><td>#DEE0E6 / #C3C3CD / #E9EBF1</td><td>gray400 / gray500 / border_gray</td><td></td></tr>
+<tr><td>#F8F8F8 / #F5F7FC / #ECEEF4 / #FBFBFB</td><td>bg_gray1 / bg_gray2 / bg_pressed / bg_light</td><td>#F5F7FB는 오타 (끝자리 B)</td></tr>
+<tr><td>#EDF8FF / #F7FCFF / #FAFDFF / #0A3D62</td><td>sky_bg / sky_selected / light_sky / sky_navy</td><td>연한 하늘 변종(#F2F9FF 등) 신규 생성 금지</td></tr>
+<tr><td>#F10000 / #E5484D</td><td>red / red_soft</td><td></td></tr>
+</table>
+<div class="ban"><b>금지:</b> off-brand 색 (indigo #4F46E5, Tailwind green #22C55E 등) — AI 액센트도 <code>sky</code>, 성공도 <code>green100</code>. shadcn 계열(cn·buttonVariants·bg-background) DS 재유입 금지. frontend에서 spacing 오버라이드 재도입 금지 (표준 Tailwind 스케일 유지).</div>
+
+<h2><span class="num">3</span>기존 컴포넌트 소비법</h2>
+<pre><code># frontend (yarn v1) — package.json
+"@careernote/react":  "https://github.com/careernote/careernote-design-system.git#pkg/react"
+"@careernote/tokens": "https://github.com/careernote/careernote-design-system.git#pkg/tokens"
+"@careernote/assets": "https://github.com/careernote/careernote-design-system.git#pkg/assets"
+
+# career-pencil (bun)
+"@careernote/vue":    "git+https://github.com/careernote/careernote-design-system.git#pkg/vue"
+# + app.css: @import '@careernote/tokens/theme-v4.css';
+#            @source "../node_modules/@careernote/vue/src/**/*.vue";
+# + vite.config: optimizeDeps.exclude: ['@careernote/vue']  (SFC 사전번들 금지)</code></pre>
+<h3>패키지 최신화 (DS가 갱신됐을 때)</h3>
+<pre><code># pencil
+bun update @careernote/vue @careernote/tokens
+
+# frontend — yarn v1은 lock의 옛 커밋을 잡고 있으므로:
+#  yarn.lock에서 "@careernote/..." 블록 삭제 → rm -rf node_modules/@careernote → yarn install</code></pre>
+<div class="tip">현재 보유: 버튼류(Button·IconButton·AddDashedButton·TextLink), 칩(Chip·CategoryChip·SelectableChip), 선택(SelectCard·Checkbox), 카드(ActivityCard·PlanCard·PlanFeature·StarGrid·RibbonBadge), 모달(Modal·ModalHeader·ConfirmModal·ResponsiveModal), 인풋(TextInput·Textarea·Selector·SearchInput), 퍼널 셸(SubHeader·NextStepFooter·InHeader), 기타(Spinner·LottieLoadingDots·Badge·Tooltip·Icon 105종) + 로티 자산 5종. <b>정확한 스펙은 항상 카탈로그가 정본.</b></div>
+
+<h2><span class="num">4</span>새 컴포넌트 승격 절차</h2>
+<ol>
+<li><b>원본 스펙 그대로 복사</b> — 디자인 발명 금지. 클래스 문자열을 축자로 옮기고 hex만 토큰화(값 동일 확인).</li>
+<li>위치: React <code>packages/react/src/{buttons|display|inputs|overlays|navigation}</code> / Vue <code>packages/vue/src</code> / 색 <code>packages/tokens</code> / 로티·이미지 <code>packages/assets</code>.</li>
+<li><b>배럴 export</b> (하위 index.ts + 루트 index.ts) — export 빠지면 소비자가 못 쓴다.</li>
+<li><b>카탈로그 데모 추가 + 빌드 통과</b> — 탭 매핑: 버튼→Buttons, 칩→Chips, 인풋→Inputs, 모달·스피너·로티→Feedback & Overlays, 헤더·푸터→Navigation, 카드→Cards.</li>
+<li>가능하면 <b>React·Vue 패리티</b>로 (한쪽만 먼저면 컴포넌트 주석에 사유 기록).</li>
+<li>main 푸시 → CI가 pkg/* 브랜치 자동 재생성. 즉시 소비하려면 수동: <code>git subtree split --prefix=packages/X -b pkg/X && git push -f origin pkg/X</code></li>
+<li>소비 레포에서 로컬 원본 삭제 + import 전환 (승격했는데 로컬 사본 남기면 이중 소스).</li>
+</ol>
+<div class="ban">외부 런타임 의존(vaul·radix·reka·lottie-web)은 <b>optional peerDependency</b>로만 — DS가 앱 번들을 강제로 키우면 안 된다.</div>
+
+<h2><span class="num">5</span>검증 — 픽셀 diff와 A/B 승인</h2>
+<ol>
+<li><b>before 캡처를 수정 시작 전에</b> (수정 후엔 되돌릴 수 없다). 상태별로: 기본/선택/모달 열림 등.</li>
+<li>수정 후 동일 뷰포트·동일 상태로 after 캡처 → 픽셀 diff. 데스크톱 1440×900 + 모바일 390×844 기본.</li>
+<li>diff 0 = 무영향 실증 → 커밋. diff 발생 = 원인 규명(시프트인지 실제 변경인지) → 의도된 변경만 A/B 리포트에 실어 승인 후 커밋.</li>
+<li>pencil은 <code>bun scripts/ab-report.ts &lt;config.json&gt;</code>으로 리포트 생성. 캡처는 <code>test-image/</code>에만 저장.</li>
+</ol>
+
+<h2><span class="num">6</span>레포별 함정</h2>
+<table>
+<tr><th>레포</th><th>함정</th></tr>
+<tr><td rowspan="3">career-pencil</td><td><b>/make/editor의 에디터 크롬(툴바·패널·캔버스 시맨틱 토큰 text-muted/bg-panel 등)은 웹·Tauri 테마 공유</b> — 브랜드 토큰으로 바꾸면 Tauri 다크가 깨진다. 단 <code>Web_*</code> 프리픽스 컴포넌트는 웹 전용이라 전환 가능. Tauri 공유 확정 5파일(AssetEditFloating·IconEditFloating·ImageCropDialog·ImageActionDialog·EditorCanvas)은 건드리지 않는다.</td></tr>
+<tr><td>브레이크포인트: mobile ≤850 / tablet ≤780 (web과 동일 정의). md·sm은 Tailwind 기본.</td></tr>
+<tr><td>autolayout 드래그·fills 언두 등 에디터 엔진 규칙은 레포 CLAUDE.md 참조.</td></tr>
+<tr><td rowspan="2">frontend</td><td>tsconfig가 node10 해석 — DS 패키지에 main/types 필수. next.config <code>transpilePackages</code>에 @careernote/react·tokens 유지.</td></tr>
+<tr><td>tailwind content에 <code>node_modules/@careernote/react/src/**</code> 글롭 유지 (빠지면 DS 클래스 퍼지됨).</td></tr>
+<tr><td>DS</td><td>Vue 컴포넌트는 v4 하이픈 표기로 작성. React 스펙 복붙 시 언더스코어→하이픈 변환 필수.</td></tr>
+</table>
+
+<h2><span class="num">7</span>에이전트 프롬프트 템플릿</h2>
+<p>에이전트에게 UI 작업을 시킬 때 아래를 붙여 넣으면 규칙이 컨텍스트에 실린다 (각 레포 CLAUDE.md에도 요약이 박혀 있어 기본 적용됨):</p>
+<pre><code>이 작업은 CareerNote 디자인시스템 규칙을 따른다:
+1. 색은 hex 금지, @careernote/tokens 토큰 클래스만 (frontend=언더스코어, pencil=하이픈 표기)
+2. UI는 @careernote/react 또는 @careernote/vue 기존 컴포넌트 우선 — 카탈로그에서 확인:
+   https://careernote.github.io/careernote-design-system/ (+/vue/)
+3. 반복 패턴을 새로 만들게 되면 멈추고 DS 승격을 제안할 것 (승격 시 카탈로그 데모 필수)
+4. 수정 전 before 캡처 → 수정 → after 캡처 → 픽셀 diff 0 확인. 시각 변경은 승인 전 커밋 금지
+5. 커밋은 페이지 단위, 한글 태그([FEAT]/[FIX]/[REFACTOR]...)</code></pre>
+
+<p style="margin-top:40px;color:var(--g600);font-size:12.5px">정본 레포: careernote/careernote-design-system · 상세: AGENTS.md, docs/agentic-coding-guide.md, docs/WORKPLAN.md</p>
+</div>
+</body>
+</html>
