@@ -4,6 +4,22 @@
 AI 에이전트로 프론트엔드 코드를 작성할 때 아래 규칙을 따른다.
 상세 플레이북(작업 유형별 절차·실패 사례·검증 루프): [docs/agentic-coding-guide.md](./docs/agentic-coding-guide.md)
 
+## 컴포넌트 신설 규칙 (React + Vue 패리티 필수)
+
+이 레포에 컴포넌트를 새로 만들 때는 **React와 Vue를 동시에** 만든다. 완료 조건은 아래 4개 전부다.
+
+| # | 산출물 | 위치 |
+|---|---|---|
+| 1 | React 구현 + 배럴 export | `packages/react/src/<group>/` → `src/index.ts` |
+| 2 | **Vue 구현 (동일 스펙)** + 배럴 export | `packages/vue/src/<group>/` → `src/index.ts` |
+| 3 | React 카탈로그 데모 | `apps/catalog/` 해당 탭 |
+| 4 | Vue 카탈로그 데모 | `apps/catalog-vue/` 해당 탭 |
+
+- **React만 만들고 끝내지 않는다.** careernote-web(React)과 career-pencil(Vue)이 같은 디자인 언어를 공유하는 것이 이 레포의 존재 이유다. 한쪽만 만들면 다른 쪽이 같은 것을 또 만들고 두 구현이 갈라진다.
+- 한쪽만 만들어야 할 합당한 이유가 있으면(프레임워크 고유 API 의존 등) **사유를 컴포넌트 주석에 남긴다.**
+- 데모 없는 승격은 미완료다 — 다음 사람이 존재를 모른다.
+- 스타일은 **props 로 variant 를 노출**한다. `className` 하드코딩 + `{...rest}` spread 조합은 소비처에서 className 이 병합되지 않고 교체되어 재사용이 불가능해진다. (`TextLink` 가 실제로 이 문제를 갖고 있다)
+
 ## 절대 규칙
 
 1. **hex 색상을 직접 쓰지 않는다.** 색은 반드시 `@careernote/tokens`의 토큰 이름으로 쓴다.
