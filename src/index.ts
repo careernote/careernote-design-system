@@ -13,7 +13,7 @@ export { Alert } from './feedback';
 export * from './feedback/Snackbar';
 
 // Overlays
-export { Modal } from './overlays';
+export { Modal, ModalHeader } from './overlays';
 
 // Navigation
 export { SubHeader, ProgressBarItem, HeaderMenuItem, InHeader } from './navigation';
