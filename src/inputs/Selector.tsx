@@ -205,8 +205,8 @@ const Selector: React.FC<SelectorProps> = ({
               return (
                 <li
                   key={optValue}
-                  className={`px-4 py-2.5 text-[14px] font-medium text-[#4B4D57] rounded-[8px] cursor-pointer transition-colors truncate ${
-                    optValue === selectedValue ? 'bg-[#F6F7F8] font-semibold text-[#222]' : 'hover:bg-[#F6F7F8]'
+                  className={`px-4 py-2.5 text-[14px] font-medium text-gray800 rounded-[8px] cursor-pointer transition-colors truncate ${
+                    optValue === selectedValue ? 'bg-bg_gray3 font-semibold text-gray900' : 'hover:bg-bg_gray3'
                   }`}
                   onClick={(e) => {
                     e.stopPropagation();

@@ -76,7 +76,7 @@ const colorStyles = {
       &:not([data-dragged=true]):not(:active):before:opacity-0 !important
     `,
   transparent: `
-      relative bg-transparent text-[#FFFFFF] border border-[#DEE0E6]
+      relative bg-transparent text-white100 border border-gray400
       hover:before:opacity-[.05]
       focus:before:opacity-[.08] focus:outline-none
       active:before:opacity-[.12] active:before:duration-100
