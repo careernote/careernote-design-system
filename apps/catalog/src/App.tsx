@@ -12,6 +12,8 @@ const {
   ActivityCard,
   ToggleButton,
   Chip,
+  CategoryChip,
+  SelectCard,
   Badge,
   TextInput,
   Textarea,
@@ -175,6 +177,13 @@ function ChipSection() {
           ))}
         </div>
       ))}
+      <h3 className="text-subtitle3 font-semibold text-gray800 mt-8 mb-2">CategoryChip — 카테고리 필터 (직업 선택 플로우)</h3>
+      <div className="flex flex-wrap gap-2">
+        <CategoryChip active>전체</CategoryChip>
+        <CategoryChip>개발</CategoryChip>
+        <CategoryChip>데이터·AI</CategoryChip>
+        <CategoryChip>디자인</CategoryChip>
+      </div>
     </Section>
   );
 }
@@ -343,6 +352,13 @@ function CardSection() {
         <ActivityCard selected media={<Icon name="image" size="lg" color="#C3C3CD" />}>
           <p className="text-subtitle2 font-semibold text-gray900">선택된 카드 (selected)</p>
         </ActivityCard>
+      </div>
+      <h3 className="text-subtitle3 font-semibold text-gray800 mt-8 mb-2">SelectCard — 체크서클 선택 카드 (직업 선택 플로우)</h3>
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-[12px] max-w-[720px]">
+        <SelectCard representative selected title="대표 직업">백엔드 개발</SelectCard>
+        <SelectCard selected title="선택됨">데이터 분석가</SelectCard>
+        <SelectCard title="기본">게임 기획자</SelectCard>
+        <SelectCard title="긴 이름 말줄임">라이프스타일·뷰티·웰니스 매니저</SelectCard>
       </div>
     </Section>
   );
