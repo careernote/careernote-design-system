@@ -1,0 +1,9 @@
+{
+  "name": "@careernote/assets",
+  "version": "0.1.0",
+  "private": false,
+  "description": "CareerNote 공유 정적 자산 — 로티 애니메이션 정본 (careernote-web·career-pencil 공용)",
+  "exports": {
+    "./lottie/*": "./lottie/*"
+  }
+}
