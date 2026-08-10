@@ -1,5 +1,6 @@
 export { default as Chip } from './Chip';
 export { Badge, type BadgeVariant } from './Badge';
+export { ActivityCard } from './ActivityCard';
 export { ProChip } from './ProChip';
 export { TemplateChips } from './TemplateChips';
 export { default as Information } from './Information';
