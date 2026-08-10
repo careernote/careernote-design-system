@@ -10,6 +10,7 @@ export { default as PlanCard } from './PlanCard.vue';
 export { default as PlanFeature } from './PlanFeature.vue';
 export { default as RibbonBadge } from './RibbonBadge.vue';
 export { default as StarGrid } from './StarGrid.vue';
+export { STAR_DISPLAY, type StarValues } from './star-display';
 export { default as Badge } from './Badge.vue';
 export { default as NumberBadge } from './NumberBadge.vue';
 export { default as Tooltip } from './Tooltip.vue';

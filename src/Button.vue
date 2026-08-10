@@ -32,7 +32,7 @@ const colorStyles = {
 
 const classes = computed(
   () =>
-    `relative flex items-center justify-center gap-2 transition-all duration-150 ease-in-out whitespace-nowrap disabled:cursor-not-allowed disabled:pointer-events-none ${sizeStyles[props.size]} ${colorStyles[props.color]}`,
+    `relative flex items-center justify-center gap-2 transition-all duration-150 ease-in-out whitespace-nowrap disabled:cursor-not-allowed disabled:pointer-events-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky ${sizeStyles[props.size]} ${colorStyles[props.color]}`,
 )
 </script>
 
