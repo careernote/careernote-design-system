@@ -55,7 +55,7 @@ const colorStyles = {
       focus:before:opacity-[.16] focus:outline-none
       active:before:opacity-[.20] active:before:duration-100
       data-[dragged=true]:before:opacity-[.24]
-      disabled:bg-border_gray disabled:text-white100 disabled:cursor-not-allowed disabled:pointer-events-none
+      disabled:bg-sky60 disabled:text-white100 disabled:cursor-not-allowed disabled:pointer-events-none
       disabled:hover:before:opacity-0 !important
       disabled:focus:before:opacity-0 !important
       disabled:active:before:opacity-0 !important
