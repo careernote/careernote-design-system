@@ -276,7 +276,7 @@ export const ICON_SVGS: Record<string, IconSvg> = {
   },
   "EyeIcon": {
     "viewBox": "0 0 24 24",
-    "body": "<path stroke=\"none\" d=\"M0 0h24v24H0z\" fill=\"none\" />\n    <path d=\"M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0\" />\n    <path d=\"M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6\" />"
+    "body": "<g stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path stroke=\"none\" d=\"M0 0h24v24H0z\" fill=\"none\" />\n    <path d=\"M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0\" />\n    <path d=\"M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6\" /></g>"
   },
   "ExpandIcon": {
     "viewBox": "0 0 20 20",
@@ -364,7 +364,7 @@ export const ICON_SVGS: Record<string, IconSvg> = {
   },
   "CameraOffIcon": {
     "viewBox": "0 0 24 24",
-    "body": "<path stroke=\"none\" d=\"M0 0h24v24H0z\" fill=\"none\" />\n    <path d=\"M8.297 4.289a.997 .997 0 0 1 .703 -.289h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v8m-1.187 2.828c-.249 .11 -.524 .172 -.813 .172h-14a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2h1c.298 0 .58 -.065 .834 -.181\" />\n    <path d=\"M10.422 10.448a3 3 0 1 0 4.15 4.098\" />\n    <path d=\"M3 3l18 18\" />"
+    "body": "<g stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path stroke=\"none\" d=\"M0 0h24v24H0z\" fill=\"none\" />\n    <path d=\"M8.297 4.289a.997 .997 0 0 1 .703 -.289h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v8m-1.187 2.828c-.249 .11 -.524 .172 -.813 .172h-14a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2h1c.298 0 .58 -.065 .834 -.181\" />\n    <path d=\"M10.422 10.448a3 3 0 1 0 4.15 4.098\" />\n    <path d=\"M3 3l18 18\" /></g>"
   },
   "SendIcon": {
     "viewBox": "0 0 20 20",
@@ -388,7 +388,7 @@ export const ICON_SVGS: Record<string, IconSvg> = {
   },
   "SmileIcon": {
     "viewBox": "0 0 24 24",
-    "body": "<path stroke=\"none\" d=\"M0 0h24v24H0z\" fill=\"none\" />\n    <path d=\"M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0\" />\n    <path d=\"M9 10l.01 0\" />\n    <path d=\"M15 10l.01 0\" />\n    <path d=\"M9.5 15a3.5 3.5 0 0 0 5 0\" />"
+    "body": "<g stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path stroke=\"none\" d=\"M0 0h24v24H0z\" fill=\"none\" />\n    <path d=\"M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0\" />\n    <path d=\"M9 10l.01 0\" />\n    <path d=\"M15 10l.01 0\" />\n    <path d=\"M9.5 15a3.5 3.5 0 0 0 5 0\" /></g>"
   },
   "Download2Icon": {
     "viewBox": "0 0 20 20",

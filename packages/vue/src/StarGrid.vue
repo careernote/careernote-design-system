@@ -1,22 +1,9 @@
 <script setup lang="ts">
 // STAR(상황·과제·행동·결과) 2×2 요약 그리드 — 활동 카드 본문용.
-// 팔레트·순서 정본: STAR_DISPLAY (React 패키지와 동일 값 유지).
+// 팔레트·순서 정본: ./star-display.ts (React 패키지와 동일 값 유지).
 // 채워진 칸만 렌더. 칸이 하나도 없으면 아무것도 그리지 않는다 (소비자가 v-if 로 폴백 처리).
 import { computed } from 'vue'
-
-export interface StarValues {
-  situation?: string
-  task?: string
-  action?: string
-  result?: string
-}
-
-const STAR_DISPLAY = [
-  { key: 'situation', letter: 'S', color: '#00A3FF' },
-  { key: 'task', letter: 'T', color: '#7C5CFC' },
-  { key: 'action', letter: 'A', color: '#22A565' },
-  { key: 'result', letter: 'R', color: '#F2912B' },
-] as const
+import { STAR_DISPLAY, type StarValues } from './star-display'
 
 const props = defineProps<{ star?: StarValues | null }>()
 

@@ -58,6 +58,20 @@ function parseUnit(name: string, src: string) {
   body = body.replace(/\{\/\*[\s\S]*?\*\/\}/g, '');
   body = body.trim();
 
+  // 루트 <svg> 의 stroke 계열 속성 보존 (tabler류 아이콘은 stroke 를 루트에만 선언 —
+  // 유실되면 path 가 투명해진다). <g> 래퍼로 감싸 body 에 흡수.
+  let rootAttrs = svgOpen[1]
+    .replace(/stroke=\{color\}/g, 'stroke="currentColor"')
+    .replace(/strokeWidth=\{([\d.]+)\}/g, 'strokeWidth="$1"');
+  for (const [jsx, svg] of Object.entries(ATTR_MAP)) {
+    rootAttrs = rootAttrs.replaceAll(`${jsx}=`, `${svg}=`);
+  }
+  const kept = [...rootAttrs.matchAll(/(stroke|stroke-width|stroke-linecap|stroke-linejoin)="([^"]+)"/g)]
+    .map((m) => `${m[1]}="${m[2]}"`);
+  if (kept.length > 0) {
+    body = `<g ${kept.join(' ')}>${body}</g>`;
+  }
+
   // 잔존 JSX 표현식 검사 (변환 못 한 동적 부분)
   if (/[{}]/.test(body)) {
     const exprs = body.match(/\{[^}]*\}/g) ?? [];
