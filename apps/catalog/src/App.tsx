@@ -14,6 +14,9 @@ const {
   Chip,
   CategoryChip,
   SelectCard,
+  SelectableChip,
+  TextLink,
+  ConfirmModal,
   PlanCard,
   PlanFeature,
   RibbonBadge,
@@ -157,6 +160,8 @@ function ButtonSection() {
           <ToggleButton checked={!on} onChange={() => setOn(!on)} size="sm" />
         </div>
       </div>
+      <h3 className="text-subtitle3 font-semibold text-gray800 mt-8 mb-2">TextLink</h3>
+      <div className="flex items-center gap-4"><TextLink>직접 입력하기</TextLink><TextLink>다른 직업 보기</TextLink></div>
     </Section>
   );
 }
@@ -181,6 +186,11 @@ function ChipSection() {
           ))}
         </div>
       ))}
+      <h3 className="text-subtitle3 font-semibold text-gray800 mt-8 mb-2">SelectableChip — 별(대표)+✕ 선택 칩</h3>
+      <div className="flex flex-wrap gap-2">
+        <SelectableChip representative starTitle="대표 직무">백엔드 개발</SelectableChip>
+        <SelectableChip starTitle="대표로 지정">데이터 분석가</SelectableChip>
+      </div>
       <h3 className="text-subtitle3 font-semibold text-gray800 mt-8 mb-2">CategoryChip — 카테고리 필터 (직업 선택 플로우)</h3>
       <div className="flex flex-wrap gap-2">
         <CategoryChip active>전체</CategoryChip>
@@ -215,11 +225,13 @@ function InputSection() {
 function FeedbackSection() {
   const [alertOpen, setAlertOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+  const [confirmOpen, setConfirmOpen] = useState(false);
   return (
     <Section title="Feedback & Overlays">
       <div className="flex items-center gap-3 mb-6">
         <Button color="black" onClick={() => setAlertOpen(true)}>Alert 열기</Button>
         <Button color="sky" onClick={() => setModalOpen(true)}>Modal 열기</Button>
+        <Button color="white" onClick={() => setConfirmOpen(true)}>ConfirmModal 열기</Button>
       </div>
       {alertOpen && (
         <Alert
@@ -230,6 +242,14 @@ function FeedbackSection() {
           onAction={() => setAlertOpen(false)}
         />
       )}
+      <ConfirmModal
+        isOpen={confirmOpen}
+        onClose={() => setConfirmOpen(false)}
+        onConfirm={() => setConfirmOpen(false)}
+        onDismiss={() => setConfirmOpen(false)}
+        title="정말 삭제하시겠어요?"
+        description="삭제하면 되돌릴 수 없습니다."
+      />
       <Modal
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}

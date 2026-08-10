@@ -9,6 +9,7 @@
   --cn-color-light-sky: #FAFDFF;
   --cn-color-sky-selected: #F7FCFF;
   --cn-color-sky-navy: #0A3D62;
+  --cn-color-sky-pressed: #007ACC;
   --cn-color-gray900: #222222;
   --cn-color-gray800: #4B4D57;
   --cn-color-gray700: #727180;
@@ -24,6 +25,7 @@
   --cn-color-bg-gray1: #F8F8F8;
   --cn-color-bg-gray2: #F5F7FC;
   --cn-color-bg-gray3: #F6F7F8;
+  --cn-color-bg-pressed: #ECEEF4;
   --cn-color-red: #F10000;
   --cn-color-red10: #FFF0F0;
   --cn-color-blue100: #2F65FF;

@@ -2,7 +2,8 @@
 import { ref } from 'vue'
 import {
   Button, ButtonRound, ToggleButton, AddDashedButton, IconButton,
-  Chip, CategoryChip, SelectCard, PlanCard, PlanFeature, RibbonBadge, StarGrid, Badge, NumberBadge, Tooltip, Information, ActivityCard,
+  Chip, CategoryChip, SelectCard, SelectableChip, PlanCard, PlanFeature, RibbonBadge, StarGrid, Badge, NumberBadge, Tooltip, Information, ActivityCard,
+  SubHeader, NextStepFooter, SearchInput, TextLink, Spinner, Checkbox,
   TextInput, Textarea, Selector, Modal, InHeader, HeaderMenuItem, ProgressBarItem,
   Icon, ICON_NAME_MAP,
 } from '@careernote/vue'
@@ -124,6 +125,8 @@ const iconNames = Object.keys(ICON_NAME_MAP)
           <ToggleButton :checked="toggleOn" @change="toggleOn = $event" />
           <ToggleButton :checked="!toggleOn" size="sm" @change="toggleOn = !$event" />
         </div>
+        <h3 class="text-subtitle3 font-semibold text-gray800 mt-8 mb-2">TextLink</h3>
+        <div class="flex items-center gap-4"><TextLink>직접 입력하기</TextLink><TextLink>다른 직업 보기</TextLink></div>
       </section>
 
       <!-- Chips -->
@@ -140,6 +143,11 @@ const iconNames = Object.keys(ICON_NAME_MAP)
               {{ color }}
             </Chip>
           </div>
+        </div>
+        <h3 class="text-subtitle3 font-semibold text-gray800 mt-8 mb-2">SelectableChip — 별(대표)+✕ 선택 칩</h3>
+        <div class="flex flex-wrap gap-2">
+          <SelectableChip representative star-title="대표 직무">백엔드 개발</SelectableChip>
+          <SelectableChip star-title="대표로 지정">데이터 분석가</SelectableChip>
         </div>
         <h3 class="text-subtitle3 font-semibold text-gray800 mt-8 mb-2">CategoryChip — 카테고리 필터 (pencil /make/job)</h3>
         <div class="flex flex-wrap gap-2">
@@ -158,6 +166,12 @@ const iconNames = Object.keys(ICON_NAME_MAP)
           <TextInput label="에러 상태" placeholder="값" state="error" error-message="에러 메시지입니다" full-width />
           <Textarea label="Textarea" placeholder="여러 줄 입력" full-width />
           <Selector label="Selector" placeholder="선택하세요" :options="['옵션 A', '옵션 B', '옵션 C']" v-model="selVal" full-width />
+        </div>
+        <h3 class="text-subtitle3 font-semibold text-gray800 mt-8 mb-2">SearchInput — 돋보기+클리어</h3>
+        <div class="max-w-[360px]"><SearchInput placeholder="직업 검색" /></div>
+        <h3 class="text-subtitle3 font-semibold text-gray800 mt-8 mb-2">Checkbox — 선택 체크 (24px, 순번 표시 지원)</h3>
+        <div class="flex items-center gap-3">
+          <Checkbox /><Checkbox checked /><Checkbox checked :number="2" />
         </div>
       </section>
 
@@ -186,12 +200,18 @@ const iconNames = Object.keys(ICON_NAME_MAP)
             <Tooltip text="툴팁 텍스트" position="top" />
           </div>
         </div>
+        <h3 class="text-subtitle3 font-semibold text-gray800 mt-8 mb-2">Spinner</h3>
+        <div class="flex items-center gap-8"><Spinner /><Spinner :size="20" :border="2" label="로딩 중" /></div>
       </section>
 
       <!-- Navigation -->
       <section v-if="active === 'navigation'">
         <h2 class="text-title2 font-bold text-gray900 mb-6 pb-2 border-b border-border-gray">Navigation</h2>
         <InHeader title="플로우 타이틀" description="설명 텍스트가 들어갑니다." class="mb-6" />
+        <h3 class="text-subtitle3 font-semibold text-gray800 mt-6 mb-2">SubHeader — 퍼널 스텝 헤더 (pencil)</h3>
+        <div class="border border-border-gray rounded-medium overflow-hidden mb-6"><SubHeader :current-step="2" /></div>
+        <h3 class="text-subtitle3 font-semibold text-gray800 mt-6 mb-2">NextStepFooter — 퍼널 하단 CTA (fixed 라 캡처만 — 실제 위치는 화면 하단)</h3>
+        <p class="text-body2 text-gray700 mb-2">props: mainLabel·mainDisabled·showSub·subLabel + #main-label 슬롯</p>
         <div class="flex items-center gap-8 h-14 border-b border-border-gray mb-6 px-4">
           <HeaderMenuItem label="활성 메뉴" is-active />
           <HeaderMenuItem label="기본 메뉴" />
