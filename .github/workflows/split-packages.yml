@@ -23,4 +23,5 @@ jobs:
           git subtree split --prefix=packages/react -b pkg/react
           git subtree split --prefix=packages/tokens -b pkg/tokens
           git subtree split --prefix=packages/vue -b pkg/vue
-          git push -f origin pkg/react pkg/tokens pkg/vue
+          git subtree split --prefix=packages/assets -b pkg/assets
+          git push -f origin pkg/react pkg/tokens pkg/vue pkg/assets

@@ -11,6 +11,7 @@ CareerNote 디자인 시스템 모노레포 — 토큰 정본 + React/Vue 컴포
 | `packages/tokens` (`@careernote/tokens`) | 디자인 토큰 정본(`src/tokens.json`) + 생성물: `tokens.css`(CSS 변수) · `tailwind-v3-preset`(careernote-web) · `theme-v4.css`(career-pencil) |
 | `packages/react` (`@careernote/react`) | careernote-web 이관 React 컴포넌트 — 프리미티브 22종 + 아이콘 109종(iconMap) + 보조 아이콘 17종(`/icons-extra`) |
 | `packages/vue` (`@careernote/vue`) | career-pencil 소비용 Vue 3 컴포넌트 — SFC 18종 + 아이콘 105종(React 아이콘 자동 변환, `scripts/gen-icons.ts`) |
+| `packages/assets` (`@careernote/assets`) | 로티(JSON) 애니메이션 정본 5종 — `import anim from '@careernote/assets/lottie/LoadingDots.json'` |
 | `apps/catalog` | React 컴포넌트·토큰 시각 카탈로그 (Vite, Tailwind v3) |
 | `apps/catalog-vue` | Vue 컴포넌트 시각 카탈로그 (Vite, Tailwind v4) — React 카탈로그와 10탭 동일 구성 |
 
