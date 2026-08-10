@@ -1,9 +1,13 @@
 {
   "name": "careernote-design-system",
   "private": true,
-  "workspaces": ["packages/*", "apps/*"],
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
   "scripts": {
     "build:tokens": "bun run packages/tokens/scripts/build.ts",
-    "catalog": "bun run --cwd apps/catalog dev"
+    "catalog": "bun run --cwd apps/catalog dev",
+    "catalog:vue": "bun run --cwd apps/catalog-vue dev"
   }
 }

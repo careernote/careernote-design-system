@@ -1,0 +1,13 @@
+@import 'tailwindcss';
+@import '@careernote/tokens/theme-v4.css';
+@source "./**/*.vue";
+@source "../../../packages/vue/src/**/*.vue";
+
+/* careernote-web 브레이크포인트 미러 (컴포넌트의 mobile: variant 지원) */
+@custom-variant mobile (@media (max-width: 850px));
+
+body {
+  font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif;
+  color: #222222;
+  background: #fbfbfb;
+}

@@ -373,7 +373,10 @@ export default function App() {
             </button>
           ))}
         </nav>
-        <p className="mt-8 px-3 text-detail text-gray600 leading-4">
+        <a href="./vue/" className="mt-8 mx-3 inline-block text-detail text-sky hover:underline">
+          ↗ Vue 카탈로그
+        </a>
+        <p className="mt-2 px-3 text-detail text-gray600 leading-4">
           정본: @careernote/tokens
           <br />
           @careernote/react

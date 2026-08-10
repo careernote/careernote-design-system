@@ -27,6 +27,8 @@ jobs:
       - uses: oven-sh/setup-bun@v2
       - run: bun install
       - run: bun run --cwd apps/catalog build
+      - run: bun run --cwd apps/catalog-vue build
+      - run: mkdir -p apps/catalog/dist-app/vue && cp -r apps/catalog-vue/dist-app/* apps/catalog/dist-app/vue/
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
