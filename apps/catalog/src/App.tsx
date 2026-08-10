@@ -9,6 +9,7 @@ const {
   AddDashedButton,
   IconButton,
   Icon,
+  ActivityCard,
   ToggleButton,
   Chip,
   Badge,
@@ -300,6 +301,39 @@ function ExtraIconSection() {
   );
 }
 
+function CardSection() {
+  return (
+    <Section title="Cards (패턴)">
+      <p className="text-body2 text-gray700 mb-4">
+        <code className="font-mono text-sky">ActivityCard</code> — 활동 카드 껍데기 (미디어 칸 + 콘텐츠 칸,
+        모바일 스택). 기능은 소비자 주입 — careernote-web ExperienceItem·career-pencil 활동 카드의 시각 정본
+      </p>
+      <div className="flex flex-col gap-4 max-w-[720px]">
+        <ActivityCard
+          media={<Icon name="image" size="lg" color="#C3C3CD" />}
+          data-testid="catalog-activity-card"
+        >
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
+              <Chip size="L" variant="soft" color="blue" className="font-semibold">회사 프로젝트</Chip>
+              <span className="text-body2 font-medium text-gray600">2026.01 — 2026.08</span>
+            </div>
+            <div className="flex items-center gap-0.5">
+              <IconButton aria-label="수정" onClick={() => {}}><Icon name="edit" size="md" /></IconButton>
+              <IconButton aria-label="삭제" onClick={() => {}}><Icon name="delete" size="md" /></IconButton>
+            </div>
+          </div>
+          <p className="text-subtitle2 font-semibold text-gray900 truncate">활동 제목</p>
+          <p className="text-body2 text-gray700">활동 설명 텍스트가 들어갑니다.</p>
+        </ActivityCard>
+        <ActivityCard selected media={<Icon name="image" size="lg" color="#C3C3CD" />}>
+          <p className="text-subtitle2 font-semibold text-gray900">선택된 카드 (selected)</p>
+        </ActivityCard>
+      </div>
+    </Section>
+  );
+}
+
 const NAV = [
   { id: 'colors', label: 'Colors', el: <ColorSection /> },
   { id: 'typography', label: 'Typography', el: <TypographySection /> },
@@ -309,6 +343,7 @@ const NAV = [
   { id: 'inputs', label: 'Inputs', el: <InputSection /> },
   { id: 'feedback', label: 'Feedback & Overlays', el: <FeedbackSection /> },
   { id: 'navigation', label: 'Navigation', el: <NavigationSection /> },
+  { id: 'cards', label: 'Cards', el: <CardSection /> },
   { id: 'icons', label: 'Icons', el: <IconSection /> },
   { id: 'icons-extra', label: 'Icons Extra', el: <ExtraIconSection /> },
 ];
