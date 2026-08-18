@@ -30,6 +30,7 @@ const NAV = [
 
 const active = ref<(typeof NAV)[number]['id']>('colors')
 const toggleOn = ref(true)
+const checkboxOn = ref(false)
 const inputVal = ref('')
 const selVal = ref('')
 const modalOpen = ref(false)
@@ -178,9 +179,10 @@ const iconNames = Object.keys(ICON_NAME_MAP)
         </div>
         <h3 class="text-subtitle3 font-semibold text-gray800 mt-8 mb-2">SearchInput — 돋보기+클리어</h3>
         <div class="max-w-[360px]"><SearchInput placeholder="직업 검색" /></div>
-        <h3 class="text-subtitle3 font-semibold text-gray800 mt-8 mb-2">Checkbox — 선택 체크 (24px, 순번 표시 지원)</h3>
+        <h3 class="text-subtitle3 font-semibold text-gray800 mt-8 mb-2">Checkbox — 선택 체크 (24px, 순번 표시·disabled 지원)</h3>
         <div class="flex items-center gap-3">
-          <Checkbox /><Checkbox checked /><Checkbox checked :number="2" />
+          <Checkbox /><Checkbox checked /><Checkbox checked :number="2" /><Checkbox disabled />
+          <Checkbox :checked="checkboxOn" @change="v => (checkboxOn = v)" />
         </div>
       </section>
 
