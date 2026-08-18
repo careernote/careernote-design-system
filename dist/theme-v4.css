@@ -26,6 +26,7 @@
   --color-bg-gray2: #F5F7FC;
   --color-bg-gray3: #F6F7F8;
   --color-bg-pressed: #ECEEF4;
+  --color-bg-dark: #222632;
   --color-red: #F10000;
   --color-red10: #FFF0F0;
   --color-blue100: #2F65FF;
@@ -38,6 +39,7 @@
   --color-orange100: #FF9500;
   --color-orange10: #FFF3E5;
   --color-red-soft: #E5484D;
+  --color-purple10: #D9D6FF;
   --color-white10: rgba(255, 255, 255, 0.1);
   --color-white20: rgba(255, 255, 255, 0.2);
   --color-white50: rgba(255, 255, 255, 0.5);
