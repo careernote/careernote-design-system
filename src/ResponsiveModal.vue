@@ -38,14 +38,18 @@ onBeforeUnmount(() => {
   window.removeEventListener('resize', check)
 })
 
-// 배경 스크롤 잠금
+// 배경 스크롤 잠금 — html(documentElement)만 잠근다.
+// body까지 overflow:hidden을 걸면 body가 스크롤 컨테이너가 되면서 position:sticky 요소(사이드바 등)가
+// 스크롤 원위치로 튀는 버그가 생긴다. html만 잠가도 스크롤 차단과 스크롤 위치 보존은 동일하게 동작한다.
+// 클래식 스크롤바 환경에서는 스크롤바가 사라진 폭만큼 body padding-right로 보정해 레이아웃 밀림을 막는다.
 watch(() => open, isOpen => {
   if (isOpen) {
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth
     document.documentElement.style.overflow = 'hidden'
-    document.body.style.overflow = 'hidden'
+    if (scrollbarWidth > 0) document.body.style.paddingRight = `${scrollbarWidth}px`
   } else {
     document.documentElement.style.overflow = ''
-    document.body.style.overflow = ''
+    document.body.style.paddingRight = ''
   }
 }, { immediate: true })
 
