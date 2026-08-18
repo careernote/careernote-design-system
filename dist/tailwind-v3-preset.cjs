@@ -51,6 +51,8 @@ module.exports = {
         "bg_gray3": "#F6F7F8",
         "bg_pressed": "#ECEEF4",
         "bg_dark": "#222632",
+        "bg_dark_soft": "#2B2E37",
+        "bg_dark_deep": "#16171C",
         "red": "#F10000",
         "red10": "#FFF0F0",
         "blue100": "#2F65FF",
