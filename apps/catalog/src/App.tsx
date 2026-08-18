@@ -31,6 +31,7 @@ const {
   TextInput,
   Textarea,
   Selector,
+  Checkbox,
   Alert,
   Modal,
   ModalHeader,
@@ -223,9 +224,24 @@ function InputSection() {
           options={['옵션 A', '옵션 B', '옵션 C']}
           onChange={setSel}
         />
+        <div>
+          <p className="text-detail text-gray600 mb-2">Checkbox — 선택 체크 (24px, 순번 표시·disabled 지원)</p>
+          <div className="flex items-center gap-3">
+            <Checkbox />
+            <Checkbox checked />
+            <Checkbox checked number={2} />
+            <Checkbox disabled />
+            <CheckboxToggleDemo />
+          </div>
+        </div>
       </div>
     </Section>
   );
+}
+
+function CheckboxToggleDemo() {
+  const [on, setOn] = useState(false);
+  return <Checkbox checked={on} onChange={setOn} />;
 }
 
 function FeedbackSection() {
