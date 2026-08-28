@@ -64,7 +64,11 @@ for (const group of Object.values(tokens.color)) Object.assign(flatColors, group
 //    breakpoint 도 제외 — pencil 은 @custom-variant mobile/tablet 을 이미 보유.
 {
   let css = `${HEADER}@theme {\n`;
-  for (const [k, v] of Object.entries(flatColors)) css += `  --color-${k.replace(/_/g, '-')}: ${v};\n`;
+  for (const [k, v] of Object.entries(flatColors)) {
+    css += `  --color-${k.replace(/_/g, '-')}: ${v};\n`;
+    // v3 언더스코어 표기 별칭 — React 컴포넌트 소스(bg-bg_gray1 등)가 Tailwind 4 소비처에서도 동작하도록
+    if (k.includes('_')) css += `  --color-${k}: ${v};\n`;
+  }
   for (const [k, v] of Object.entries(tokens.radius)) css += `  --radius-${k}: ${v};\n`;
   for (const [k, v] of Object.entries(tokens.shadow)) css += `  --shadow-${k}: ${v};\n`;
   for (const [k, v] of Object.entries(tokens.typography.fontSize)) {
