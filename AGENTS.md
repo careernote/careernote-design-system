@@ -30,6 +30,12 @@ AI 에이전트로 프론트엔드 코드를 작성할 때 아래 규칙을 따�
 3. **새 색이 필요하면 토큰부터 추가한다.** `packages/tokens/src/tokens.json` 수정 → `bun run build:tokens` → dist 커밋. 앱 코드에 리터럴을 넣지 않는다.
 4. **React 프로젝트에서 새 버튼/칩/인풋을 만들기 전에 `@careernote/react`에 있는지 먼저 확인한다.** (아래 인벤토리)
 
+## 로고
+
+로고는 `@careernote/assets` 의 `logo/careernote-logo.png` (어두운 배경은 `careernote-logo-on-dark.png`) 를 쓴다.
+**도형·텍스트·아이콘 조합으로 로고를 다시 그리지 않는다.** 비율과 색은 그대로 두고 크기만 조정한다.
+파일 import 가 불가능한 환경(캔버스 엔진 등)은 `logo/careernote-logo.base64.json` 을 쓴다.
+
 ## 토큰 소비 방법
 
 | 소비처 | 방법 |
