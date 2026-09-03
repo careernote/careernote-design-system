@@ -14,8 +14,13 @@ import lottieCheck from '@careernote/assets/lottie/check.json'
 import lottieEvaluation from '@careernote/assets/lottie/evaluation.json'
 import lottieSearch from '@careernote/assets/lottie/search.json'
 import lottieLoadingDots from '@careernote/assets/lottie/LoadingDots.json'
+import logoLight from '@careernote/assets/logo/careernote-logo.png'
+import logoDark from '@careernote/assets/logo/careernote-logo-on-dark.png'
+
+const LOGO_SIZES = [22, 34, 48, 68]
 
 const NAV = [
+  { id: 'brand', label: 'Brand' },
   { id: 'colors', label: 'Colors' },
   { id: 'typography', label: 'Typography' },
   { id: 'surface', label: 'Radius & Shadow' },
@@ -28,7 +33,7 @@ const NAV = [
   { id: 'icons', label: 'Icons' },
 ] as const
 
-const active = ref<(typeof NAV)[number]['id']>('colors')
+const active = ref<(typeof NAV)[number]['id']>('brand')
 const toggleOn = ref(true)
 const checkboxOn = ref(false)
 const inputVal = ref('')
@@ -64,6 +69,49 @@ const iconNames = Object.keys(ICON_NAME_MAP)
     </aside>
 
     <main class="ml-[240px] flex-1 px-10 py-10 max-w-[1080px]">
+      <!-- Brand -->
+      <section v-if="active === 'brand'">
+        <h2 class="text-title2 font-bold text-gray900 mb-6 pb-2 border-b border-border-gray">Brand</h2>
+        <p class="text-body2 text-gray700 mb-6">
+          로고는 <code class="font-mono text-detail bg-bg-gray1 px-1 rounded-small">@careernote/assets</code> 의 파일을 그대로 씁니다.
+          도형·텍스트로 다시 그리지 않고, 비율과 색은 바꾸지 않습니다.
+        </p>
+
+        <h3 class="text-subtitle3 font-semibold text-gray800 mb-3">기본 (밝은 배경)</h3>
+        <div class="rounded-medium border border-border-gray bg-white100 p-8 mb-2">
+          <img :src="logoLight" alt="CareerNote" class="h-[34px] w-auto" />
+        </div>
+        <p class="text-detail text-gray600 mb-6 font-mono">logo/careernote-logo.png · 283×34</p>
+
+        <h3 class="text-subtitle3 font-semibold text-gray800 mb-3">어두운 배경</h3>
+        <div class="rounded-medium bg-gray900 p-8 mb-2">
+          <img :src="logoDark" alt="CareerNote" class="h-[34px] w-auto" />
+        </div>
+        <p class="text-detail text-gray600 mb-6 font-mono">logo/careernote-logo-on-dark.png · 377×45</p>
+
+        <h3 class="text-subtitle3 font-semibold text-gray800 mb-3">크기</h3>
+        <div class="flex flex-wrap items-end gap-8 rounded-medium border border-border-gray bg-white100 p-8 mb-6">
+          <div v-for="h in LOGO_SIZES" :key="h" class="flex flex-col items-center gap-2">
+            <img :src="logoLight" alt="CareerNote" :style="{ height: h + 'px' }" class="w-auto" />
+            <span class="text-detail text-gray600 font-mono">{{ h }}px</span>
+          </div>
+        </div>
+
+        <h3 class="text-subtitle3 font-semibold text-gray800 mb-3">사용</h3>
+        <pre class="rounded-medium bg-bg-gray1 p-4 text-detail font-mono text-gray800 overflow-x-auto mb-6">import logo from '@careernote/assets/logo/careernote-logo.png'
+&lt;img :src="logo" alt="CareerNote" class="h-[22px] w-auto" /&gt;
+
+// 파일 import 가 불가능한 환경(캔버스 엔진·헤드리스)
+import logoData from '@careernote/assets/logo/careernote-logo.base64.json'</pre>
+
+        <h3 class="text-subtitle3 font-semibold text-gray800 mb-3">금지</h3>
+        <ul class="text-body2 text-gray700 list-disc pl-5 flex flex-col gap-1">
+          <li>도형·텍스트·아이콘 조합으로 로고를 다시 그리기</li>
+          <li>비율 변경, 색 변경, 회전, 그림자 추가</li>
+          <li>어두운 배경에 기본 로고를 그대로 얹기 (on-dark 파일을 쓸 것)</li>
+        </ul>
+      </section>
+
       <!-- Colors -->
       <section v-if="active === 'colors'">
         <h2 class="text-title2 font-bold text-gray900 mb-6 pb-2 border-b border-border-gray">Colors</h2>

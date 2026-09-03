@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import * as DS from '@careernote/react';
 import * as ExtraIcons from '@careernote/react/icons-extra';
 import { iconMap } from '@careernote/react';
-import tokens from '@careernote/tokens/tokens.json';
+import tokens from '@careernote/tokens/tokens.json'
+import logoLight from '@careernote/assets/logo/careernote-logo.png'
+import logoDark from '@careernote/assets/logo/careernote-logo-on-dark.png';
 import Lottie from 'lottie-react';
 import lottieAi from '@careernote/assets/lottie/ai.json';
 import lottieCheck from '@careernote/assets/lottie/check.json';
@@ -463,7 +465,59 @@ function CardSection() {
   );
 }
 
+const LOGO_SIZES = [22, 34, 48, 68];
+
+function BrandSection() {
+  return (
+    <Section title="Brand">
+      <p className="text-body2 text-gray700 mb-6">
+        로고는 <code className="font-mono text-detail bg-bg_gray1 px-1 rounded-small">@careernote/assets</code> 의 파일을 그대로 씁니다.
+        도형·텍스트로 다시 그리지 않고, 비율과 색은 바꾸지 않습니다.
+      </p>
+
+      <h3 className="text-subtitle3 font-semibold text-gray800 mb-3">기본 (밝은 배경)</h3>
+      <div className="rounded-medium border border-border_gray bg-white100 p-8 mb-2">
+        <img src={logoLight} alt="CareerNote" className="h-[34px] w-auto" />
+      </div>
+      <p className="text-detail text-gray600 mb-6 font-mono">logo/careernote-logo.png · 283×34</p>
+
+      <h3 className="text-subtitle3 font-semibold text-gray800 mb-3">어두운 배경</h3>
+      <div className="rounded-medium bg-gray900 p-8 mb-2">
+        <img src={logoDark} alt="CareerNote" className="h-[34px] w-auto" />
+      </div>
+      <p className="text-detail text-gray600 mb-6 font-mono">logo/careernote-logo-on-dark.png · 377×45</p>
+
+      <h3 className="text-subtitle3 font-semibold text-gray800 mb-3">크기</h3>
+      <div className="flex flex-wrap items-end gap-8 rounded-medium border border-border_gray bg-white100 p-8 mb-6">
+        {LOGO_SIZES.map((h) => (
+          <div key={h} className="flex flex-col items-center gap-2">
+            <img src={logoLight} alt="CareerNote" style={{ height: h }} className="w-auto" />
+            <span className="text-detail text-gray600 font-mono">{h}px</span>
+          </div>
+        ))}
+      </div>
+
+      <h3 className="text-subtitle3 font-semibold text-gray800 mb-3">사용</h3>
+      <pre className="rounded-medium bg-bg_gray1 p-4 text-detail font-mono text-gray800 overflow-x-auto mb-6">
+{`import logo from '@careernote/assets/logo/careernote-logo.png'
+<img src={logo} alt="CareerNote" className="h-[22px] w-auto" />
+
+// 파일 import 가 불가능한 환경(캔버스 엔진·헤드리스)
+import logoData from '@careernote/assets/logo/careernote-logo.base64.json'`}
+      </pre>
+
+      <h3 className="text-subtitle3 font-semibold text-gray800 mb-3">금지</h3>
+      <ul className="text-body2 text-gray700 list-disc pl-5 flex flex-col gap-1">
+        <li>도형·텍스트·아이콘 조합으로 로고를 다시 그리기</li>
+        <li>비율 변경, 색 변경, 회전, 그림자 추가</li>
+        <li>어두운 배경에 기본 로고를 그대로 얹기 (on-dark 파일을 쓸 것)</li>
+      </ul>
+    </Section>
+  );
+}
+
 const NAV = [
+  { id: 'brand', label: 'Brand', el: <BrandSection /> },
   { id: 'colors', label: 'Colors', el: <ColorSection /> },
   { id: 'typography', label: 'Typography', el: <TypographySection /> },
   { id: 'surface', label: 'Radius & Shadow', el: <SurfaceSection /> },
@@ -478,7 +532,7 @@ const NAV = [
 ];
 
 export default function App() {
-  const [active, setActive] = useState('colors');
+  const [active, setActive] = useState('brand');
   const current = NAV.find((n) => n.id === active) ?? NAV[0];
   return (
     <div className="flex min-h-screen">
