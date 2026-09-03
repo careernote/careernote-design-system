@@ -32,9 +32,10 @@ AI 에이전트로 프론트엔드 코드를 작성할 때 아래 규칙을 따�
 
 ## 로고
 
-로고는 `@careernote/assets` 의 `logo/careernote-logo.png` (어두운 배경은 `careernote-logo-on-dark.png`) 를 쓴다.
+**기본 로고는 아이콘 단독(심볼) `logo/careernote-symbol.svg` 다.** 이름을 함께 보여야 하는 자리에서만 가로형
+`logo/careernote-logo.png` (어두운 배경은 `careernote-logo-on-dark.png`) 를 쓴다.
 **도형·텍스트·아이콘 조합으로 로고를 다시 그리지 않는다.** 비율과 색은 그대로 두고 크기만 조정한다.
-파일 import 가 불가능한 환경(캔버스 엔진 등)은 `logo/careernote-logo.base64.json` 을 쓴다.
+파일 import 가 불가능한 환경(캔버스 엔진 등)은 `logo/*.base64.json` 을 쓴다.
 
 ## 토큰 소비 방법
 
