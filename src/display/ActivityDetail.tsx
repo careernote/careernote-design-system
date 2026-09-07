@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Chip from './Chip';
 import Icon from './Icon';
+import { ImageLightbox } from '../overlays/ImageLightbox';
 
 // 활동 상세 (Figma "container" 컴포넌트) — 이미지 슬롯 · 제목/기간 · 스킬 칩 · 본문(3줄 말줄임+더보기, 다시 접기 없음) · Result · 동료 코멘트
 export interface ActivityComment {
@@ -21,20 +22,38 @@ interface ActivityDetailProps {
   /** STAR 의 Result. 없으면 미표출 */
   result?: string;
   comments?: ActivityComment[];
+  /** 썸네일 클릭 — 기본은 내장 라이트박스로 원본 보기 */
+  onImageClick?: (index: number) => void;
   className?: string;
 }
 
-export function ActivityDetail({ title, period, images = [], skills = [], body, result, comments = [], className = '' }: ActivityDetailProps) {
+export function ActivityDetail({ title, period, images = [], skills = [], body, result, comments = [], onImageClick, className = '' }: ActivityDetailProps) {
   const [expanded, setExpanded] = useState(false);
+  const [lightbox, setLightbox] = useState<number | null>(null);
   return (
     <div className={`flex flex-col gap-3 ${className}`.trim()}>
       {images.length > 0 && (
         <div className="flex gap-3 overflow-x-auto">
           {images.map((src, i) => (
-            <div key={i} className="shrink-0 w-[122px] h-32 rounded-[7px] bg-gray800 overflow-hidden flex items-center justify-center">
-              {src ? <img src={src} alt="" className="w-full h-full object-cover" /> : <Icon name="nonImage" size={14} color="white" />}
-            </div>
+            <button
+              key={i}
+              type="button"
+              aria-label={`활동 이미지 ${i + 1} 크게 보기`}
+              disabled={!src}
+              onClick={(e) => {
+                e.stopPropagation();
+                if (onImageClick) onImageClick(i);
+                else setLightbox(i);
+              }}
+              className={`shrink-0 h-32 rounded-[7px] bg-gray800 overflow-hidden flex items-center justify-center border-0 p-0 cursor-zoom-in disabled:cursor-default transition-opacity hover:opacity-90 ${
+                src ? '' : 'w-[122px]'
+              }`}
+            >
+              {/* 비율 유지: 높이 128 고정, 너비는 이미지 비율(가로 사진은 최대 240px) — 잘라내지 않는다 */}
+              {src ? <img src={src} alt="" className="h-full w-auto min-w-[122px] max-w-[240px] object-cover" /> : <Icon name="nonImage" size={14} color="white" />}
+            </button>
           ))}
+          {!onImageClick && <ImageLightbox images={images.filter(Boolean)} index={lightbox} onClose={() => setLightbox(null)} />}
         </div>
       )}
       <div className="flex items-center gap-3">
