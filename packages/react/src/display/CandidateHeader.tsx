@@ -7,8 +7,8 @@ export interface CandidateHeaderData {
   name: string;
   role: string;
   imageUrl?: string;
-  slogan: string;
-  introduction: string;
+  slogan?: string;
+  introduction?: string;
   contacts?: ContactEntry[];
 }
 

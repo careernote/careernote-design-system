@@ -15,8 +15,8 @@ export const FITNESS_COLOR: Record<FitnessLevel, 'blue' | 'green' | 'amber'> = {
 
 export interface EducationEntry {
   school: string
-  degree: string
-  major: string
-  period: string
-  status: string
+  degree?: string
+  major?: string
+  period?: string
+  status?: string
 }

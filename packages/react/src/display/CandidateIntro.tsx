@@ -9,8 +9,8 @@ export interface ContactEntry {
 }
 
 interface CandidateIntroProps {
-  slogan: string;
-  introduction: string;
+  slogan?: string;
+  introduction?: string;
   contacts?: ContactEntry[];
   className?: string;
 }
@@ -19,8 +19,8 @@ export function CandidateIntro({ slogan, introduction, contacts = [], className 
   return (
     <div className={`min-w-0 flex-1 flex flex-col justify-between gap-5 ${className}`.trim()}>
       <div className="flex flex-col gap-2">
-        <p className="text-subtitle3 font-medium text-gray900">{slogan}</p>
-        <p className="text-body2 leading-5 text-gray800 whitespace-pre-line">{introduction}</p>
+        {slogan && <p className="text-subtitle3 font-medium text-gray900">{slogan}</p>}
+        {introduction && <p className="text-body2 leading-5 text-gray800 whitespace-pre-line">{introduction}</p>}
       </div>
       {contacts.length > 0 && (
         <div className="flex flex-wrap items-center gap-3">

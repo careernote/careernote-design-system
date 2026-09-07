@@ -23,8 +23,8 @@ export interface ActivityData {
 export interface HistoryData {
   type?: 'career' | 'education';
   name: string;
-  role: string;
-  period: string;
+  role?: string;
+  period?: string;
   logoUrl?: string;
   activities?: ActivityData[];
 }
@@ -36,6 +36,8 @@ interface CandidateDetailProps {
   onEditProfile?: () => void;
   /** 인재풀 상세에만 */
   summary?: SummaryItem[];
+  /** 기본 '프로필 요약' (인재풀 상세는 '프로필 세줄 요약') */
+  summaryTitle?: string;
   /** 경력 → 학력 순 */
   histories?: HistoryData[];
   skills?: string[];
@@ -54,6 +56,7 @@ export function CandidateDetail({
   header,
   onEditProfile,
   summary,
+  summaryTitle,
   histories = [],
   skills,
   awards,
@@ -68,7 +71,7 @@ export function CandidateDetail({
       {attachments && attachments.length > 0 && <AttachmentBar items={attachments} />}
       <CandidateHeader {...header} onEdit={onEditProfile} />
       <Divider />
-      {summary && summary.length > 0 && <ProfileSummary items={summary} />}
+      {summary && summary.length > 0 && <ProfileSummary title={summaryTitle} items={summary} />}
       {histories.map((h, i) => (
         <React.Fragment key={i}>
           {i > 0 && <Divider />}
