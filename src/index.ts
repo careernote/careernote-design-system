@@ -2,7 +2,7 @@
 export { Button, ButtonRound, ToggleButton, AddDashedButton, IconButton, TextLink } from './buttons';
 
 // Inputs
-export { TextInput, Textarea, Selector, Checkbox } from './inputs';
+export { TextInput, Textarea, Selector, Checkbox, LevelSelector, LEVEL_LABELS } from './inputs';
 
 // Display
 export { Chip, CategoryChip, SelectCard, SelectableChip, PlanCard, PlanFeature, RibbonBadge, StarGrid, STAR_DISPLAY, type StarValues, Badge, type BadgeVariant, ActivityCard, ProChip, TemplateChips, Information, Icon, CheckIcon, Tooltip, NumberBadge } from './display';
@@ -12,6 +12,7 @@ export {
   CandidateHistory, ApplicantCard, TalentpoolCard, BoardCard,
 } from './display';
 export type { ExperienceEntry, CareerEntry, FitnessLevel, EducationEntry } from './display';
+export { FeedCard, type FeedCardProps } from './display';
 export {
   ProfileHero, ContactItem, CandidateIntro, ProfileSummary, SectionLabel, ProfileItem, HistoryEntry, ActivityDetail,
   AiEvaluationCard, FitActivityItem, RequirementCard, ApplicantEvaluationPanel,
@@ -24,10 +25,10 @@ export { Alert } from './feedback';
 export * from './feedback/Snackbar';
 
 // Overlays
-export { Modal, ModalHeader, ResponsiveModal, ConfirmModal } from './overlays';
+export { Modal, ModalHeader, ResponsiveModal, ConfirmModal, ImageLightbox } from './overlays';
 
 // Navigation
-export { SubHeader, ProgressBarItem, HeaderMenuItem, InHeader, Sidebar, SidebarMenuItem, SidebarAccount } from './navigation';
+export { SubHeader, ProgressBarItem, HeaderMenuItem, InHeader, Sidebar, SidebarMenuItem, SidebarAccount, PillTabs, type PillTabItem, SegmentedControl, type SegmentItem, FilterChips, type FilterChipItem, UnderlineTabs, type UnderlineTabItem } from './navigation';
 
 // Icons
 export * from './icons';
