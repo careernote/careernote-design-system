@@ -16,37 +16,44 @@ withDefaults(
     imageUrl?: string
     careerLabel: string
     job: string
-    fitness: FitnessLevel
+    /** 미지정 = 검토 전 */
+    fitness?: FitnessLevel
     /** 채용 프로세스 단계명 */
     status: string
     /** 단계 색상 (CSS color) — 프로세스 단계 색을 따른다 */
     statusColor?: string
     /** 최초 지원일 (예: "24.03.15") */
     appliedAt: string
-    aiSummary: string
+    aiSummary?: string
     careers: CareerEntry[]
     education?: EducationEntry
     /** 공고에 가장 적합한 활동 최대 2개 */
     experiences?: ExperienceEntry[]
     memo?: string
+    clickable?: boolean
   }>(),
-  { statusColor: '#03C75A', experiences: () => [] },
+  { statusColor: '#03C75A', experiences: () => [], clickable: false },
 )
 
 const emit = defineEmits<{
   (e: 'status-click'): void
   (e: 'experience-click', exp: ExperienceEntry, index: number): void
+  (e: 'click'): void
 }>()
 </script>
 
 <template>
-  <div class="w-[500px] max-w-full flex flex-col gap-4 p-5 bg-white100 border border-border-gray rounded-xlarge shadow-wide-light">
+  <div
+    class="w-full flex flex-col gap-4 p-5 bg-white100 border border-border-gray rounded-xlarge shadow-wide-light"
+    :class="clickable ? 'cursor-pointer transition-colors hover:border-gray400' : ''"
+    @click="clickable && emit('click')"
+  >
     <div class="flex flex-col gap-4">
       <CandidateProfile :name="name" :image-url="imageUrl" :career-label="careerLabel" :job="job">
         <template #badge><FitnessChip :level="fitness" /></template>
         <template #aside>
           <div class="shrink-0 flex flex-col items-end justify-center gap-1">
-            <button type="button" :aria-label="`지원 상태: ${status}`" @click="emit('status-click')">
+            <button type="button" :aria-label="`지원 상태: ${status}`" @click.stop="emit('status-click')">
               <Chip size="XL" variant="soft" color="basic" class="gap-1">
                 <span :style="{ color: statusColor }">{{ status }}</span>
                 <Icon name="arrow-down" :size="18" color="gray800" />
@@ -70,7 +77,7 @@ const emit = defineEmits<{
           :key="i"
           v-bind="exp"
           clickable
-          @click="emit('experience-click', exp, i)"
+          @click.stop="emit('experience-click', exp, i)"
         />
       </div>
       <div v-if="memo !== undefined" class="flex items-center gap-4 h-5">

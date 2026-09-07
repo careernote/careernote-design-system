@@ -18,10 +18,11 @@ const FITNESS_COLOR: Record<FitnessLevel, 'blue' | 'green' | 'amber'> = {
 };
 
 /** [적합도] chip — 공고 지원자 카드 전용. 높음 blue / 보통 green / 낮음 amber(yellow) */
-export function FitnessChip({ level, muted = false }: { level: FitnessLevel; muted?: boolean }) {
+export function FitnessChip({ level, muted = false }: { level?: FitnessLevel; muted?: boolean }) {
+  // level 미지정 = 검토 전 (basic)
   return (
-    <Chip size="M" variant="soft" color={muted ? 'basic' : FITNESS_COLOR[level]} className="font-normal">
-      {FITNESS_LABEL[level]}
+    <Chip size="M" variant="soft" color={muted || !level ? 'basic' : FITNESS_COLOR[level]} className="font-normal">
+      {level ? FITNESS_LABEL[level] : '검토 전'}
     </Chip>
   );
 }
