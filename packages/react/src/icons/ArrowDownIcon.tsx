@@ -19,7 +19,7 @@ export const ArrowDownIcon: React.FC<BaseIconProps> = ({
     data-testid={testId}
   >
     <path
-      d="M4.316 9.8813L10 15.8813L15.684 9.8813"
+      d="M5 7.5L10 12.5L15 7.5"
       stroke={color}
       strokeWidth="1.67"
       strokeLinecap="round"

@@ -184,6 +184,7 @@ import { Ticket02Icon } from './Ticket02Icon';
 import { TrendDown01Icon } from './TrendDown01Icon';
 import { ExpandIcon } from './ExpandIcon';
 import { ArrowUpRightIcon } from './ArrowUpRightIcon';
+import { Arrow2Icon } from './Arrow2Icon';
 import { GlobeIcon } from './GlobeIcon';
 import { CameraOffIcon } from './CameraOffIcon';
 import { MicOnlyIcon } from './MicOnlyIcon';
@@ -295,6 +296,7 @@ export const iconMap: Record<string, React.ComponentType<BaseIconProps>> = {
   trend_down_01: TrendDown01Icon,
   expand: ExpandIcon,
   'arrow-up-right': ArrowUpRightIcon,
+  arrow2: Arrow2Icon,
   globe: GlobeIcon,
   camera_off: CameraOffIcon,
   mic_only: MicOnlyIcon,

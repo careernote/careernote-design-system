@@ -128,7 +128,7 @@ export const ICON_SVGS: Record<string, IconSvg> = {
   },
   "ArrowDownIcon": {
     "viewBox": "0 0 20 20",
-    "body": "<path\n      d=\"M4.316 9.8813L10 15.8813L15.684 9.8813\"\n      stroke=\"currentColor\"\n      stroke-width=\"1.67\"\n      stroke-linecap=\"round\"\n      stroke-linejoin=\"round\"\n    />"
+    "body": "<path\n      d=\"M5 7.5L10 12.5L15 7.5\"\n      stroke=\"currentColor\"\n      stroke-width=\"1.67\"\n      stroke-linecap=\"round\"\n      stroke-linejoin=\"round\"\n    />"
   },
   "PlusIcon": {
     "viewBox": "0 0 20 20",
@@ -517,6 +517,7 @@ export const ICON_NAME_MAP: Record<string, string> = {
   "trend_down_01": "TrendDown01Icon",
   "expand": "ExpandIcon",
   "arrow-up-right": "ArrowUpRightIcon",
+  "arrow2": "Arrow2Icon",
   "globe": "GlobeIcon",
   "camera_off": "CameraOffIcon",
   "mic_only": "MicOnlyIcon",
