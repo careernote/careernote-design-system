@@ -5,11 +5,11 @@ import Icon from './icons/Icon.vue'
 
 export interface ExperienceEntry {
   title: string
-  org: string
+  org?: string
   imageUrl?: string
 }
 
-const props = defineProps<{ title: string; org: string; imageUrl?: string; clickable?: boolean }>()
+const props = defineProps<{ title: string; org?: string; imageUrl?: string; clickable?: boolean }>()
 const emit = defineEmits<{ (e: 'click'): void }>()
 
 const classes = computed(
@@ -28,7 +28,7 @@ const classes = computed(
     </div>
     <div class="min-w-0 flex flex-col gap-1">
       <p class="text-body1 font-semibold text-gray900 truncate">{{ title }}</p>
-      <p class="text-body2 font-medium text-gray700 truncate">{{ org }}</p>
+      <p v-if="org" class="text-body2 font-medium text-gray700 truncate">{{ org }}</p>
     </div>
   </component>
 </template>

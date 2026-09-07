@@ -3,7 +3,7 @@
 import ProfileHero from './ProfileHero.vue'
 import CandidateIntro from './CandidateIntro.vue'
 import type { ContactEntry } from './CandidateIntro.vue'
-export interface CandidateHeaderData { name: string; role: string; imageUrl?: string; slogan: string; introduction: string; contacts?: ContactEntry[] }
+export interface CandidateHeaderData { name: string; role: string; imageUrl?: string; slogan?: string; introduction?: string; contacts?: ContactEntry[] }
 withDefaults(defineProps<CandidateHeaderData & { editable?: boolean }>(), { editable: false })
 const emit = defineEmits<{ (e: 'edit'): void }>()
 </script>
