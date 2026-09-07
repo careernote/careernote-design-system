@@ -6,7 +6,7 @@ import FitnessChip from './FitnessChip.vue'
 import type { FitnessLevel } from './candidate-types'
 
 const props = withDefaults(
-  defineProps<{ name: string; imageUrl?: string; careerLabel: string; fitness: FitnessLevel; rejected?: boolean; clickable?: boolean }>(),
+  defineProps<{ name: string; imageUrl?: string; careerLabel: string; fitness?: FitnessLevel; rejected?: boolean; clickable?: boolean }>(),
   { rejected: false, clickable: false },
 )
 const emit = defineEmits<{ (e: 'click'): void }>()
