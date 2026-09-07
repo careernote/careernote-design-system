@@ -5,7 +5,7 @@ import { computed } from 'vue'
 const props = withDefaults(
   defineProps<{
     size?: 'S' | 'M' | 'L' | 'XL'
-    color?: 'black' | 'basic' | 'sky' | 'red' | 'blue' | 'green' | 'purple'
+    color?: 'black' | 'basic' | 'sky' | 'red' | 'blue' | 'green' | 'purple' | 'amber'
     variant?: 'solid' | 'soft'
   }>(),
   { size: 'M', color: 'basic', variant: 'solid' },
@@ -27,6 +27,7 @@ const colorStyles = {
     blue: 'bg-blue200 text-white',
     green: 'bg-green100 text-white',
     purple: 'bg-[#7B5CFA] text-white',
+    amber: 'bg-amber-deep text-white',
   },
   soft: {
     black: 'bg-bg-gray1 text-gray700',
@@ -36,6 +37,7 @@ const colorStyles = {
     blue: 'bg-blue10 text-blue100',
     green: 'bg-green10 text-green100',
     purple: 'bg-[#F3EFFF] text-[#7B5CFA]',
+    amber: 'bg-amber10 text-amber-deep',
   },
 } as const
 

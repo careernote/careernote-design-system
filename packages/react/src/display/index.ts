@@ -18,3 +18,32 @@ export { NumberBadge } from './NumberBadge';
 
 // Re-export types
 export type { IconProps, BaseIconProps } from './Icon';
+
+// 채용/인재풀 카드 (Figma 채용/인재풀 카드 컴포넌트)
+export { ProfileAvatar } from './ProfileAvatar';
+export { ExperienceItem, type ExperienceEntry } from './ExperienceItem';
+export { CareerTooltip, type CareerEntry } from './CareerTooltip';
+export { CandidateProfile, FitnessChip, UpdatedChip, FITNESS_LABEL, type FitnessLevel } from './CandidateProfile';
+export { CandidateHistory, type EducationEntry } from './CandidateHistory';
+export { ApplicantCard } from './ApplicantCard';
+export { TalentpoolCard } from './TalentpoolCard';
+export { BoardCard } from './BoardCard';
+
+// 지원자/인재 상세페이지 + 평가 모달 (Figma 지원자/인재 상세페이지 컴포넌트)
+export { ProfileHero } from './ProfileHero';
+export { ContactItem, type ContactType } from './ContactItem';
+export { CandidateIntro, type ContactEntry } from './CandidateIntro';
+export { ProfileSummary, type SummaryItem } from './ProfileSummary';
+export { SectionLabel } from './SectionLabel';
+export { ProfileItem } from './ProfileItem';
+export { HistoryEntry } from './HistoryEntry';
+export { ActivityDetail, type ActivityComment } from './ActivityDetail';
+export { AiEvaluationCard } from './AiEvaluationCard';
+export { FitActivityItem } from './FitActivityItem';
+export { RequirementCard, type RequirementItem } from './RequirementCard';
+export { ApplicantEvaluationPanel, type FitActivity } from './ApplicantEvaluationPanel';
+export { AttachmentBar, type AttachmentEntry } from './AttachmentBar';
+export { CandidateHeader, type CandidateHeaderData } from './CandidateHeader';
+export { SkillSection } from './SkillSection';
+export { ProfileItemSection, type ProfileItemEntry } from './ProfileItemSection';
+export { CandidateDetail, type ActivityData, type HistoryData } from './CandidateDetail';

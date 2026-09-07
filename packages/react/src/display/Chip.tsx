@@ -1,6 +1,6 @@
 interface Props {
   size?: 'S' | 'M' | 'L' | 'XL';
-  color?: 'black' | 'sky' | 'red' | 'blue' | 'green' | 'purple' | 'basic';
+  color?: 'black' | 'sky' | 'red' | 'blue' | 'green' | 'purple' | 'amber' | 'basic';
   variant?: 'solid' | 'soft';
   className?: string;
 }
@@ -21,6 +21,7 @@ const colorStyles = {
     blue: 'bg-blue200 text-white',
     green: 'bg-green100 text-white',
     purple: 'bg-[#B100ED] text-white',
+    amber: 'bg-amber_deep text-white',
   },
   soft: {
     black: 'bg-bg_gray1 text-gray700',
@@ -30,6 +31,7 @@ const colorStyles = {
     blue: 'bg-blue10 text-blue100',
     green: 'bg-green10 text-green100',
     purple: 'bg-[#F9E7FF] text-[#B100ED]',
+    amber: 'bg-amber10 text-amber_deep',
   },
 };
 
