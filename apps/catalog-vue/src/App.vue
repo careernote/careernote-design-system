@@ -6,6 +6,9 @@ import {
   SubHeader, NextStepFooter, SearchInput, TextLink, Spinner, Checkbox, LottieLoadingDots, ConfirmModal, ResponsiveModal,
   TextInput, Textarea, Selector, Modal, InHeader, HeaderMenuItem, ProgressBarItem,
   Icon, ICON_NAME_MAP,
+  ApplicantCard, TalentpoolCard, BoardCard, ExperienceItem, CareerTooltip, ProfileAvatar,
+  Sidebar, SidebarMenuItem, SidebarAccount,
+  CandidateDetail, ApplicantEvaluationPanel,
 } from '@careernote/vue'
 import tokens from '@careernote/tokens/tokens.json'
 import LottiePreview from './LottiePreview.vue'
@@ -32,11 +35,112 @@ const NAV = [
   { id: 'feedback', label: 'Feedback & Overlays' },
   { id: 'navigation', label: 'Navigation' },
   { id: 'cards', label: 'Cards' },
+  { id: 'ats', label: 'ATS', children: [{ id: 'ats-sidebar', label: 'Sidebar' }, { id: 'ats-cards', label: 'Cards' }, { id: 'ats-detail', label: 'Detail' }] },
   { id: 'icons', label: 'Icons' },
 ] as const
 
-const active = ref<(typeof NAV)[number]['id']>('brand')
+type NavId = (typeof NAV)[number] extends infer N ? (N extends { children: readonly { id: infer C }[] } ? C : N extends { id: infer I } ? I : never) : never
+const active = ref<NavId>('brand')
+const open = ref<Record<string, boolean>>({})
+const leafClass = (id: string, sub = false) =>
+  `text-left py-2 rounded-small text-body2 transition-colors ${sub ? 'pl-8 pr-3' : 'px-3'} ${
+    active.value === id ? 'bg-sky-bg text-sky font-semibold' : 'text-gray800 font-medium hover:bg-bg-gray2'
+  }`
+
+const CANDIDATE_CAREERS = [
+  { company: '카카오 모빌리티', role: '디자이너', period: '24.12 ~ 현재' },
+  { company: '커리어노트', role: '디자이너', period: '22.03 ~ 24.11' },
+  { company: '삼성 전자', role: '디자이너', period: '20.01 ~ 22.02' },
+]
+const CANDIDATE_EDUCATION = { school: '홍익대학교', degree: '학사', major: '시각디자인', period: '16.03 ~ 21.02', status: '졸업' }
+const CANDIDATE_SUMMARY =
+  '이력서 기재 내용과 포트폴리오 결과물의 일관성이 높고, 성과를 정량적으로 서술해 업무 이해도가 높아 보임. 다음 단계 진행 추천'
+const CANDIDATE_EXPERIENCES = [
+  { title: '켈리 삼성역 옥외광고 진행', org: '삼성전자' },
+  { title: '브랜드 리뉴얼 키비주얼 디자인', org: '카카오 모빌리티' },
+]
 const toggleOn = ref(true)
+const sidebarMenu = ref('jobs')
+
+const DETAIL_BODY =
+  '삼성역 옥외광고 집행을 위한 기획 프로젝트를 진행했습니다.\n현장 특성과 시간대별 유동 인구 흐름, 매체 노출 환경을 분석해 광고 콘셉트와 핵심 메시지를 설계했으며, 제작 가이드 정리부터 집행 일정 관리까지 전반을 담당했습니다. 특히 실제 시야각과 이동 동선을 기준으로 메시지 가독성과 시인성을 반복적으로 점검하고 수정·보완하며 완성도를 높였습니다.\n그 결과 광고는 일평균 수만 명에게 노출되었으며, 주요 동선 내에서 안정적인 노출 효과를 확보해 브랜드 인지도 제고에 기여했습니다.'
+const DETAIL_RESULT =
+  '커뮤니케이션 속도가 향상되고 주문 처리 과정에서의 오류가 줄어드는 성과를 거두었습니다. 현장 상황에 신속하게 대응할 수 있는 체계가 마련되어 업무 효율성이 크게 개선되었고, 고객 만족도 향상에도 긍정적인 영향을 미쳤습니다.'
+const DETAIL_SKILLS = ['TypeScript', 'ReactJS', 'ElasticSearch', 'Redis', 'AWS']
+const DETAIL_SUMMARY = [
+  { title: 'AI 투자 콘텐츠 서비스 기획·개발', description: 'AI 에이전트 기반 기업분석 리포트 서비스를 직접 기획·개발해 누적 방문자 1,400명과 회원 60명을 확보하고 매출이 2배로 올랐어요.' },
+  { title: '업무 자동화로 성과를 만든 문제 해결가', description: '업무 자동화를 활용해 데이터 정제와 거래내역 처리 시간을 단축하고 추가 수탁 100억 원 유치에 기여했어요.' },
+  { title: '금융 영업과 자산운용 실무 역량', description: '기업금융과 자산운용 업무를 수행하며 고객 영업, 세미나 기획, 투자자문 및 운용지원 경험을 쌓았어요.' },
+]
+const DETAIL_INTRO =
+  '애플리케이션을 설계하고 구축하며, 서비스 요구사항을 분석해 안정적이고 확장 가능한 구조를 구현합니다. React와 TypeScript, Node.js에 대한 깊은 이해를 바탕으로 프론트엔드부터 백엔드까지 전반적인 개발을 주도해왔습니다.\n또한 팀 리더로서 협업 문화를 조성하고, 주니어 개발자 멘토링과 코드 리뷰를 통해 팀의 기술 역량과 생산성을 함께 성장시킨 경험이 풍부합니다.'
+const DETAIL_CONTACTS = [
+  { type: 'phone' as const, value: '010 1234 5678' },
+  { type: 'email' as const, value: 'minjunkim@gmail.com' },
+  { type: 'website' as const, value: 'minjunkim.dev', href: 'https://minjunkim.dev' },
+]
+const DETAIL_COMMENTS = [{ role: '개발자', text: '디테일에 강하고 일정을 잘 지켜줘서 신뢰가 가요.' }, { role: '디자이너', text: '디테일에 강하고 일정을 잘 지켜줘서 신뢰가 가요.' }]
+const DETAIL_ACTIVITY = (id: string, withImages = false, withComments = false) => ({
+  id,
+  title: '켈리 삼성역 옥외광고 진행',
+  period: '2024. 05 - 2026. 01',
+  images: withImages ? ['', '', '', ''] : undefined,
+  skills: DETAIL_SKILLS,
+  body: DETAIL_BODY,
+  result: DETAIL_RESULT,
+  comments: withComments ? DETAIL_COMMENTS : undefined,
+})
+const DETAIL_ATTACHMENTS = [
+  { kind: 'file' as const, label: '이력서 김민준_이력서.pdf' },
+  { kind: 'clip' as const, label: '첨부파일 김민준_포트폴리오_2025.pdf' },
+  { kind: 'star' as const, label: '커리어노트 포트폴리오' },
+]
+const DETAIL_HEADER = {
+  name: '김민준',
+  role: '백엔드 개발자',
+  slogan: '7년 경력의 풀스택 개발자로, 사용자 경험을 최우선으로 생각합니다.',
+  introduction: DETAIL_INTRO,
+  contacts: DETAIL_CONTACTS,
+}
+const DETAIL_HISTORIES = [
+  { name: '아이엠디티', role: '개발 팀원', period: '2024. 05 - 2026. 01 · 1년 9월', activities: [DETAIL_ACTIVITY('1', true, true), DETAIL_ACTIVITY('2')] },
+  { type: 'education' as const, name: '홍익대학교', role: '시각디자인', period: '2024. 05 - 2026. 01 · 1년 9월', activities: [DETAIL_ACTIVITY('3')] },
+]
+const DETAIL_AWARDS = [
+  { title: 'IF 디자인 대상', sub: 'IF design', date: '2024.03' },
+  { title: '블록체인 해커톤 3등', sub: 'Trone community', date: '2022.08' },
+  { title: '디자인 대회 입상', sub: 'Korea design', date: '2022.08' },
+]
+const DETAIL_CERTS = [
+  { title: '운전면허증 2종', sub: '경찰청', date: '2024.03' },
+  { title: 'SQL 전문가 자격증', sub: '한국데이터 베이스진흥원', date: '2024.03' },
+]
+const DETAIL_LANGS = [
+  { title: '중국어', sub: '일상회화 가능' },
+  { title: '영어', sub: '기초회화 가능' },
+]
+const EVAL_ITEMS = [
+  '경력기술서상 담당 업무와 사용 툴이 공고 요구사항과 대부분 일치하며, 최근 프로젝트 경험이 최신 기술 스택과도 맞닿아 있어 우선순위 높게 검토',
+  '이력서 기재 내용과 포트폴리오 결과물의 일관성이 높고, 성과를 정량적으로 서술해 업무 이해도가 높아 보임. 다음 단계 진행 추천',
+  '이력서 기재 내용과 포트폴리오 결과물의 일관성이 높고, 성과를 정량적으로 서술해 업무 이해도가 높아 보임. 다음 단계 진행 추천',
+]
+const FIT_ACTIVITIES = [
+  { id: '1', title: '켈리 삼성역 옥외광고 진행', org: '삼성전자' },
+  { id: '2', title: '켈리 삼성역 옥외광고 진행', org: '삼성전자' },
+  { id: '3', title: '켈리 삼성역 옥외광고 진행', org: '삼성전자' },
+]
+const REQUIREMENTS = [
+  { text: '앱/웹 디자인 경력 5년 이상 혹은 이에 준하는 실무 능력 보유자', status: 'met' as const },
+  { text: '사용자 관점과 비즈니스 이해를 바탕으로 UX를 설계하고 실제 런칭 경험이 있는 분', status: 'met' as const },
+  { text: 'REST API, 인증/인가, 데이터 흐름에 대한 기본 이해가 있는 분', status: 'met' as const },
+  { text: 'Git(GitHub, GitLab 등) 기반 협업 경험이 있는 분', status: 'met' as const },
+  { text: 'Claude Code, GitHub Copilot 등 AI 기반 개발 도구 활용에 익숙한 분', status: 'unmet' as const },
+  { text: 'React/Vue 등을 이용한 서비스 개발/운영 경험이 있는 분', status: 'unmet' as const },
+]
+const PREFERENCES = [
+  { text: '대규모 서비스 개발 프로젝트에서 프론트엔드 성능 최적화 경험이 있는 분' },
+  { text: 'CI/CD를 통해 테스트/빌드/배포 경험이 있는 분' },
+]
 const checkboxOn = ref(false)
 const inputVal = ref('')
 const selVal = ref('')
@@ -54,16 +158,26 @@ const iconNames = Object.keys(ICON_NAME_MAP)
         <span class="block text-detail font-medium text-gray700 mt-0.5">Design System · Vue</span>
       </h1>
       <nav class="mt-6 flex flex-col gap-0.5">
-        <button
-          v-for="item in NAV"
-          :key="item.id"
-          type="button"
-          class="text-left px-3 py-2 rounded-small text-body2 transition-colors"
-          :class="active === item.id ? 'bg-sky-bg text-sky font-semibold' : 'text-gray800 font-medium hover:bg-bg-gray2'"
-          @click="active = item.id"
-        >
-          {{ item.label }}
-        </button>
+        <template v-for="item in NAV" :key="item.id">
+          <div v-if="'children' in item" class="flex flex-col gap-0.5">
+            <button
+              type="button"
+              :aria-expanded="!!open[item.id]"
+              class="flex items-center justify-between px-3 py-2 rounded-small text-body2 font-medium transition-colors hover:bg-bg-gray2"
+              :class="item.children.some((c) => c.id === active) ? 'text-sky' : 'text-gray800'"
+              @click="open[item.id] = !open[item.id]"
+            >
+              {{ item.label }}
+              <Icon name="arrow-down" :size="16" class="transition-transform" :class="open[item.id] ? 'rotate-180' : ''" />
+            </button>
+            <template v-if="open[item.id]">
+              <button v-for="c in item.children" :key="c.id" type="button" :class="leafClass(c.id, true)" @click="active = c.id">
+                {{ c.label }}
+              </button>
+            </template>
+          </div>
+          <button v-else type="button" :class="leafClass(item.id)" @click="active = item.id">{{ item.label }}</button>
+        </template>
       </nav>
       <a href="../" class="mt-8 mx-3 inline-block text-detail text-sky hover:underline">↗ React 카탈로그</a>
       <a href="../guide/" class="mt-1 mx-3 inline-block text-detail text-sky hover:underline">↗ UI 작업 규칙 가이드</a>
@@ -398,6 +512,120 @@ import symbolData from '@careernote/assets/logo/careernote-symbol.base64.json'</
               <PlanFeature layout="row" emoji="📆" title="row 레이아웃 기능 항목" description="이모지 옆에 텍스트가 배치됩니다." />
             </div>
           </PlanCard>
+        </div>
+      </section>
+
+      <!-- ATS Sidebar -->
+      <section v-if="active === 'ats-sidebar'">
+        <h2 class="text-title2 font-bold text-gray900 mb-6 pb-2 border-b border-border-gray">ATS · Sidebar — 사이드 메뉴바</h2>
+        <p class="text-body2 text-gray700 mb-4">
+          <code class="font-mono text-sky">Sidebar</code> + <code class="font-mono text-sky">SidebarMenuItem</code>(default/mini, selected, hover = selected 룩) +
+          <code class="font-mono text-sky">SidebarAccount</code> — Figma "사이드메뉴바". 로고는 <code class="font-mono text-sky">@careernote/assets</code> on-dark 가로형을 slot 으로 전달
+        </p>
+        <div class="flex flex-row flex-wrap items-start gap-8">
+          <div class="flex flex-col gap-2">
+            <h3 class="text-subtitle3 font-semibold text-gray800">Sidebar — 조립 예시 (클릭으로 선택 이동)</h3>
+            <Sidebar class="h-[640px] rounded-large overflow-hidden">
+              <template #logo><img :src="logoDark" alt="CareerNote" class="h-6 w-auto" /></template>
+              <SidebarMenuItem label="인재풀" icon="user2" :selected="sidebarMenu === 'talent'" @click="sidebarMenu = 'talent'" />
+              <SidebarMenuItem label="공고 / 채용 현황" icon="text" :selected="sidebarMenu.startsWith('jobs')" @click="sidebarMenu = 'jobs'">
+                <SidebarMenuItem variant="mini" label="전체 공고" :selected="sidebarMenu === 'jobs-all'" @click="sidebarMenu = 'jobs-all'" />
+                <SidebarMenuItem variant="mini" label="전체 캘린더" :selected="sidebarMenu === 'jobs-calendar'" @click="sidebarMenu = 'jobs-calendar'" />
+              </SidebarMenuItem>
+              <template #footer><SidebarAccount name="달바코리아" email="kimeujin.careernote@gmail.com" clickable /></template>
+            </Sidebar>
+          </div>
+          <div class="flex flex-col gap-2">
+            <h3 class="text-subtitle3 font-semibold text-gray800">SidebarMenuItem — 상태별</h3>
+            <div class="w-60 flex flex-col gap-2 p-4 rounded-large bg-gray900">
+              <span class="text-detail text-gray600">default</span>
+              <SidebarMenuItem label="인재풀" icon="user2" />
+              <span class="text-detail text-gray600">default · selected</span>
+              <SidebarMenuItem label="공고 / 채용 현황" icon="text" selected />
+              <span class="text-detail text-gray600">mini</span>
+              <SidebarMenuItem variant="mini" label="전체 공고" />
+              <span class="text-detail text-gray600">mini · selected</span>
+              <SidebarMenuItem variant="mini" label="전체 공고" selected />
+            </div>
+            <h3 class="text-subtitle3 font-semibold text-gray800 mt-4">SidebarAccount</h3>
+            <div class="w-60 p-4 rounded-large bg-gray900">
+              <SidebarAccount name="달바코리아" email="kimeujin.careernote@gmail.com" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ATS Cards -->
+      <section v-if="active === 'ats-cards'">
+        <h2 class="text-title2 font-bold text-gray900 mb-6 pb-2 border-b border-border-gray">ATS · Cards — 채용/인재풀 카드</h2>
+        <p class="text-body2 text-gray700 mb-4">
+          <code class="font-mono text-sky">ApplicantCard</code> · <code class="font-mono text-sky">TalentpoolCard</code> ·
+          <code class="font-mono text-sky">BoardCard</code> — Figma "채용/인재풀 카드 컴포넌트". 경력 2개 이상이면 arrow 클릭 시
+          <code class="font-mono text-sky">CareerTooltip</code> 오버레이
+        </p>
+        <div class="flex flex-row flex-wrap items-start gap-6">
+          <div class="flex flex-col gap-2">
+            <h3 class="text-subtitle3 font-semibold text-gray800">ApplicantCard — 공고 지원자</h3>
+            <ApplicantCard
+              name="김민준" career-label="경력 8년" job="프론트엔드" fitness="high" status="접수" applied-at="24.03.15"
+              :ai-summary="CANDIDATE_SUMMARY" :careers="CANDIDATE_CAREERS" :education="CANDIDATE_EDUCATION"
+              :experiences="CANDIDATE_EXPERIENCES" memo="2024.12.04 이메일 컨택"
+            />
+          </div>
+          <div class="flex flex-col gap-2">
+            <h3 class="text-subtitle3 font-semibold text-gray800">TalentpoolCard — 인재풀</h3>
+            <TalentpoolCard
+              name="김민준" career-label="경력 8년" job="프론트엔드" :updated-days-ago="20"
+              :ai-summary="CANDIDATE_SUMMARY" :careers="CANDIDATE_CAREERS" :education="CANDIDATE_EDUCATION"
+              :experience="CANDIDATE_EXPERIENCES[0]"
+            />
+            <TalentpoolCard
+              name="이서연" career-label="경력 3년" job="백엔드" :updated-days-ago="45"
+              ai-summary="30일 이상 업데이트 없음 → 업데이트 칩 black soft" :careers="[CANDIDATE_CAREERS[0]]"
+            />
+          </div>
+        </div>
+
+        <h3 class="text-subtitle3 font-semibold text-gray800 mt-8 mb-2">BoardCard — 칸반보드 카드 (hover 시 sky 테두리 + 그림자)</h3>
+        <div class="flex flex-row flex-wrap gap-4">
+          <BoardCard name="김민준" career-label="경력 8년" fitness="high" clickable />
+          <BoardCard name="박지우" career-label="경력 5년" fitness="normal" clickable />
+          <BoardCard name="최하늘" career-label="신입" fitness="low" clickable />
+          <BoardCard name="김민준" career-label="경력 8년" fitness="high" rejected clickable />
+        </div>
+
+        <h3 class="text-subtitle3 font-semibold text-gray800 mt-8 mb-2">부품 — ExperienceItem · CareerTooltip · ProfileAvatar</h3>
+        <div class="flex flex-row flex-wrap items-start gap-6">
+          <div class="w-[458px] flex flex-col gap-2">
+            <ExperienceItem v-bind="CANDIDATE_EXPERIENCES[0]" clickable />
+            <ExperienceItem v-bind="CANDIDATE_EXPERIENCES[1]" />
+          </div>
+          <CareerTooltip :careers="CANDIDATE_CAREERS" />
+          <div class="flex items-center gap-2">
+            <ProfileAvatar name="김민준" />
+            <ProfileAvatar name="이서연" :size="40" />
+          </div>
+        </div>
+      </section>
+
+      <!-- ATS Detail -->
+      <section v-if="active === 'ats-detail'">
+        <h2 class="text-title2 font-bold text-gray900 mb-6 pb-2 border-b border-border-gray">ATS · Detail — 지원자/인재 상세페이지</h2>
+        <p class="text-body2 text-gray700 mb-4">
+          <code class="font-mono text-sky">CandidateDetail</code> — 데이터만 넘기면 조립되는 상세페이지. 부품:
+          <code class="font-mono text-sky">AttachmentBar</code> · <code class="font-mono text-sky">CandidateHeader</code>(ProfileHero+CandidateIntro) ·
+          <code class="font-mono text-sky">ProfileSummary</code> · <code class="font-mono text-sky">HistoryEntry</code>+<code class="font-mono text-sky">ActivityDetail</code> ·
+          <code class="font-mono text-sky">SkillSection</code> · <code class="font-mono text-sky">ProfileItemSection</code>(SectionLabel+ProfileItem). 세부 커스텀은 부품을 직접 조립
+        </p>
+        <CandidateDetail
+          class="border border-border-gray"
+          :attachments="DETAIL_ATTACHMENTS" :header="DETAIL_HEADER" editable :summary="DETAIL_SUMMARY" :histories="DETAIL_HISTORIES"
+          :skills="['Photoshop', 'SQL', 'C#', 'Photoshop', 'Figma']" :awards="DETAIL_AWARDS" :certifications="DETAIL_CERTS" :languages="DETAIL_LANGS"
+        />
+
+        <h3 class="text-subtitle3 font-semibold text-gray800 mt-8 mb-2">ApplicantEvaluationPanel — 지원자평가 모달 본문 (모달 껍데기는 소비자가 감싼다)</h3>
+        <div class="inline-block p-4 rounded-xlarge bg-bg-gray1">
+          <ApplicantEvaluationPanel fit-label="높음" :evaluation="EVAL_ITEMS" :summary="DETAIL_SUMMARY" :fit-activities="FIT_ACTIVITIES" :requirements="REQUIREMENTS" :preferences="PREFERENCES" />
         </div>
       </section>
 

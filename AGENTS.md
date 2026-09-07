@@ -60,10 +60,12 @@ AI 에이전트로 프론트엔드 코드를 작성할 때 아래 규칙을 따�
 **CareerNote 프리미티브** (`@careernote/react` 메인 배럴):
 - buttons: `Button`(5 color × 3 size), `ToggleButton`
 - inputs: `TextInput`, `Textarea`, `Selector`
-- display: `Chip`(7 color × 4 size × 2 variant), `ProChip`, `TemplateChips`, `Icon`, `Tooltip`, `Information`, `NumberBadge`
+- display: `Chip`(8 color × 4 size × 2 variant), `ProChip`, `TemplateChips`, `Icon`, `Tooltip`, `Information`, `NumberBadge`
+- ATS 카드: `ApplicantCard`, `TalentpoolCard`, `BoardCard` + 부품 `CandidateProfile`(`FitnessChip`·`UpdatedChip`), `CandidateHistory`, `ExperienceItem`, `CareerTooltip`, `ProfileAvatar` — 카탈로그 "ATS · Cards" 탭
+- ATS 상세: 조립체 `CandidateDetail`(데이터 → 페이지) + 섹션 `AttachmentBar`·`CandidateHeader`·`SkillSection`·`ProfileItemSection` + 부품 `ProfileHero`, `CandidateIntro`(`ContactItem`), `ProfileSummary`, `HistoryEntry`+`ActivityDetail`, `SectionLabel`, `ProfileItem`, 평가 모달 `ApplicantEvaluationPanel`(`AiEvaluationCard`·`FitActivityItem`·`RequirementCard`) — 카탈로그 "ATS · Detail" 탭
 - feedback: `Alert`, `Snackbar`(notistack 필요)
 - overlays: `Modal`
-- navigation: `SubHeader`, `InHeader`, `ProgressBarItem`, `HeaderMenuItem`
+- navigation: `SubHeader`, `InHeader`, `ProgressBarItem`, `HeaderMenuItem`, ATS `Sidebar`·`SidebarMenuItem`·`SidebarAccount` — 카탈로그 "ATS · Sidebar" 탭
 
 **아이콘**:
 - `iconMap` 109종 — `<Icon name="..." />` 로 사용 (개별 named export 는 그중 53종만)

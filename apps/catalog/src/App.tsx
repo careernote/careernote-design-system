@@ -42,6 +42,17 @@ const {
   NumberBadge,
   Tooltip,
   ProgressBarItem,
+  ApplicantCard,
+  TalentpoolCard,
+  BoardCard,
+  ExperienceItem,
+  CareerTooltip,
+  ProfileAvatar,
+  Sidebar,
+  SidebarMenuItem,
+  SidebarAccount,
+  CandidateDetail,
+  ApplicantEvaluationPanel,
 } = DS;
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
@@ -466,6 +477,244 @@ function CardSection() {
   );
 }
 
+const CANDIDATE_CAREERS = [
+  { company: '카카오 모빌리티', role: '디자이너', period: '24.12 ~ 현재' },
+  { company: '커리어노트', role: '디자이너', period: '22.03 ~ 24.11' },
+  { company: '삼성 전자', role: '디자이너', period: '20.01 ~ 22.02' },
+];
+const CANDIDATE_EDUCATION = { school: '홍익대학교', degree: '학사', major: '시각디자인', period: '16.03 ~ 21.02', status: '졸업' };
+const CANDIDATE_SUMMARY =
+  '이력서 기재 내용과 포트폴리오 결과물의 일관성이 높고, 성과를 정량적으로 서술해 업무 이해도가 높아 보임. 다음 단계 진행 추천';
+const CANDIDATE_EXPERIENCES = [
+  { title: '켈리 삼성역 옥외광고 진행', org: '삼성전자' },
+  { title: '브랜드 리뉴얼 키비주얼 디자인', org: '카카오 모빌리티' },
+];
+
+function CandidateCardSection() {
+  return (
+    <Section title="ATS · Cards — 채용/인재풀 카드">
+      <p className="text-body2 text-gray700 mb-4">
+        <code className="font-mono text-sky">ApplicantCard</code> · <code className="font-mono text-sky">TalentpoolCard</code> ·{' '}
+        <code className="font-mono text-sky">BoardCard</code> — Figma "채용/인재풀 카드 컴포넌트". 경력 2개 이상이면 arrow 클릭 시{' '}
+        <code className="font-mono text-sky">CareerTooltip</code> 오버레이
+      </p>
+      <div className="flex flex-row flex-wrap items-start gap-6">
+        <div className="flex flex-col gap-2">
+          <h3 className="text-subtitle3 font-semibold text-gray800">ApplicantCard — 공고 지원자</h3>
+          <ApplicantCard
+            name="김민준"
+            careerLabel="경력 8년"
+            job="프론트엔드"
+            fitness="high"
+            status="접수"
+            appliedAt="24.03.15"
+            aiSummary={CANDIDATE_SUMMARY}
+            careers={CANDIDATE_CAREERS}
+            education={CANDIDATE_EDUCATION}
+            experiences={CANDIDATE_EXPERIENCES}
+            memo="2024.12.04 이메일 컨택"
+            onStatusClick={() => {}}
+            onExperienceClick={() => {}}
+          />
+        </div>
+        <div className="flex flex-col gap-2">
+          <h3 className="text-subtitle3 font-semibold text-gray800">TalentpoolCard — 인재풀</h3>
+          <TalentpoolCard
+            name="김민준"
+            careerLabel="경력 8년"
+            job="프론트엔드"
+            updatedDaysAgo={20}
+            aiSummary={CANDIDATE_SUMMARY}
+            careers={CANDIDATE_CAREERS}
+            education={CANDIDATE_EDUCATION}
+            experience={CANDIDATE_EXPERIENCES[0]}
+            onExperienceClick={() => {}}
+          />
+          <TalentpoolCard
+            name="이서연"
+            careerLabel="경력 3년"
+            job="백엔드"
+            updatedDaysAgo={45}
+            aiSummary="30일 이상 업데이트 없음 → 업데이트 칩 black soft"
+            careers={[CANDIDATE_CAREERS[0]]}
+          />
+        </div>
+      </div>
+
+      <h3 className="text-subtitle3 font-semibold text-gray800 mt-8 mb-2">BoardCard — 칸반보드 카드 (hover 시 sky 테두리 + 그림자)</h3>
+      <div className="flex flex-row flex-wrap gap-4">
+        <BoardCard name="김민준" careerLabel="경력 8년" fitness="high" onClick={() => {}} />
+        <BoardCard name="박지우" careerLabel="경력 5년" fitness="normal" onClick={() => {}} />
+        <BoardCard name="최하늘" careerLabel="신입" fitness="low" onClick={() => {}} />
+        <BoardCard name="김민준" careerLabel="경력 8년" fitness="high" rejected onClick={() => {}} />
+      </div>
+
+      <h3 className="text-subtitle3 font-semibold text-gray800 mt-8 mb-2">부품 — ExperienceItem · CareerTooltip · ProfileAvatar</h3>
+      <div className="flex flex-row flex-wrap items-start gap-6">
+        <div className="w-[458px] flex flex-col gap-2">
+          <ExperienceItem {...CANDIDATE_EXPERIENCES[0]} onClick={() => {}} />
+          <ExperienceItem {...CANDIDATE_EXPERIENCES[1]} />
+        </div>
+        <CareerTooltip careers={CANDIDATE_CAREERS} />
+        <div className="flex items-center gap-2">
+          <ProfileAvatar name="김민준" />
+          <ProfileAvatar name="이서연" size={40} />
+        </div>
+      </div>
+    </Section>
+  );
+}
+
+function SidebarSection() {
+  const [menu, setMenu] = useState('jobs');
+  return (
+    <Section title="ATS · Sidebar — 사이드 메뉴바">
+      <p className="text-body2 text-gray700 mb-4">
+        <code className="font-mono text-sky">Sidebar</code> + <code className="font-mono text-sky">SidebarMenuItem</code>(default/mini, selected, hover = selected 룩) +{' '}
+        <code className="font-mono text-sky">SidebarAccount</code> — Figma "사이드메뉴바". 로고는 <code className="font-mono text-sky">@careernote/assets</code> on-dark 가로형을 slot 으로 전달
+      </p>
+      <div className="flex flex-row flex-wrap items-start gap-8">
+        <div className="flex flex-col gap-2">
+          <h3 className="text-subtitle3 font-semibold text-gray800">Sidebar — 조립 예시 (클릭으로 선택 이동)</h3>
+          <Sidebar
+            className="h-[640px] rounded-large overflow-hidden"
+            logo={<img src={logoDark} alt="CareerNote" className="h-6 w-auto" />}
+            footer={<SidebarAccount name="달바코리아" email="kimeujin.careernote@gmail.com" onClick={() => {}} />}
+          >
+            <SidebarMenuItem label="인재풀" icon="user2" selected={menu === 'talent'} onClick={() => setMenu('talent')} />
+            <SidebarMenuItem label="공고 / 채용 현황" icon="text" selected={menu === 'jobs' || menu.startsWith('jobs-')} onClick={() => setMenu('jobs')}>
+              <SidebarMenuItem variant="mini" label="전체 공고" selected={menu === 'jobs-all'} onClick={() => setMenu('jobs-all')} />
+              <SidebarMenuItem variant="mini" label="전체 캘린더" selected={menu === 'jobs-calendar'} onClick={() => setMenu('jobs-calendar')} />
+            </SidebarMenuItem>
+          </Sidebar>
+        </div>
+        <div className="flex flex-col gap-2">
+          <h3 className="text-subtitle3 font-semibold text-gray800">SidebarMenuItem — 상태별</h3>
+          <div className="w-60 flex flex-col gap-2 p-4 rounded-large bg-gray900">
+            <span className="text-detail text-gray600">default</span>
+            <SidebarMenuItem label="인재풀" icon="user2" />
+            <span className="text-detail text-gray600">default · selected</span>
+            <SidebarMenuItem label="공고 / 채용 현황" icon="text" selected />
+            <span className="text-detail text-gray600">mini</span>
+            <SidebarMenuItem variant="mini" label="전체 공고" />
+            <span className="text-detail text-gray600">mini · selected</span>
+            <SidebarMenuItem variant="mini" label="전체 공고" selected />
+          </div>
+          <h3 className="text-subtitle3 font-semibold text-gray800 mt-4">SidebarAccount</h3>
+          <div className="w-60 p-4 rounded-large bg-gray900">
+            <SidebarAccount name="달바코리아" email="kimeujin.careernote@gmail.com" />
+          </div>
+        </div>
+      </div>
+    </Section>
+  );
+}
+
+const DETAIL_BODY =
+  '삼성역 옥외광고 집행을 위한 기획 프로젝트를 진행했습니다.\n현장 특성과 시간대별 유동 인구 흐름, 매체 노출 환경을 분석해 광고 콘셉트와 핵심 메시지를 설계했으며, 제작 가이드 정리부터 집행 일정 관리까지 전반을 담당했습니다. 특히 실제 시야각과 이동 동선을 기준으로 메시지 가독성과 시인성을 반복적으로 점검하고 수정·보완하며 완성도를 높였습니다.\n그 결과 광고는 일평균 수만 명에게 노출되었으며, 주요 동선 내에서 안정적인 노출 효과를 확보해 브랜드 인지도 제고에 기여했습니다.';
+const DETAIL_RESULT =
+  '커뮤니케이션 속도가 향상되고 주문 처리 과정에서의 오류가 줄어드는 성과를 거두었습니다. 현장 상황에 신속하게 대응할 수 있는 체계가 마련되어 업무 효율성이 크게 개선되었고, 고객 만족도 향상에도 긍정적인 영향을 미쳤습니다.';
+const DETAIL_SKILLS = ['TypeScript', 'ReactJS', 'ElasticSearch', 'Redis', 'AWS'];
+const DETAIL_SUMMARY = [
+  { title: 'AI 투자 콘텐츠 서비스 기획·개발', description: 'AI 에이전트 기반 기업분석 리포트 서비스를 직접 기획·개발해 누적 방문자 1,400명과 회원 60명을 확보하고 매출이 2배로 올랐어요.' },
+  { title: '업무 자동화로 성과를 만든 문제 해결가', description: '업무 자동화를 활용해 데이터 정제와 거래내역 처리 시간을 단축하고 추가 수탁 100억 원 유치에 기여했어요.' },
+  { title: '금융 영업과 자산운용 실무 역량', description: '기업금융과 자산운용 업무를 수행하며 고객 영업, 세미나 기획, 투자자문 및 운용지원 경험을 쌓았어요.' },
+];
+const DETAIL_IMAGES = ['', '', '', ''];
+
+function DetailSection() {
+  const activity = (id: string, withImages = false, withComments = false) => ({
+    id,
+    title: '켈리 삼성역 옥외광고 진행',
+    period: '2024. 05 - 2026. 01',
+    images: withImages ? DETAIL_IMAGES : undefined,
+    skills: DETAIL_SKILLS,
+    body: DETAIL_BODY,
+    result: DETAIL_RESULT,
+    comments: withComments ? [{ role: '개발자', text: '디테일에 강하고 일정을 잘 지켜줘서 신뢰가 가요.' }, { role: '디자이너', text: '디테일에 강하고 일정을 잘 지켜줘서 신뢰가 가요.' }] : undefined,
+  });
+  return (
+    <Section title="ATS · Detail — 지원자/인재 상세페이지">
+      <p className="text-body2 text-gray700 mb-4">
+        <code className="font-mono text-sky">CandidateDetail</code> — 데이터만 넘기면 조립되는 상세페이지. 부품:{' '}
+        <code className="font-mono text-sky">AttachmentBar</code> · <code className="font-mono text-sky">CandidateHeader</code>(ProfileHero+CandidateIntro) ·{' '}
+        <code className="font-mono text-sky">ProfileSummary</code> · <code className="font-mono text-sky">HistoryEntry</code>+<code className="font-mono text-sky">ActivityDetail</code> ·{' '}
+        <code className="font-mono text-sky">SkillSection</code> · <code className="font-mono text-sky">ProfileItemSection</code>(SectionLabel+ProfileItem). 세부 커스텀은 부품을 직접 조립
+      </p>
+      <CandidateDetail
+        className="border border-border_gray"
+        attachments={[
+          { kind: 'file', label: '이력서 김민준_이력서.pdf', onClick: () => {} },
+          { kind: 'clip', label: '첨부파일 김민준_포트폴리오_2025.pdf', onClick: () => {} },
+          { kind: 'star', label: '커리어노트 포트폴리오', onClick: () => {} },
+        ]}
+        header={{
+          name: '김민준',
+          role: '백엔드 개발자',
+          slogan: '7년 경력의 풀스택 개발자로, 사용자 경험을 최우선으로 생각합니다.',
+          introduction: '애플리케이션을 설계하고 구축하며, 서비스 요구사항을 분석해 안정적이고 확장 가능한 구조를 구현합니다. React와 TypeScript, Node.js에 대한 깊은 이해를 바탕으로 프론트엔드부터 백엔드까지 전반적인 개발을 주도해왔습니다.\n또한 팀 리더로서 협업 문화를 조성하고, 주니어 개발자 멘토링과 코드 리뷰를 통해 팀의 기술 역량과 생산성을 함께 성장시킨 경험이 풍부합니다.',
+          contacts: [
+            { type: 'phone', value: '010 1234 5678' },
+            { type: 'email', value: 'minjunkim@gmail.com' },
+            { type: 'website', value: 'minjunkim.dev', href: 'https://minjunkim.dev' },
+          ],
+        }}
+        onEditProfile={() => {}}
+        summary={DETAIL_SUMMARY}
+        histories={[
+          { name: '아이엠디티', role: '개발 팀원', period: '2024. 05 - 2026. 01 · 1년 9월', activities: [activity('1', true, true), activity('2')] },
+          { type: 'education', name: '홍익대학교', role: '시각디자인', period: '2024. 05 - 2026. 01 · 1년 9월', activities: [activity('3')] },
+        ]}
+        skills={['Photoshop', 'SQL', 'C#', 'Photoshop', 'Figma']}
+        awards={[
+          { title: 'IF 디자인 대상', sub: 'IF design', date: '2024.03' },
+          { title: '블록체인 해커톤 3등', sub: 'Trone community', date: '2022.08' },
+          { title: '디자인 대회 입상', sub: 'Korea design', date: '2022.08' },
+        ]}
+        certifications={[
+          { title: '운전면허증 2종', sub: '경찰청', date: '2024.03' },
+          { title: 'SQL 전문가 자격증', sub: '한국데이터 베이스진흥원', date: '2024.03' },
+        ]}
+        languages={[
+          { title: '중국어', sub: '일상회화 가능' },
+          { title: '영어', sub: '기초회화 가능' },
+        ]}
+      />
+
+      <h3 className="text-subtitle3 font-semibold text-gray800 mt-8 mb-2">ApplicantEvaluationPanel — 지원자평가 모달 본문 (모달 껍데기는 소비자가 감싼다)</h3>
+      <div className="inline-block p-4 rounded-xlarge bg-bg_gray1">
+        <ApplicantEvaluationPanel
+          fitLabel="높음"
+          evaluation={[
+            '경력기술서상 담당 업무와 사용 툴이 공고 요구사항과 대부분 일치하며, 최근 프로젝트 경험이 최신 기술 스택과도 맞닿아 있어 우선순위 높게 검토',
+            '이력서 기재 내용과 포트폴리오 결과물의 일관성이 높고, 성과를 정량적으로 서술해 업무 이해도가 높아 보임. 다음 단계 진행 추천',
+            '이력서 기재 내용과 포트폴리오 결과물의 일관성이 높고, 성과를 정량적으로 서술해 업무 이해도가 높아 보임. 다음 단계 진행 추천',
+          ]}
+          summary={DETAIL_SUMMARY}
+          fitActivities={[
+            { id: '1', title: '켈리 삼성역 옥외광고 진행', org: '삼성전자' },
+            { id: '2', title: '켈리 삼성역 옥외광고 진행', org: '삼성전자' },
+            { id: '3', title: '켈리 삼성역 옥외광고 진행', org: '삼성전자' },
+          ]}
+          onFitActivityClick={() => {}}
+          requirements={[
+            { text: '앱/웹 디자인 경력 5년 이상 혹은 이에 준하는 실무 능력 보유자', status: 'met' },
+            { text: '사용자 관점과 비즈니스 이해를 바탕으로 UX를 설계하고 실제 런칭 경험이 있는 분', status: 'met' },
+            { text: 'REST API, 인증/인가, 데이터 흐름에 대한 기본 이해가 있는 분', status: 'met' },
+            { text: 'Git(GitHub, GitLab 등) 기반 협업 경험이 있는 분', status: 'met' },
+            { text: 'Claude Code, GitHub Copilot 등 AI 기반 개발 도구 활용에 익숙한 분', status: 'unmet' },
+            { text: 'React/Vue 등을 이용한 서비스 개발/운영 경험이 있는 분', status: 'unmet' },
+          ]}
+          preferences={[
+            { text: '대규모 서비스 개발 프로젝트에서 프론트엔드 성능 최적화 경험이 있는 분' },
+            { text: 'CI/CD를 통해 테스트/빌드/배포 경험이 있는 분' },
+          ]}
+        />
+      </div>
+    </Section>
+  );
+}
+
 const SYMBOL_SIZES = [20, 24, 32, 48, 64];
 const LOGO_SIZES = [22, 34, 48, 68];
 
@@ -547,13 +796,31 @@ const NAV = [
   { id: 'feedback', label: 'Feedback & Overlays', el: <FeedbackSection /> },
   { id: 'navigation', label: 'Navigation', el: <NavigationSection /> },
   { id: 'cards', label: 'Cards', el: <CardSection /> },
+  {
+    id: 'ats',
+    label: 'ATS',
+    children: [
+      { id: 'ats-sidebar', label: 'Sidebar', el: <SidebarSection /> },
+      { id: 'ats-cards', label: 'Cards', el: <CandidateCardSection /> },
+      { id: 'ats-detail', label: 'Detail', el: <DetailSection /> },
+    ],
+  },
   { id: 'icons', label: 'Icons', el: <IconSection /> },
   { id: 'icons-extra', label: 'Icons Extra', el: <ExtraIconSection /> },
 ];
 
+type NavLeaf = { id: string; label: string; el: React.ReactNode };
+type NavItem = NavLeaf | { id: string; label: string; children: NavLeaf[] };
+const NAV_LEAVES: NavLeaf[] = (NAV as NavItem[]).flatMap((n) => ('children' in n ? n.children : [n]));
+
 export default function App() {
   const [active, setActive] = useState('brand');
-  const current = NAV.find((n) => n.id === active) ?? NAV[0];
+  const [open, setOpen] = useState<Record<string, boolean>>({});
+  const current = NAV_LEAVES.find((n) => n.id === active) ?? NAV_LEAVES[0];
+  const leafClass = (id: string, sub = false) =>
+    `text-left py-2 rounded-small text-body2 transition-colors ${sub ? 'pl-8 pr-3' : 'px-3'} ${
+      active === id ? 'bg-sky_bg text-sky font-semibold' : 'text-gray800 font-medium hover:bg-bg_gray2'
+    }`;
   return (
     <div className="flex min-h-screen">
       <aside className="w-60 shrink-0 border-r border-border_gray bg-white100 px-4 py-8 fixed top-0 bottom-0 left-0 overflow-y-auto">
@@ -562,19 +829,32 @@ export default function App() {
           <span className="block text-detail font-medium text-gray700 mt-0.5">Design System</span>
         </h1>
         <nav className="mt-6 flex flex-col gap-0.5">
-          {NAV.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => setActive(item.id)}
-              className={`text-left px-3 py-2 rounded-small text-body2 transition-colors ${
-                active === item.id
-                  ? 'bg-sky_bg text-sky font-semibold'
-                  : 'text-gray800 font-medium hover:bg-bg_gray2'
-              }`}
-            >
-              {item.label}
-            </button>
-          ))}
+          {(NAV as NavItem[]).map((item) =>
+            'children' in item ? (
+              <div key={item.id} className="flex flex-col gap-0.5">
+                <button
+                  onClick={() => setOpen((o) => ({ ...o, [item.id]: !o[item.id] }))}
+                  aria-expanded={!!open[item.id]}
+                  className={`flex items-center justify-between px-3 py-2 rounded-small text-body2 font-medium transition-colors hover:bg-bg_gray2 ${
+                    item.children.some((c) => c.id === active) ? 'text-sky' : 'text-gray800'
+                  }`}
+                >
+                  {item.label}
+                  <Icon name="arrow-down" size={16} className={`transition-transform ${open[item.id] ? 'rotate-180' : ''}`} />
+                </button>
+                {open[item.id] &&
+                  item.children.map((c) => (
+                    <button key={c.id} onClick={() => setActive(c.id)} className={leafClass(c.id, true)}>
+                      {c.label}
+                    </button>
+                  ))}
+              </div>
+            ) : (
+              <button key={item.id} onClick={() => setActive(item.id)} className={leafClass(item.id)}>
+                {item.label}
+              </button>
+            ),
+          )}
         </nav>
         <a href="./vue/" className="mt-8 mx-3 inline-block text-detail text-sky hover:underline">
           ↗ Vue 카탈로그
