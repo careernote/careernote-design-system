@@ -5,3 +5,7 @@ export { default as InHeader } from './InHeader';
 export { Sidebar } from './Sidebar';
 export { SidebarMenuItem } from './SidebarMenuItem';
 export { SidebarAccount } from './SidebarAccount';
+export { PillTabs, type PillTabItem } from './PillTabs';
+export { SegmentedControl, type SegmentItem } from './SegmentedControl';
+export { FilterChips, type FilterChipItem } from './FilterChips';
+export { UnderlineTabs, type UnderlineTabItem } from './UnderlineTabs';

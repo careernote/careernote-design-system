@@ -45,6 +45,12 @@ const {
   ApplicantCard,
   TalentpoolCard,
   BoardCard,
+  FeedCard,
+  PillTabs,
+  LevelSelector,
+  SegmentedControl,
+  FilterChips,
+  UnderlineTabs,
   ExperienceItem,
   CareerTooltip,
   ProfileAvatar,
@@ -225,8 +231,15 @@ function ChipSection() {
 
 function InputSection() {
   const [sel, setSel] = useState('');
+  const [level, setLevel] = useState(4);
   return (
     <Section title="Inputs">
+      <h3 className="text-subtitle3 font-semibold text-gray800 mb-2">LevelSelector — 5단계 비중 (Figma 평가 기준 모달)</h3>
+      <div className="max-w-[400px] mb-8 flex flex-col gap-3">
+        <p className="text-body2 font-medium text-gray800">서비스 기획/운영 실무 역량</p>
+        <LevelSelector value={level} onChange={setLevel} />
+        <LevelSelector value={2} onChange={() => {}} disabled />
+      </div>
       <div className="grid grid-cols-2 tablet:grid-cols-1 gap-6 max-w-[720px]">
         <TextInput label="라벨" sublabel="서브라벨" placeholder="텍스트를 입력하세요" essential />
         <TextInput label="에러 상태" placeholder="값" errorMessage="에러 메시지입니다" />
@@ -349,6 +362,9 @@ function FeedbackSection() {
 }
 
 function NavigationSection() {
+  const [seg, setSeg] = useState('card');
+  const [chip, setChip] = useState('all');
+  const [tab, setTab] = useState('applicants');
   return (
     <Section title="Navigation">
       <div className="flex items-center gap-6">
@@ -356,6 +372,41 @@ function NavigationSection() {
         <ProgressBarItem status="editing" text="진행 중 단계" number={2} />
         <ProgressBarItem status="waiting" text="대기 단계" number={3} />
       </div>
+
+      <h3 className="text-subtitle3 font-semibold text-gray800 mt-8 mb-2">UnderlineTabs — 공고 상세 탭 (Figma)</h3>
+      <UnderlineTabs
+        items={[
+          { value: 'applicants', label: '지원자 관리' },
+          { value: 'calendar', label: '채용 캘린더' },
+        ]}
+        value={tab}
+        onChange={setTab}
+      />
+
+      <h3 className="text-subtitle3 font-semibold text-gray800 mt-8 mb-2">SegmentedControl — 뷰 전환 (Figma selectBttn)</h3>
+      <SegmentedControl
+        items={[
+          { value: 'card', label: '카드' },
+          { value: 'kanban', label: '칸반보드' },
+          { value: 'table', label: '표' },
+        ]}
+        value={seg}
+        onChange={setSeg}
+      />
+
+      <h3 className="text-subtitle3 font-semibold text-gray800 mt-8 mb-2">FilterChips — 단계 필터 (단일 선택, count 옵션)</h3>
+      <FilterChips
+        items={[
+          { value: 'all', label: '전체', count: 12 },
+          { value: 'received', label: '접수', count: 5 },
+          { value: 'interview', label: '인터뷰', count: 4 },
+          { value: 'offer', label: '처우 협의' },
+          { value: 'hired', label: '최종합격' },
+          { value: 'rejected', label: '불합격', count: 3 },
+        ]}
+        value={chip}
+        onChange={setChip}
+      />
     </Section>
   );
 }
@@ -499,7 +550,7 @@ function CandidateCardSection() {
         <code className="font-mono text-sky">CareerTooltip</code> 오버레이
       </p>
       <div className="flex flex-row flex-wrap items-start gap-6">
-        <div className="flex flex-col gap-2">
+        <div className="w-[500px] flex flex-col gap-2">
           <h3 className="text-subtitle3 font-semibold text-gray800">ApplicantCard — 공고 지원자</h3>
           <ApplicantCard
             name="김민준"
@@ -517,7 +568,7 @@ function CandidateCardSection() {
             onExperienceClick={() => {}}
           />
         </div>
-        <div className="flex flex-col gap-2">
+        <div className="w-[500px] flex flex-col gap-2">
           <h3 className="text-subtitle3 font-semibold text-gray800">TalentpoolCard — 인재풀</h3>
           <TalentpoolCard
             name="김민준"
@@ -555,10 +606,51 @@ function CandidateCardSection() {
           <ExperienceItem {...CANDIDATE_EXPERIENCES[0]} onClick={() => {}} />
           <ExperienceItem {...CANDIDATE_EXPERIENCES[1]} />
         </div>
-        <CareerTooltip careers={CANDIDATE_CAREERS} />
+        <div className="w-[458px]"><CareerTooltip careers={CANDIDATE_CAREERS} /></div>
         <div className="flex items-center gap-2">
           <ProfileAvatar name="김민준" />
           <ProfileAvatar name="이서연" size={40} />
+        </div>
+      </div>
+    </Section>
+  );
+}
+
+const FEED_DESC =
+  '삼성역 옥외광고 집행을 위한 기획 프로젝트를 진행했습니다.\n현장 특성과 시간대별 유동 인구 흐름, 매체 노출 환경을 분석해 광고 콘셉트와 핵심 메시지를 설계했으며, 제작 가이드 정리부터 집행 일정 관리까지 전반을 담당했습니다.';
+const FEED_RESULT =
+  '커뮤니케이션 속도가 향상되고 주문 처리 과정에서의 오류가 줄어드는 성과를 거두었습니다. 현장 상황에 신속하게 대응할 수 있는 체계가 마련되어 업무 효율성이 크게 개선되었습니다.';
+const feedImg = (seed: string) => `https://picsum.photos/seed/${seed}/600/400`;
+
+function FeedSection() {
+  const [tab, setTab] = useState('feed');
+  const base = { name: '김민준', careerLabel: '경력 8년', job: '프론트엔드', updatedDaysAgo: 20, title: '켈리 삼성역 옥외광고 진행', description: FEED_DESC };
+  return (
+    <Section title="ATS · Feed — 인재 피드 (Figma 03 인재풀)">
+      <p className="text-body2 text-gray700 mb-4">
+        <code className="font-mono text-sky">PillTabs</code> 로 피드/목록 전환, <code className="font-mono text-sky">FeedCard</code> 는 대표 활동 1건을
+        갤러리(0 · 1 · 2 · 3+장 레이아웃 자동) + 제목/설명 + STAR 성과 박스로 보여준다. 썸네일 클릭 시 내장 ImageLightbox
+      </p>
+      <PillTabs
+        items={[
+          { value: 'feed', label: '인재 피드' },
+          { value: 'pool', label: '인재풀', count: 12 },
+        ]}
+        value={tab}
+        onChange={setTab}
+        className="mb-6"
+      />
+      <div className="grid grid-cols-3 gap-4 items-start p-6 rounded-xlarge bg-bg_gray1">
+        <div className="flex flex-col gap-5">
+          <FeedCard {...base} images={[feedImg('a1'), feedImg('a2'), feedImg('a3'), feedImg('a4'), feedImg('a5')]} result={FEED_RESULT} onClick={() => {}} />
+          <FeedCard {...base} name="이서연" updatedDaysAgo={45} images={[feedImg('b1'), feedImg('b2')]} onClick={() => {}} />
+        </div>
+        <div className="flex flex-col gap-5">
+          <FeedCard {...base} images={[feedImg('c1')]} result="커뮤니케이션 속도가 향상되고 주문 처리 과정에서의 오류가 줄어드는 성과를 거두었습니다." onClick={() => {}} />
+          <FeedCard {...base} name="박지우" result={FEED_RESULT} onClick={() => {}} />
+        </div>
+        <div className="flex flex-col gap-5">
+          <FeedCard {...base} images={[feedImg('d1'), feedImg('d2'), feedImg('d3')]} result={FEED_RESULT} onClick={() => {}} />
         </div>
       </div>
     </Section>
@@ -802,6 +894,7 @@ const NAV = [
     children: [
       { id: 'ats-sidebar', label: 'Sidebar', el: <SidebarSection /> },
       { id: 'ats-cards', label: 'Cards', el: <CandidateCardSection /> },
+      { id: 'ats-feed', label: 'Feed', el: <FeedSection /> },
       { id: 'ats-detail', label: 'Detail', el: <DetailSection /> },
     ],
   },

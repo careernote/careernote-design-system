@@ -6,7 +6,7 @@ import {
   SubHeader, NextStepFooter, SearchInput, TextLink, Spinner, Checkbox, LottieLoadingDots, ConfirmModal, ResponsiveModal,
   TextInput, Textarea, Selector, Modal, InHeader, HeaderMenuItem, ProgressBarItem,
   Icon, ICON_NAME_MAP,
-  ApplicantCard, TalentpoolCard, BoardCard, ExperienceItem, CareerTooltip, ProfileAvatar,
+  ApplicantCard, TalentpoolCard, BoardCard, ExperienceItem, CareerTooltip, ProfileAvatar, FeedCard, PillTabs, SegmentedControl, FilterChips, UnderlineTabs, LevelSelector,
   Sidebar, SidebarMenuItem, SidebarAccount,
   CandidateDetail, ApplicantEvaluationPanel,
 } from '@careernote/vue'
@@ -22,6 +22,18 @@ import logoLight from '@careernote/assets/logo/careernote-logo.png'
 import logoDark from '@careernote/assets/logo/careernote-logo-on-dark.png'
 
 const SYMBOL_SIZES = [20, 24, 32, 48, 64]
+
+const feedTab = ref('feed')
+const navSeg = ref('card')
+const levelVal = ref(4)
+const navChip = ref('all')
+const navTab = ref('applicants')
+const FEED_DESC =
+  '삼성역 옥외광고 집행을 위한 기획 프로젝트를 진행했습니다.\n현장 특성과 시간대별 유동 인구 흐름, 매체 노출 환경을 분석해 광고 콘셉트와 핵심 메시지를 설계했으며, 제작 가이드 정리부터 집행 일정 관리까지 전반을 담당했습니다.'
+const FEED_RESULT =
+  '커뮤니케이션 속도가 향상되고 주문 처리 과정에서의 오류가 줄어드는 성과를 거두었습니다. 현장 상황에 신속하게 대응할 수 있는 체계가 마련되어 업무 효율성이 크게 개선되었습니다.'
+const feedImg = (seed: string) => `https://picsum.photos/seed/${seed}/600/400`
+const FEED_BASE = { name: '김민준', careerLabel: '경력 8년', job: '프론트엔드', updatedDaysAgo: 20, title: '켈리 삼성역 옥외광고 진행', description: FEED_DESC }
 const LOGO_SIZES = [22, 34, 48, 68]
 
 const NAV = [
@@ -35,7 +47,7 @@ const NAV = [
   { id: 'feedback', label: 'Feedback & Overlays' },
   { id: 'navigation', label: 'Navigation' },
   { id: 'cards', label: 'Cards' },
-  { id: 'ats', label: 'ATS', children: [{ id: 'ats-sidebar', label: 'Sidebar' }, { id: 'ats-cards', label: 'Cards' }, { id: 'ats-detail', label: 'Detail' }] },
+  { id: 'ats', label: 'ATS', children: [{ id: 'ats-sidebar', label: 'Sidebar' }, { id: 'ats-cards', label: 'Cards' }, { id: 'ats-feed', label: 'Feed' }, { id: 'ats-detail', label: 'Detail' }] },
   { id: 'icons', label: 'Icons' },
 ] as const
 
@@ -349,6 +361,12 @@ import symbolData from '@careernote/assets/logo/careernote-symbol.base64.json'</
       <!-- Inputs -->
       <section v-if="active === 'inputs'">
         <h2 class="text-title2 font-bold text-gray900 mb-6 pb-2 border-b border-border-gray">Inputs</h2>
+        <h3 class="text-subtitle3 font-semibold text-gray800 mb-2">LevelSelector — 5단계 비중 (Figma 평가 기준 모달)</h3>
+        <div class="max-w-[400px] mb-8 flex flex-col gap-3">
+          <p class="text-body2 font-medium text-gray800">서비스 기획/운영 실무 역량</p>
+          <LevelSelector v-model="levelVal" />
+          <LevelSelector :model-value="2" disabled />
+        </div>
         <div class="grid grid-cols-2 gap-6 max-w-[720px]">
           <TextInput label="라벨" sublabel="서브라벨" placeholder="텍스트를 입력하세요" essential v-model="inputVal" full-width />
           <TextInput label="에러 상태" placeholder="값" state="error" error-message="에러 메시지입니다" full-width />
@@ -439,6 +457,12 @@ import symbolData from '@careernote/assets/logo/careernote-symbol.base64.json'</
           <HeaderMenuItem label="기본 메뉴" />
           <HeaderMenuItem label="NEW 메뉴" show-new />
         </div>
+        <h3 class="text-subtitle3 font-semibold text-gray800 mt-6 mb-2">UnderlineTabs — 공고 상세 탭 (Figma)</h3>
+        <UnderlineTabs v-model="navTab" :items="[{ value: 'applicants', label: '지원자 관리' }, { value: 'calendar', label: '채용 캘린더' }]" class="mb-6" />
+        <h3 class="text-subtitle3 font-semibold text-gray800 mt-6 mb-2">SegmentedControl — 뷰 전환 (Figma selectBttn)</h3>
+        <SegmentedControl v-model="navSeg" :items="[{ value: 'card', label: '카드' }, { value: 'kanban', label: '칸반보드' }, { value: 'table', label: '표' }]" class="mb-6" />
+        <h3 class="text-subtitle3 font-semibold text-gray800 mt-6 mb-2">FilterChips — 단계 필터 (단일 선택, count 옵션)</h3>
+        <FilterChips v-model="navChip" :items="[{ value: 'all', label: '전체', count: 12 }, { value: 'received', label: '접수', count: 5 }, { value: 'interview', label: '인터뷰', count: 4 }, { value: 'offer', label: '처우 협의' }, { value: 'hired', label: '최종합격' }, { value: 'rejected', label: '불합격', count: 3 }]" class="mb-6" />
         <div class="flex items-center gap-6">
           <ProgressBarItem status="complete" text="완료 단계" :number="1" />
           <ProgressBarItem status="editing" text="진행 중 단계" :number="2" />
@@ -564,7 +588,7 @@ import symbolData from '@careernote/assets/logo/careernote-symbol.base64.json'</
           <code class="font-mono text-sky">CareerTooltip</code> 오버레이
         </p>
         <div class="flex flex-row flex-wrap items-start gap-6">
-          <div class="flex flex-col gap-2">
+          <div class="w-[500px] flex flex-col gap-2">
             <h3 class="text-subtitle3 font-semibold text-gray800">ApplicantCard — 공고 지원자</h3>
             <ApplicantCard
               name="김민준" career-label="경력 8년" job="프론트엔드" fitness="high" status="접수" applied-at="24.03.15"
@@ -572,7 +596,7 @@ import symbolData from '@careernote/assets/logo/careernote-symbol.base64.json'</
               :experiences="CANDIDATE_EXPERIENCES" memo="2024.12.04 이메일 컨택"
             />
           </div>
-          <div class="flex flex-col gap-2">
+          <div class="w-[500px] flex flex-col gap-2">
             <h3 class="text-subtitle3 font-semibold text-gray800">TalentpoolCard — 인재풀</h3>
             <TalentpoolCard
               name="김민준" career-label="경력 8년" job="프론트엔드" :updated-days-ago="20"
@@ -600,10 +624,33 @@ import symbolData from '@careernote/assets/logo/careernote-symbol.base64.json'</
             <ExperienceItem v-bind="CANDIDATE_EXPERIENCES[0]" clickable />
             <ExperienceItem v-bind="CANDIDATE_EXPERIENCES[1]" />
           </div>
-          <CareerTooltip :careers="CANDIDATE_CAREERS" />
+          <div class="w-[458px]"><CareerTooltip :careers="CANDIDATE_CAREERS" /></div>
           <div class="flex items-center gap-2">
             <ProfileAvatar name="김민준" />
             <ProfileAvatar name="이서연" :size="40" />
+          </div>
+        </div>
+      </section>
+
+      <!-- ATS Feed -->
+      <section v-if="active === 'ats-feed'">
+        <h2 class="text-title2 font-bold text-gray900 mb-6 pb-2 border-b border-border-gray">ATS · Feed — 인재 피드 (Figma 03 인재풀)</h2>
+        <p class="text-body2 text-gray700 mb-4">
+          <code class="font-mono text-sky">PillTabs</code> 로 피드/목록 전환, <code class="font-mono text-sky">FeedCard</code> 는 대표 활동 1건을
+          갤러리(0 · 1 · 2 · 3+장 레이아웃 자동) + 제목/설명 + STAR 성과 박스로 보여준다. 썸네일 클릭 시 내장 ImageLightbox
+        </p>
+        <PillTabs v-model="feedTab" :items="[{ value: 'feed', label: '인재 피드' }, { value: 'pool', label: '인재풀', count: 12 }]" class="mb-6" />
+        <div class="grid grid-cols-3 gap-4 items-start p-6 rounded-xlarge bg-bg-gray1">
+          <div class="flex flex-col gap-5">
+            <FeedCard v-bind="FEED_BASE" :images="[feedImg('a1'), feedImg('a2'), feedImg('a3'), feedImg('a4'), feedImg('a5')]" :result="FEED_RESULT" clickable />
+            <FeedCard v-bind="FEED_BASE" name="이서연" :updated-days-ago="45" :images="[feedImg('b1'), feedImg('b2')]" clickable />
+          </div>
+          <div class="flex flex-col gap-5">
+            <FeedCard v-bind="FEED_BASE" :images="[feedImg('c1')]" result="커뮤니케이션 속도가 향상되고 주문 처리 과정에서의 오류가 줄어드는 성과를 거두었습니다." clickable />
+            <FeedCard v-bind="FEED_BASE" name="박지우" :result="FEED_RESULT" clickable />
+          </div>
+          <div class="flex flex-col gap-5">
+            <FeedCard v-bind="FEED_BASE" :images="[feedImg('d1'), feedImg('d2'), feedImg('d3')]" :result="FEED_RESULT" clickable />
           </div>
         </div>
       </section>
