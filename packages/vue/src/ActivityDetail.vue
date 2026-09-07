@@ -3,21 +3,35 @@
 import { ref } from 'vue'
 import Chip from './Chip.vue'
 import Icon from './icons/Icon.vue'
+import ImageLightbox from './ImageLightbox.vue'
 export interface ActivityComment { role: string; text: string }
 withDefaults(
   defineProps<{ title: string; period?: string; images?: string[]; skills?: string[]; body?: string; result?: string; comments?: ActivityComment[] }>(),
   { images: () => [], skills: () => [], comments: () => [] },
 )
+const emit = defineEmits<{ (e: 'image-click', index: number): void }>()
 const expanded = ref(false)
+const lightbox = ref<number | null>(null)
 </script>
 
 <template>
   <div class="flex flex-col gap-3">
     <div v-if="images.length" class="flex gap-3 overflow-x-auto">
-      <div v-for="(src, i) in images" :key="i" class="shrink-0 w-[122px] h-32 rounded-[7px] bg-gray800 overflow-hidden flex items-center justify-center">
-        <img v-if="src" :src="src" alt="" class="w-full h-full object-cover" />
+      <button
+        v-for="(src, i) in images"
+        :key="i"
+        type="button"
+        :aria-label="`활동 이미지 ${i + 1} 크게 보기`"
+        :disabled="!src"
+        class="shrink-0 h-32 rounded-[7px] bg-gray800 overflow-hidden flex items-center justify-center border-0 p-0 cursor-zoom-in disabled:cursor-default transition-opacity hover:opacity-90"
+        :class="src ? '' : 'w-[122px]'"
+        @click.stop="lightbox = i; emit('image-click', i)"
+      >
+        <!-- 비율 유지: 높이 128 고정, 너비는 이미지 비율(가로 사진은 최대 240px) -->
+        <img v-if="src" :src="src" alt="" class="h-full w-auto min-w-[122px] max-w-[240px] object-cover" />
         <Icon v-else name="nonImage" :size="14" color="white" />
-      </div>
+      </button>
+      <ImageLightbox :images="images.filter(Boolean)" :index="lightbox" @close="lightbox = null" />
     </div>
     <div class="flex items-center gap-3">
       <span class="min-w-0 flex-1 text-body1 font-semibold text-gray900 truncate">{{ title }}</span>
