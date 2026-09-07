@@ -2,3 +2,6 @@ node_modules/
 dist-app/
 *.log
 .DS_Store
+
+# 카탈로그 빌드 산출물
+apps/*/dist/
