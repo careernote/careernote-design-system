@@ -6,16 +6,17 @@ import { CareerTooltip, type CareerEntry } from './CareerTooltip';
 export interface EducationEntry {
   school: string;
   /** 학사 / 석사 … */
-  degree: string;
-  major: string;
+  degree?: string;
+  major?: string;
   /** 예: "16.03 ~ 21.02" */
-  period: string;
+  period?: string;
   /** 졸업 / 재학 / 휴학 … */
-  status: string;
+  status?: string;
 }
 
 interface CandidateHistoryProps {
-  aiSummary: string;
+  /** 없으면 AI 요약 블록 미표출 */
+  aiSummary?: string;
   /** 최신순. 첫 항목이 표출되고 2개 이상이면 arrow → 전체 툴팁 */
   careers: CareerEntry[];
   education?: EducationEntry;
@@ -44,19 +45,21 @@ export function CandidateHistory({ aiSummary, careers, education, className = ''
 
   return (
     <div className={`flex flex-col gap-3 ${className}`.trim()}>
-      <div className="flex flex-col gap-1.5">
-        <span className="text-detail font-medium text-gray700">AI 요약 레포트</span>
-        <div className="p-3 rounded-small bg-bg_gray1">
-          <p className="text-body2 text-gray800">{aiSummary}</p>
+      {aiSummary && (
+        <div className="flex flex-col gap-1.5">
+          <span className="text-detail font-medium text-gray700">AI 요약 레포트</span>
+          <div className="p-3 rounded-small bg-bg_gray1">
+            <p className="text-body2 text-gray800 whitespace-pre-line">{aiSummary}</p>
+          </div>
         </div>
-      </div>
+      )}
 
       {latest && (
         <div ref={wrapRef} className="relative flex items-center gap-4">
           <span className="shrink-0 text-body2 font-medium text-gray700">경력</span>
           <div className="min-w-0 flex-1 flex items-center gap-1">
-            <span className="text-body2 font-medium text-gray800 truncate">{latest.company}</span>
-            <span className="text-body2 font-medium text-gray700 truncate">{latest.role}</span>
+            <span className="text-body2 font-semibold text-gray900 truncate">{latest.company}</span>
+            <span className="text-body2 text-gray700 truncate">{latest.role}</span>
             <span className="shrink-0 text-detail text-gray600">{latest.period}</span>
           </div>
           {hasMore && (
@@ -64,13 +67,20 @@ export function CandidateHistory({ aiSummary, careers, education, className = ''
               type="button"
               aria-label="경력 전체 보기"
               aria-expanded={open}
-              onClick={() => setOpen((v) => !v)}
+              onClick={(e) => {
+                e.stopPropagation(); // 카드 onClick(상세 열기)으로 전파 방지
+                setOpen((v) => !v);
+              }}
               className={`shrink-0 flex items-center justify-center w-[18px] h-[18px] text-gray800 transition-transform ${open ? 'rotate-180' : ''}`}
             >
               <Icon name="arrow-down" size={18} />
             </button>
           )}
-          {open && <CareerTooltip careers={careers} className="absolute right-0 top-full mt-1 z-10" />}
+          {open && (
+            <div className="absolute inset-x-0 top-full mt-1 z-10" onClick={(e) => e.stopPropagation()}>
+              <CareerTooltip careers={careers} />
+            </div>
+          )}
         </div>
       )}
 
@@ -78,11 +88,11 @@ export function CandidateHistory({ aiSummary, careers, education, className = ''
         <div className="flex items-center gap-4">
           <span className="shrink-0 text-body2 font-medium text-gray700">학력</span>
           <div className="min-w-0 flex-1 flex items-center gap-1">
-            <span className="text-body2 font-medium text-gray800 truncate">{education.school}</span>
-            <span className="text-body2 font-medium text-gray800">{education.degree}</span>
-            <span className="text-body2 font-medium text-gray700 truncate">{education.major}</span>
-            <span className="shrink-0 text-detail text-gray600">{education.period}</span>
-            <span className="shrink-0 text-detail text-gray600">{education.status}</span>
+            <span className="text-body2 font-semibold text-gray900 truncate">{education.school}</span>
+            {education.degree && <span className="text-body2 text-gray700">{education.degree}</span>}
+            {education.major && <span className="text-body2 text-gray700 truncate">{education.major}</span>}
+            {education.period && <span className="shrink-0 text-detail text-gray600">{education.period}</span>}
+            {education.status && <span className="shrink-0 text-detail text-gray600">{education.status}</span>}
           </div>
         </div>
       )}

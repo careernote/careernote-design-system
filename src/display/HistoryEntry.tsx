@@ -7,9 +7,9 @@ interface HistoryEntryProps {
   /** 기업명 / 학교명 */
   name: string;
   /** 직무 / 학과 */
-  role: string;
+  role?: string;
   /** 예: "2024. 05 - 2026. 01 · 1년 9월" */
-  period: string;
+  period?: string;
   logoUrl?: string;
   /** ActivityDetail 목록 — 항목 사이 구분선 자동 */
   children?: React.ReactNode;
@@ -31,9 +31,9 @@ export function HistoryEntry({ type = 'career', name, role, period, logoUrl, chi
         <div className="flex flex-col gap-1">
           <div className="flex items-center justify-between gap-3">
             <span className="text-subtitle3 font-bold text-gray900 truncate">{name}</span>
-            <span className="shrink-0 text-body2 text-gray600">{period}</span>
+            {period && <span className="shrink-0 text-body2 text-gray600">{period}</span>}
           </div>
-          <span className="text-body1 font-medium text-gray700">{role}</span>
+          {role && <span className="text-body1 font-medium text-gray700">{role}</span>}
         </div>
         {items.map((child, i) => (
           <React.Fragment key={i}>
