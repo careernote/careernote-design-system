@@ -12,7 +12,8 @@ interface ApplicantCardProps {
   imageUrl?: string;
   careerLabel: string;
   job: string;
-  fitness: FitnessLevel;
+  /** 미지정 = 검토 전 */
+  fitness?: FitnessLevel;
   /** 채용 프로세스 단계명 (예: "접수") */
   status: string;
   /** 단계 색상 — 프로세스 단계 색을 따른다. CSS color */
@@ -21,13 +22,15 @@ interface ApplicantCardProps {
   onStatusClick?: () => void;
   /** 최초 지원일 (예: "24.03.15") */
   appliedAt: string;
-  aiSummary: string;
+  aiSummary?: string;
   careers: CareerEntry[];
   education?: EducationEntry;
   /** 공고에 가장 적합한 활동 최대 2개 */
   experiences?: ExperienceEntry[];
   onExperienceClick?: (exp: ExperienceEntry, index: number) => void;
   memo?: string;
+  /** 카드 클릭 (상세 열기) — 단계 칩·활동 클릭은 전파되지 않는다 */
+  onClick?: () => void;
   className?: string;
 }
 
@@ -47,11 +50,15 @@ export function ApplicantCard({
   experiences = [],
   onExperienceClick,
   memo,
+  onClick,
   className = '',
 }: ApplicantCardProps) {
   return (
     <div
-      className={`w-[500px] max-w-full flex flex-col gap-4 p-5 bg-white100 border border-border_gray rounded-xlarge shadow-wide-light ${className}`.trim()}
+      onClick={onClick}
+      className={`w-full flex flex-col gap-4 p-5 bg-white100 border border-border_gray rounded-xlarge shadow-wide-light ${
+        onClick ? 'cursor-pointer transition-colors hover:border-gray400' : ''
+      } ${className}`.trim()}
     >
       <div className="flex flex-col gap-4">
         <CandidateProfile
@@ -62,7 +69,14 @@ export function ApplicantCard({
           badge={<FitnessChip level={fitness} />}
           aside={
             <div className="shrink-0 flex flex-col items-end justify-center gap-1">
-              <button type="button" onClick={onStatusClick} aria-label={`지원 상태: ${status}`}>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onStatusClick?.();
+                }}
+                aria-label={`지원 상태: ${status}`}
+              >
                 <Chip size="XL" variant="soft" color="basic" className="gap-1">
                   <span style={{ color: statusColor }}>{status}</span>
                   <Icon name="arrow-down" size={18} color="gray800" />
@@ -83,7 +97,18 @@ export function ApplicantCard({
         {experiences.length > 0 && (
           <div className="flex flex-col gap-2">
             {experiences.slice(0, 2).map((exp, i) => (
-              <ExperienceItem key={i} {...exp} onClick={onExperienceClick ? () => onExperienceClick(exp, i) : undefined} />
+              <ExperienceItem
+                key={i}
+                {...exp}
+                onClick={
+                  onExperienceClick
+                    ? (e) => {
+                        e.stopPropagation();
+                        onExperienceClick(exp, i);
+                      }
+                    : undefined
+                }
+              />
             ))}
           </div>
         )}

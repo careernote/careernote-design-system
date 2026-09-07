@@ -8,7 +8,8 @@ interface BoardCardProps {
   imageUrl?: string;
   /** 예: "경력 8년" */
   careerLabel: string;
-  fitness: FitnessLevel;
+  /** 미지정 = 검토 전 */
+  fitness?: FitnessLevel;
   /** 불합격 — 회색 배경, 이름 흐림, "불합격" 라벨, 적합도 칩 basic */
   rejected?: boolean;
   onClick?: () => void;
