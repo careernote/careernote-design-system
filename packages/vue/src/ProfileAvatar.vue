@@ -4,6 +4,8 @@ import { computed } from 'vue'
 
 const props = withDefaults(defineProps<{ name: string; imageUrl?: string; size?: number }>(), { size: 60 })
 const initials = computed(() => props.name.trim().slice(-2))
+// 글자 크기는 아바타 크기에 비례 (60px 기본 → 20px)
+const fontSize = computed(() => `${Math.round(props.size / 3)}px`)
 </script>
 
 <template>
@@ -12,6 +14,6 @@ const initials = computed(() => props.name.trim().slice(-2))
     :style="{ width: `${size}px`, height: `${size}px` }"
   >
     <img v-if="imageUrl" :src="imageUrl" :alt="name" class="w-full h-full object-cover" />
-    <span v-else class="text-subtitle2 font-semibold text-gray600">{{ initials }}</span>
+    <span v-else class="font-semibold text-gray600 leading-none" :style="{ fontSize }">{{ initials }}</span>
   </div>
 </template>
