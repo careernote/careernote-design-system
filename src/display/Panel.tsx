@@ -1,14 +1,12 @@
 import React from 'react';
 
-interface PanelProps {
+interface PanelProps extends React.HTMLAttributes<HTMLDivElement> {
   /** 내부 여백 — md: 20px, lg: 40/44px(폼 패널) */
   padding?: 'none' | 'md' | 'lg';
   /** 그림자 세기 — light: shadow/wide/light, soft: shadow/wide/soft */
   shadow?: 'light' | 'soft';
   /** 테두리(border_gray) 표시 — 카드형(목록)은 true, 폼 패널은 false */
   bordered?: boolean;
-  className?: string;
-  children?: React.ReactNode;
 }
 
 const paddingStyles = {
@@ -32,11 +30,13 @@ export const Panel: React.FC<PanelProps> = ({
   bordered = false,
   className = '',
   children,
+  ...rest
 }) => (
   <div
     className={`bg-white100 rounded-xlarge ${shadowStyles[shadow]} ${paddingStyles[padding]} ${
       bordered ? 'border border-border_gray' : ''
     } ${className}`.trim()}
+    {...rest}
   >
     {children}
   </div>
