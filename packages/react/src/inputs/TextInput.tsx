@@ -28,6 +28,8 @@ interface TextInputProps {
   fullWidth?: boolean;
   /** 루트 래퍼에 추가할 클래스 */
   className?: string;
+  /** input 요소 id — 소비처에서 focus()/label 연결이 필요할 때 지정(미지정 시 자동 생성) */
+  id?: string;
   'data-testid'?: string;
 }
 
@@ -50,6 +52,7 @@ const TextInput: React.FC<TextInputProps> = ({
   size = 'medium',
   fullWidth = false,
   className = '',
+  id: idProp,
   'data-testid': testId,
 }) => {
   const [inputValue, setInputValue] = useState('');
@@ -59,7 +62,7 @@ const TextInput: React.FC<TextInputProps> = ({
   const [internalState, setInternalState] = useState<TextInputState>('normal');
 
   // Generate a unique inputId, using label if provided, otherwise a generic fallback
-  const inputId = label ? `text-input-${label.replace(/\s/g, '-')}` : `text-input-${Math.random().toString(36).substring(2, 9)}`;
+  const inputId = idProp ?? (label ? `text-input-${label.replace(/\s/g, '-')}` : `text-input-${Math.random().toString(36).substring(2, 9)}`);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const next = e.target.value;
