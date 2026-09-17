@@ -30,6 +30,7 @@ module.exports = {
         "sky80": "#00A3FFCC",
         "sky60": "#00A3FF99",
         "sky_bg": "#EDF8FF",
+        "sky_line": "#CCE8FF",
         "light_sky": "#FAFDFF",
         "sky_selected": "#F7FCFF",
         "sky_navy": "#0A3D62",
