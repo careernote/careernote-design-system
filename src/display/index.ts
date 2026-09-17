@@ -1,5 +1,6 @@
 export { default as Chip } from './Chip';
 export { CategoryChip } from './CategoryChip';
+export { Panel } from './Panel';
 export { SelectCard } from './SelectCard';
 export { PlanCard } from './PlanCard';
 export { PlanFeature } from './PlanFeature';

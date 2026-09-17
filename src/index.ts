@@ -5,7 +5,7 @@ export { Button, ButtonRound, ToggleButton, AddDashedButton, IconButton, TextLin
 export { TextInput, Textarea, Selector, Checkbox, LevelSelector, LEVEL_LABELS } from './inputs';
 
 // Display
-export { Chip, CategoryChip, SelectCard, SelectableChip, PlanCard, PlanFeature, RibbonBadge, StarGrid, STAR_DISPLAY, type StarValues, Badge, type BadgeVariant, ActivityCard, ProChip, TemplateChips, Information, Icon, CheckIcon, Tooltip, NumberBadge } from './display';
+export { Chip, CategoryChip, Panel, SelectCard, SelectableChip, PlanCard, PlanFeature, RibbonBadge, StarGrid, STAR_DISPLAY, type StarValues, Badge, type BadgeVariant, ActivityCard, ProChip, TemplateChips, Information, Icon, CheckIcon, Tooltip, NumberBadge } from './display';
 export type { IconProps, BaseIconProps } from './display';
 export {
   ProfileAvatar, ExperienceItem, CareerTooltip, CandidateProfile, FitnessChip, UpdatedChip, FITNESS_LABEL,
@@ -28,7 +28,7 @@ export * from './feedback/Snackbar';
 export { Modal, ModalHeader, ResponsiveModal, ConfirmModal, ImageLightbox } from './overlays';
 
 // Navigation
-export { SubHeader, ProgressBarItem, HeaderMenuItem, InHeader, Sidebar, SidebarMenuItem, SidebarAccount, PillTabs, type PillTabItem, SegmentedControl, type SegmentItem, FilterChips, type FilterChipItem, UnderlineTabs, type UnderlineTabItem } from './navigation';
+export { SubHeader, ProgressBarItem, ProgressBar, HeaderMenuItem, InHeader, Sidebar, SidebarMenuItem, SidebarAccount, PillTabs, type PillTabItem, SegmentedControl, type SegmentItem, FilterChips, type FilterChipItem, UnderlineTabs, type UnderlineTabItem } from './navigation';
 
 // Icons
 export * from './icons';
