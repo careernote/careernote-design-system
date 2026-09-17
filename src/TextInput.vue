@@ -21,6 +21,8 @@ const props = withDefaults(
     size?: 'small' | 'medium' | 'large'
     fullWidth?: boolean
     maxLength?: number
+    /** input 요소 id — 소비처에서 focus() 가 필요할 때 지정 */
+    inputId?: string
   }>(),
   { placeholder: '', disabled: false, essential: false, type: 'text', size: 'medium', fullWidth: false },
 )
@@ -76,6 +78,7 @@ function onInput(e: Event) {
     <div class="w-full h-auto flex flex-col items-start gap-2 self-stretch">
       <div :class="boxClasses">
         <input
+          :id="inputId"
           :type="type"
           :placeholder="placeholder"
           :disabled="interactionDisabled"
