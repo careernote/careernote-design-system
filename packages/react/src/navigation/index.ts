@@ -1,5 +1,6 @@
 export { default as SubHeader } from './SubHeader';
 export { default as ProgressBarItem } from './ProgressBarItem';
+export { default as ProgressBar } from './ProgressBar';
 export { default as HeaderMenuItem } from './HeaderMenuItem';
 export { default as InHeader } from './InHeader';
 export { Sidebar } from './Sidebar';

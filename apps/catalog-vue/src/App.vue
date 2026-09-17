@@ -4,7 +4,7 @@ import {
   Button, ButtonRound, ToggleButton, AddDashedButton, IconButton,
   Chip, CategoryChip, SelectCard, SelectableChip, PlanCard, PlanFeature, RibbonBadge, StarGrid, Badge, NumberBadge, Tooltip, Information, ActivityCard,
   SubHeader, NextStepFooter, SearchInput, TextLink, Spinner, Checkbox, LottieLoadingDots, ConfirmModal, ResponsiveModal,
-  TextInput, Textarea, Selector, Modal, InHeader, HeaderMenuItem, ProgressBarItem,
+  TextInput, Textarea, Selector, Modal, InHeader, HeaderMenuItem, ProgressBarItem, ProgressBar, Panel,
   Icon, ICON_NAME_MAP,
   ApplicantCard, TalentpoolCard, BoardCard, ExperienceItem, CareerTooltip, ProfileAvatar, FeedCard, PillTabs, SegmentedControl, FilterChips, UnderlineTabs, LevelSelector,
   Sidebar, SidebarMenuItem, SidebarAccount,
@@ -356,6 +356,25 @@ import symbolData from '@careernote/assets/logo/careernote-symbol.base64.json'</
           <CategoryChip>데이터·AI</CategoryChip>
           <CategoryChip>디자인</CategoryChip>
         </div>
+        <h3 class="text-subtitle3 font-semibold text-gray800 mt-8 mb-2">CategoryChip — variant="soft" size="sm" (ATS 채용 만들기 선택지)</h3>
+        <div class="flex flex-wrap gap-1">
+          <CategoryChip variant="soft" size="sm" active>정규직</CategoryChip>
+          <CategoryChip variant="soft" size="sm">계약직</CategoryChip>
+          <CategoryChip variant="soft" size="sm">인턴</CategoryChip>
+          <CategoryChip variant="soft" size="sm">아르바이트</CategoryChip>
+          <CategoryChip variant="soft" size="sm">프리랜서</CategoryChip>
+        </div>
+        <h3 class="text-subtitle3 font-semibold text-gray800 mt-8 mb-2">Panel — 흰 서피스 카드 (Form panel · 목록 카드)</h3>
+        <div class="flex flex-wrap gap-4">
+          <Panel padding="md" class="w-[260px]">
+            <p class="text-body2 font-semibold text-gray800">padding=md · shadow=light</p>
+            <p class="text-detail text-gray600">폼 패널·요약 박스 기본값</p>
+          </Panel>
+          <Panel padding="md" shadow="soft" bordered class="w-[260px]">
+            <p class="text-body2 font-semibold text-gray800">bordered · shadow=soft</p>
+            <p class="text-detail text-gray600">목록 카드(공고 현황)</p>
+          </Panel>
+        </div>
       </section>
 
       <!-- Inputs -->
@@ -370,6 +389,13 @@ import symbolData from '@careernote/assets/logo/careernote-symbol.base64.json'</
         <div class="grid grid-cols-2 gap-6 max-w-[720px]">
           <TextInput label="라벨" sublabel="서브라벨" placeholder="텍스트를 입력하세요" essential v-model="inputVal" full-width />
           <TextInput label="에러 상태" placeholder="값" state="error" error-message="에러 메시지입니다" full-width />
+          <TextInput
+            size="small"
+            full-width
+            label="채용 제목 *"
+            placeholder="예: 프로덕트 디자이너"
+            helper-text="size=small — 높이 40 · 라벨 11 bold · 헬퍼 10 (ATS 폼)"
+          />
           <Textarea label="Textarea" placeholder="여러 줄 입력" full-width />
           <Selector label="Selector" placeholder="선택하세요" :options="['옵션 A', '옵션 B', '옵션 C']" v-model="selVal" full-width />
         </div>
@@ -467,6 +493,12 @@ import symbolData from '@careernote/assets/logo/careernote-symbol.base64.json'</
           <ProgressBarItem status="complete" text="완료 단계" :number="1" />
           <ProgressBarItem status="editing" text="진행 중 단계" :number="2" />
           <ProgressBarItem status="waiting" text="대기 단계" :number="3" />
+        </div>
+        <h3 class="text-subtitle3 font-semibold text-gray800 mt-6 mb-2">ProgressBar — 단계 진행바 (ATS 채용 만들기)</h3>
+        <div class="flex flex-col gap-4">
+          <ProgressBar :steps="['기본 정보', '공고 작성', '지원서 편집']" :current="1" />
+          <ProgressBar :steps="['기본 정보', '공고 작성', '지원서 편집']" :current="2" />
+          <ProgressBar :steps="['기본 정보', '공고 작성', '지원서 편집']" :current="3" />
         </div>
       </section>
 

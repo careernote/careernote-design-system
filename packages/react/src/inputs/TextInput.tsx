@@ -19,8 +19,11 @@ interface TextInputProps {
   onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   maxLength?: number;
   errorMessage?: string;
+  /** 인풋 아래 회색 보조 설명(에러와 별개) */
+  helperText?: string;
   state?: TextInputState;
-  size?: 'medium' | 'large';
+  /** small: 높이 40 · 라벨 11 bold(ATS 폼) */
+  size?: 'small' | 'medium' | 'large';
   /** 기본 고정폭(w-[289px]) 대신 w-full */
   fullWidth?: boolean;
   /** 루트 래퍼에 추가할 클래스 */
@@ -42,6 +45,7 @@ const TextInput: React.FC<TextInputProps> = ({
   onKeyDown,
   maxLength,
   errorMessage,
+  helperText,
   state: propState,
   size = 'medium',
   fullWidth = false,
@@ -107,29 +111,36 @@ const TextInput: React.FC<TextInputProps> = ({
   };
 
   const getContainerClasses = () => {
-    if (size === 'large') {
-      return `p-4`;
-    }
+    if (size === 'large') return `p-4`;
+    if (size === 'small') return `px-3 py-2.5`;
     return `px-4 py-3.5`;
   };
+
+  const isSmall = size === 'small';
 
   const isInteractionDisabled = internalState === 'only_view' || disabled;
 
   return (
-    <div className={`${fullWidth ? 'w-full' : 'w-[289px]'} h-auto flex flex-col items-start gap-3 ${className}`.trim()}>
+    <div
+      className={`${fullWidth ? 'w-full' : 'w-[289px]'} h-auto flex flex-col items-start ${
+        isSmall ? 'gap-2' : 'gap-3'
+      } ${className}`.trim()}
+    >
       {(label || sublabel) && (
         <div className="w-full h-auto flex flex-col items-start gap-1 self-stretch">
           {label && (
             <label
               htmlFor={!isInteractionDisabled ? inputId : undefined}
-              className="text-body1 font-semibold text-gray900 font-pretendard"
+              className={`font-pretendard text-gray900 ${isSmall ? 'text-[11px] font-bold' : 'text-body1 font-semibold'}`}
             >
               {label}
               {essential && <span className="text-sky"> *</span>}
             </label>
           )}
           {sublabel && (
-            <span className="text-body2 font-regular text-gray700 font-pretendard">
+            <span
+              className={`font-pretendard font-regular text-gray700 ${isSmall ? 'text-[10px] leading-[1.35]' : 'text-body2'}`}
+            >
               {sublabel}
             </span>
           )}
@@ -156,7 +167,7 @@ const TextInput: React.FC<TextInputProps> = ({
             onKeyDown={onKeyDown}
             onFocus={!isInteractionDisabled ? handleFocus : undefined}
             onBlur={!isInteractionDisabled ? handleBlur : undefined}
-            className="w-full h-auto max-h-[18px] flex-1 outline-none bg-transparent"
+            className={`w-full h-auto max-h-[18px] flex-1 outline-none bg-transparent ${isSmall ? 'text-[13px]' : ''}`}
             aria-invalid={internalState === 'error'}
             aria-describedby={internalState === 'error' && errorMessage ? `${inputId}-error` : undefined}
             readOnly={internalState === 'only_view'}
@@ -168,6 +179,12 @@ const TextInput: React.FC<TextInputProps> = ({
             />
           )}
         </div>
+
+        {helperText && (
+          <p className={`font-pretendard font-regular text-gray500 ${isSmall ? 'text-[10px] leading-[1.35]' : 'text-detail'}`}>
+            {helperText}
+          </p>
+        )}
 
         {internalState === 'error' && errorMessage && (
           <p
