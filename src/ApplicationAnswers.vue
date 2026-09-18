@@ -37,9 +37,10 @@ function openFile(file: AnswerFile) {
 </script>
 
 <template>
-  <div v-if="props.items.length" class="flex flex-col gap-6">
-    <div v-for="(it, i) in props.items" :key="i" class="flex flex-col gap-2">
-      <span class="text-body1 font-semibold text-gray900">{{ it.label }}</span>
+  <!-- 좌측 띠(2px gray700) — 프로필 본문과 지원서 답변을 시각적으로 갈라 준다 (Figma #9276:19525) -->
+  <div v-if="props.items.length" class="flex flex-col gap-7 border-l-2 border-gray700 pl-7">
+    <div v-for="(it, i) in props.items" :key="i" class="flex flex-col gap-3">
+      <span class="text-body1 font-medium text-gray900">{{ it.label }}</span>
 
       <span v-if="isEmpty(it)" class="text-body2 text-gray600">{{ EMPTY }}</span>
 
@@ -49,7 +50,7 @@ function openFile(file: AnswerFile) {
           v-for="(f, j) in it.files ?? []"
           :key="j"
           :type="f.url ? 'button' : undefined"
-          class="inline-flex max-w-full items-center gap-1.5 rounded-small border border-gray400 bg-white100 px-3 py-2 text-body2 text-gray800"
+          class="inline-flex max-w-full items-center gap-2 rounded-small border border-gray400 bg-white100 px-4 py-2 text-body2 font-medium text-gray800"
           :class="f.url ? 'cursor-pointer transition-colors hover:border-sky hover:text-sky' : 'text-gray600'"
           @click="f.url ? openFile(f) : undefined"
         >
