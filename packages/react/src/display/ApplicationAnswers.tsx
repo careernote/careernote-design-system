@@ -36,15 +36,16 @@ export function ApplicationAnswers({ items, onFileClick, className = '' }: Appli
   };
 
   return (
-    <div className={`flex flex-col gap-6 ${className}`.trim()}>
+    // 좌측 띠(2px gray700) — 프로필 본문과 지원서 답변을 시각적으로 갈라 준다 (Figma #9276:19525)
+    <div className={`flex flex-col gap-7 border-l-2 border-gray700 pl-7 ${className}`.trim()}>
       {items.map((it, i) => {
         const files = it.files ?? [];
         const choices = it.choices ?? [];
         const empty =
           it.kind === 'file' ? files.length === 0 : it.kind === 'choice' ? choices.length === 0 : !it.text?.trim();
         return (
-          <div key={i} className="flex flex-col gap-2">
-            <span className="text-body1 font-semibold text-gray900">{it.label}</span>
+          <div key={i} className="flex flex-col gap-3">
+            <span className="text-body1 font-medium text-gray900">{it.label}</span>
             {empty ? (
               <span className="text-body2 text-gray600">{EMPTY}</span>
             ) : it.kind === 'file' ? (
@@ -56,7 +57,7 @@ export function ApplicationAnswers({ items, onFileClick, className = '' }: Appli
                       key={j}
                       type={f.url ? 'button' : undefined}
                       onClick={f.url ? () => openFile(f) : undefined}
-                      className={`inline-flex max-w-full items-center gap-1.5 rounded-small border border-gray400 bg-white100 px-3 py-2 text-body2 text-gray800 ${
+                      className={`inline-flex max-w-full items-center gap-2 rounded-small border border-gray400 bg-white100 px-4 py-2 text-body2 font-medium text-gray800 ${
                         f.url ? 'cursor-pointer transition-colors hover:border-sky hover:text-sky' : 'text-gray600'
                       }`}
                     >
