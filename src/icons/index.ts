@@ -185,6 +185,9 @@ import { TrendDown01Icon } from './TrendDown01Icon';
 import { ExpandIcon } from './ExpandIcon';
 import { ArrowUpRightIcon } from './ArrowUpRightIcon';
 import { Arrow2Icon } from './Arrow2Icon';
+import { ViewCardIcon } from './ViewCardIcon';
+import { ViewKanbanIcon } from './ViewKanbanIcon';
+import { ViewListIcon } from './ViewListIcon';
 import { GlobeIcon } from './GlobeIcon';
 import { CameraOffIcon } from './CameraOffIcon';
 import { MicOnlyIcon } from './MicOnlyIcon';
@@ -297,6 +300,9 @@ export const iconMap: Record<string, React.ComponentType<BaseIconProps>> = {
   expand: ExpandIcon,
   'arrow-up-right': ArrowUpRightIcon,
   arrow2: Arrow2Icon,
+  view_card: ViewCardIcon,
+  view_kanban: ViewKanbanIcon,
+  view_list: ViewListIcon,
   globe: GlobeIcon,
   camera_off: CameraOffIcon,
   mic_only: MicOnlyIcon,
@@ -308,6 +314,9 @@ export type IconName = keyof typeof iconMap;
 
 // 배럴 누락분 보수 (파일은 있었으나 미export — 2026-08-07)
 export { Arrow2Icon } from './Arrow2Icon';
+export { ViewCardIcon } from './ViewCardIcon';
+export { ViewKanbanIcon } from './ViewKanbanIcon';
+export { ViewListIcon } from './ViewListIcon';
 export { CheckCircleIcon } from './CheckCircleIcon';
 export { FilledBadge } from './FilledBadge';
 export { LogoutIcon } from './LogoutIcon';
