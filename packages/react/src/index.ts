@@ -16,9 +16,9 @@ export { FeedCard, type FeedCardProps } from './display';
 export {
   ProfileHero, ContactItem, CandidateIntro, ProfileSummary, SectionLabel, ProfileItem, HistoryEntry, ActivityDetail,
   AiEvaluationCard, FitActivityItem, RequirementCard, ApplicantEvaluationPanel,
-  AttachmentBar, CandidateHeader, SkillSection, ProfileItemSection, CandidateDetail,
+  AttachmentBar, ApplicationAnswers, CandidateHeader, SkillSection, ProfileItemSection, CandidateDetail,
 } from './display';
-export type { ContactType, ContactEntry, SummaryItem, ActivityComment, RequirementItem, FitActivity, AttachmentEntry, CandidateHeaderData, ProfileItemEntry, ActivityData, HistoryData } from './display';
+export type { AnswerEntry, AnswerFile, ContactType, ContactEntry, SummaryItem, ActivityComment, RequirementItem, FitActivity, AttachmentEntry, CandidateHeaderData, ProfileItemEntry, ActivityData, HistoryData } from './display';
 
 // Feedback
 export { Alert } from './feedback';

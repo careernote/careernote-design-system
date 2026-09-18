@@ -44,6 +44,7 @@ export { FitActivityItem } from './FitActivityItem';
 export { RequirementCard, type RequirementItem } from './RequirementCard';
 export { ApplicantEvaluationPanel, type FitActivity } from './ApplicantEvaluationPanel';
 export { AttachmentBar, type AttachmentEntry } from './AttachmentBar';
+export { ApplicationAnswers, type AnswerEntry, type AnswerFile } from './ApplicationAnswers';
 export { CandidateHeader, type CandidateHeaderData } from './CandidateHeader';
 export { SkillSection } from './SkillSection';
 export { ProfileItemSection, type ProfileItemEntry } from './ProfileItemSection';

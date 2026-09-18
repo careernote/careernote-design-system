@@ -787,6 +787,7 @@ function DetailSection() {
       </p>
       <CandidateDetail
         className="border border-border_gray"
+        answers={DETAIL_ANSWERS as unknown as React.ComponentProps<typeof CandidateDetail>['answers']}
         attachments={[
           { kind: 'file', label: '이력서 김민준_이력서.pdf', onClick: () => {} },
           { kind: 'clip', label: '첨부파일 김민준_포트폴리오_2025.pdf', onClick: () => {} },
@@ -957,6 +958,17 @@ const NAV = [
 type NavLeaf = { id: string; label: string; el: React.ReactNode };
 type NavItem = NavLeaf | { id: string; label: string; children: NavLeaf[] };
 const NAV_LEAVES: NavLeaf[] = (NAV as NavItem[]).flatMap((n) => ('children' in n ? n.children : [n]));
+
+const DETAIL_ANSWERS = [
+  { label: '거주지를 입력해주세요.', kind: 'short', text: '서울시 성북구 보문동' },
+  {
+    label: '간단한 자기소개를 작성해주세요.',
+    kind: 'long',
+    text: '안녕하세요. 고객의 행동을 이해하고, 데이터를 바탕으로 더 나은 결과를 만들어가는 마케터입니다.\n새로운 프로젝트를 시작할 때 "무엇을 할 것인가"보다 "누구에게, 왜 필요한가"를 먼저 고민하는 편입니다.',
+  },
+  { label: '파일을 첨부해주세요.', kind: 'file', files: [{ name: '첨부파일 김민준_포트폴리오_2025.pdf', url: '#' }] },
+  { label: '지원 루트를 선택해주세요.', kind: 'choice', choices: ['잡코리아', '사람인'] },
+] as const;
 
 export default function App() {
   const [active, setActive] = useState('brand');

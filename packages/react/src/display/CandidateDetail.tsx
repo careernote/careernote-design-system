@@ -1,4 +1,5 @@
 import React from 'react';
+import { ApplicationAnswers, type AnswerEntry, type AnswerFile } from './ApplicationAnswers';
 import { AttachmentBar, type AttachmentEntry } from './AttachmentBar';
 import { CandidateHeader, type CandidateHeaderData } from './CandidateHeader';
 import { ProfileSummary, type SummaryItem } from './ProfileSummary';
@@ -32,6 +33,9 @@ export interface HistoryData {
 interface CandidateDetailProps {
   /** 공고 지원자 상세에만 */
   attachments?: AttachmentEntry[];
+  /** 공고 지원자 상세에만 — 지원서에 써 넣은 답변. 프로필 헤더 바로 아래에 놓인다 */
+  answers?: AnswerEntry[];
+  onAnswerFileClick?: (file: AnswerFile) => void;
   header: CandidateHeaderData;
   onEditProfile?: () => void;
   /** 인재풀 상세에만 */
@@ -53,6 +57,8 @@ const Divider = () => <hr className="border-0 border-t border-border_gray" />;
 
 export function CandidateDetail({
   attachments,
+  answers,
+  onAnswerFileClick,
   header,
   onEditProfile,
   summary,
@@ -71,6 +77,12 @@ export function CandidateDetail({
       {attachments && attachments.length > 0 && <AttachmentBar items={attachments} />}
       <CandidateHeader {...header} onEdit={onEditProfile} />
       <Divider />
+      {answers && answers.length > 0 && (
+        <>
+          <ApplicationAnswers items={answers} onFileClick={onAnswerFileClick} />
+          <Divider />
+        </>
+      )}
       {summary && summary.length > 0 && <ProfileSummary title={summaryTitle} items={summary} />}
       {histories.map((h, i) => (
         <React.Fragment key={i}>
