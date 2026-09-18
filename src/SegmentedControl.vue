@@ -42,7 +42,10 @@ const showLabel = (it: SegmentItem) => props.labelMode === 'always' || it.value 
         class="grid overflow-hidden transition-[grid-template-columns] duration-200 ease-in-out"
         :class="showLabel(it) ? 'grid-cols-[1fr]' : 'grid-cols-[0fr]'"
       >
-        <span class="min-w-0 overflow-hidden whitespace-nowrap" :class="it.icon ? 'pl-1' : ''">{{ it.label }}</span>
+        <span class="min-w-0 overflow-hidden whitespace-nowrap">
+          <!-- 아이콘과의 간격도 접혀야 해서 여백을 클리핑되는 안쪽에 둔다 -->
+          <span :class="it.icon ? 'pl-1' : ''">{{ it.label }}</span>
+        </span>
       </span>
     </button>
   </div>
