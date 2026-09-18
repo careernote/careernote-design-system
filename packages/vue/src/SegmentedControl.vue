@@ -29,7 +29,7 @@ const showLabel = (it: SegmentItem) => props.labelMode === 'always' || it.value 
       role="radio"
       :aria-checked="it.value === modelValue"
       :aria-label="showLabel(it) ? undefined : it.label"
-      class="inline-flex items-center justify-center gap-1 rounded-medium border-0 cursor-pointer text-body2 leading-[18px] transition-colors"
+      class="inline-flex items-center justify-center rounded-medium border-0 cursor-pointer text-body2 leading-[18px] transition-colors"
       :class="[
         iconMode ? 'p-2 font-semibold' : 'px-4 py-3 font-medium',
         it.value === modelValue ? 'bg-gray900 text-white100 shadow-wide-light' : 'bg-transparent text-gray700 hover:bg-bg-gray1',
@@ -37,7 +37,13 @@ const showLabel = (it: SegmentItem) => props.labelMode === 'always' || it.value 
       @click="emit('update:modelValue', it.value)"
     >
       <Icon v-if="it.icon" :name="it.icon" :size="18" />
-      <span v-if="showLabel(it)">{{ it.label }}</span>
+      <!-- 라벨이 0fr↔1fr 로 늘었다 줄어든다 — width:auto 는 전환이 안 되므로 grid 트랙을 애니메이션한다 -->
+      <span
+        class="grid overflow-hidden transition-[grid-template-columns] duration-200 ease-in-out"
+        :class="showLabel(it) ? 'grid-cols-[1fr]' : 'grid-cols-[0fr]'"
+      >
+        <span class="min-w-0 overflow-hidden whitespace-nowrap" :class="it.icon ? 'pl-1' : ''">{{ it.label }}</span>
+      </span>
     </button>
   </div>
 </template>
