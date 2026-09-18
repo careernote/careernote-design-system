@@ -53,7 +53,10 @@ export function SegmentedControl<T extends string>({
                 showLabel ? 'grid-cols-[1fr]' : 'grid-cols-[0fr]'
               }`}
             >
-              <span className={`min-w-0 overflow-hidden whitespace-nowrap ${it.icon ? 'pl-1' : ''}`}>{it.label}</span>
+              <span className="min-w-0 overflow-hidden whitespace-nowrap">
+                {/* 아이콘과의 간격도 접혀야 해서 여백을 클리핑되는 안쪽에 둔다 */}
+                <span className={it.icon ? 'pl-1' : undefined}>{it.label}</span>
+              </span>
             </span>
           </button>
         );
