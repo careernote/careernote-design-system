@@ -432,6 +432,20 @@ function NavigationSection() {
         onChange={setSeg}
       />
 
+      <h3 className="text-subtitle3 font-semibold text-gray800 mt-8 mb-2">
+        SegmentedControl — 아이콘형 (Figma selectBttn2, 선택 항목만 라벨)
+      </h3>
+      <SegmentedControl
+        items={[
+          { value: 'card', label: '카드', icon: 'view_card' },
+          { value: 'kanban', label: '칸반보드', icon: 'view_kanban' },
+          { value: 'table', label: '표', icon: 'view_list' },
+        ]}
+        value={seg}
+        onChange={setSeg}
+        labelMode="selected"
+      />
+
       <h3 className="text-subtitle3 font-semibold text-gray800 mt-8 mb-2">FilterChips — 단계 필터 (단일 선택, count 옵션)</h3>
       <FilterChips
         items={[

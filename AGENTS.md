@@ -62,7 +62,7 @@ AI 에이전트로 프론트엔드 코드를 작성할 때 아래 규칙을 따�
 - inputs: `TextInput`(size small/medium/large + `helperText`), `Textarea`, `Selector`
 - display: `Chip`(8 color × 4 size × 2 variant), `CategoryChip`(solid/soft × sm/md 선택지 알약), `Panel`(흰 서피스 카드 — radius 16 + shadow/wide), `ProChip`, `TemplateChips`, `Icon`, `Tooltip`, `Information`, `NumberBadge`
 - ATS 평가 기준: `LevelSelector`(하/중하/중/중상/상 5단계 비중) — 카탈로그 "Inputs" 탭
-- ATS 네비: `UnderlineTabs`(공고 상세 탭), `SegmentedControl`(카드/칸반/표 뷰 전환), `FilterChips`(단계 필터) — 카탈로그 "Navigation" 탭. `ApplicantCard` 는 `onClick`(카드 전체 클릭) 지원
+- ATS 네비: `UnderlineTabs`(공고 상세 탭), `SegmentedControl`(카드/칸반/표 뷰 전환 — `items[].icon` + `labelMode="selected"` 로 Figma selectBttn2 아이콘형), `FilterChips`(단계 필터) — 카탈로그 "Navigation" 탭. `ApplicantCard` 는 `onClick`(카드 전체 클릭) 지원
 - ATS 피드: `FeedCard`(대표 활동 갤러리 0/1/2/3+ 자동 레이아웃 + 성과 박스, 내장 라이트박스), `PillTabs`(알약 탭) — 카탈로그 "ATS · Feed" 탭
 - ATS 카드: `ApplicantCard`, `TalentpoolCard`, `BoardCard` + 부품 `CandidateProfile`(`FitnessChip`·`UpdatedChip`), `CandidateHistory`, `ExperienceItem`, `CareerTooltip`, `ProfileAvatar` — 카탈로그 "ATS · Cards" 탭
 - ATS 상세: 조립체 `CandidateDetail`(데이터 → 페이지) + 섹션 `AttachmentBar`·`CandidateHeader`·`SkillSection`·`ProfileItemSection` + 부품 `ProfileHero`, `CandidateIntro`(`ContactItem`), `ProfileSummary`, `HistoryEntry`+`ActivityDetail`, `SectionLabel`, `ProfileItem`, 평가 모달 `ApplicantEvaluationPanel`(`AiEvaluationCard`·`FitActivityItem`·`RequirementCard`) — 카탈로그 "ATS · Detail" 탭

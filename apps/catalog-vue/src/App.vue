@@ -487,6 +487,14 @@ import symbolData from '@careernote/assets/logo/careernote-symbol.base64.json'</
         <UnderlineTabs v-model="navTab" :items="[{ value: 'applicants', label: '지원자 관리' }, { value: 'calendar', label: '채용 캘린더' }]" class="mb-6" />
         <h3 class="text-subtitle3 font-semibold text-gray800 mt-6 mb-2">SegmentedControl — 뷰 전환 (Figma selectBttn)</h3>
         <SegmentedControl v-model="navSeg" :items="[{ value: 'card', label: '카드' }, { value: 'kanban', label: '칸반보드' }, { value: 'table', label: '표' }]" class="mb-6" />
+
+        <h3 class="text-subtitle3 font-semibold text-gray800 mt-6 mb-2">SegmentedControl — 아이콘형 (Figma selectBttn2, 선택 항목만 라벨)</h3>
+        <SegmentedControl
+          v-model="navSeg"
+          label-mode="selected"
+          :items="[{ value: 'card', label: '카드', icon: 'view_card' }, { value: 'kanban', label: '칸반보드', icon: 'view_kanban' }, { value: 'table', label: '표', icon: 'view_list' }]"
+          class="mb-6"
+        />
         <h3 class="text-subtitle3 font-semibold text-gray800 mt-6 mb-2">FilterChips — 단계 필터 (단일 선택, count 옵션)</h3>
         <FilterChips v-model="navChip" :items="[{ value: 'all', label: '전체', count: 12 }, { value: 'received', label: '접수', count: 5 }, { value: 'interview', label: '인터뷰', count: 4 }, { value: 'offer', label: '처우 협의' }, { value: 'hired', label: '최종합격' }, { value: 'rejected', label: '불합격', count: 3 }]" class="mb-6" />
         <div class="flex items-center gap-6">
