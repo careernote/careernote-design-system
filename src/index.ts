@@ -84,6 +84,8 @@ export { default as ApplicantEvaluationPanel } from './ApplicantEvaluationPanel.
 export type { FitActivity } from './ApplicantEvaluationPanel.vue';
 export { default as AttachmentBar } from './AttachmentBar.vue';
 export type { AttachmentEntry } from './AttachmentBar.vue';
+export { default as ApplicationAnswers } from './ApplicationAnswers.vue';
+export type { AnswerEntry, AnswerFile } from './ApplicationAnswers.vue';
 export { default as CandidateHeader } from './CandidateHeader.vue';
 export type { CandidateHeaderData } from './CandidateHeader.vue';
 export { default as SkillSection } from './SkillSection.vue';
