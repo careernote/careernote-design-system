@@ -42,12 +42,19 @@ export function SegmentedControl<T extends string>({
             // 라벨을 감추는 모드에서는 스크린리더가 읽을 이름이 없어진다
             aria-label={showLabel ? undefined : it.label}
             onClick={() => onChange(it.value)}
-            className={`inline-flex items-center justify-center gap-1 rounded-medium border-0 cursor-pointer text-body2 leading-[18px] transition-colors ${
+            className={`inline-flex items-center justify-center rounded-medium border-0 cursor-pointer text-body2 leading-[18px] transition-colors ${
               iconMode ? 'p-2 font-semibold' : 'px-4 py-3 font-medium'
             } ${active ? 'bg-gray900 text-white100 shadow-wide-light' : 'bg-transparent text-gray700 hover:bg-bg_gray1'}`}
           >
             {it.icon && <Icon name={it.icon} size={18} />}
-            {showLabel && <span>{it.label}</span>}
+            {/* 라벨이 0fr↔1fr 로 늘었다 줄어든다 — width:auto 는 전환이 안 되므로 grid 트랙을 애니메이션한다 */}
+            <span
+              className={`grid overflow-hidden transition-[grid-template-columns] duration-200 ease-in-out ${
+                showLabel ? 'grid-cols-[1fr]' : 'grid-cols-[0fr]'
+              }`}
+            >
+              <span className={`min-w-0 overflow-hidden whitespace-nowrap ${it.icon ? 'pl-1' : ''}`}>{it.label}</span>
+            </span>
           </button>
         );
       })}
