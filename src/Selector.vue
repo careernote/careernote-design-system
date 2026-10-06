@@ -1,7 +1,8 @@
 <script setup lang="ts">
 // React Selector 동일 스펙 (커스텀 드롭다운 — 핵심 동작 포트)
-import { computed, ref, onMounted, onBeforeUnmount } from 'vue'
+import { computed, ref, watch, onMounted, onBeforeUnmount } from 'vue'
 import Icon from './icons/Icon.vue'
+import { dropdownPlacement, type DropdownPlacement } from './dropdownPlacement'
 
 type OptionItem = string | { value: string; label: string }
 
@@ -24,6 +25,18 @@ const emit = defineEmits<{ (e: 'update:modelValue', v: string): void }>()
 
 const open = ref(false)
 const root = ref<HTMLElement>()
+const trigger = ref<HTMLButtonElement>()
+const list = ref<HTMLElement>()
+const placement = ref<DropdownPlacement>('bottom')
+
+// 열리는 순간(페인트 전) 아래 공간을 재서 모자라면 위로 펼친다 — 하단 고정 푸터에 가려 스크롤해야 하는 문제
+watch(
+  open,
+  (isOpen) => {
+    if (isOpen && trigger.value && list.value) placement.value = dropdownPlacement(trigger.value, list.value.offsetHeight)
+  },
+  { flush: 'post' },
+)
 
 const optValue = (o: OptionItem) => (typeof o === 'string' ? o : o.value)
 const optLabel = (o: OptionItem) => (typeof o === 'string' ? o : o.label)
@@ -58,22 +71,26 @@ onBeforeUnmount(() => document.removeEventListener('mousedown', onOutside))
       </label>
       <span v-if="sublabel" class="text-body2 text-gray700">{{ sublabel }}</span>
     </div>
-    <button type="button" :class="boxClasses" :disabled="disabled" @click="open = !open">
-      <span class="truncate">{{ selectedLabel || placeholder }}</span>
-      <Icon name="arrow-down" size="sm" color="gray800" :class="open ? 'rotate-180' : ''" class="transition-transform" />
-    </button>
-    <div
-      v-if="open"
-      class="absolute top-full left-0 right-0 mt-1 z-50 max-h-[240px] overflow-y-auto rounded-medium border border-border-gray bg-white100 shadow-normal-normal p-1"
-    >
+    <div class="relative w-full self-stretch">
+      <button ref="trigger" type="button" :class="boxClasses" :disabled="disabled" @click="open = !open">
+        <span class="truncate">{{ selectedLabel || placeholder }}</span>
+        <Icon name="arrow-down" size="sm" color="gray800" :class="open ? 'rotate-180' : ''" class="transition-transform" />
+      </button>
       <div
-        v-for="o in options"
-        :key="optValue(o)"
-        class="px-4 py-2.5 text-[14px] font-medium text-gray800 rounded-medium cursor-pointer transition-colors truncate"
-        :class="optValue(o) === modelValue ? 'bg-bg-gray3 font-semibold text-gray900' : 'hover:bg-bg-gray3'"
-        @click="pick(o)"
+        v-if="open"
+        ref="list"
+        :class="placement === 'top' ? 'bottom-full mb-1' : 'top-full mt-1'"
+        class="absolute left-0 right-0 z-50 max-h-[240px] overflow-y-auto rounded-medium border border-border-gray bg-white100 shadow-normal-normal p-1"
       >
-        {{ optLabel(o) }}
+        <div
+          v-for="o in options"
+          :key="optValue(o)"
+          class="px-4 py-2.5 text-[14px] font-medium text-gray800 rounded-medium cursor-pointer transition-colors truncate"
+          :class="optValue(o) === modelValue ? 'bg-bg-gray3 font-semibold text-gray900' : 'hover:bg-bg-gray3'"
+          @click="pick(o)"
+        >
+          {{ optLabel(o) }}
+        </div>
       </div>
     </div>
     <p v-if="errorMessage" class="text-detail leading-4 text-red">{{ errorMessage }}</p>
