@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import Icon from '../display/Icon';
+import { dropdownPlacement, type DropdownPlacement } from './dropdownPlacement';
 
 type OptionItem = string | { label: string; value: string };
 
@@ -52,7 +53,16 @@ const Selector: React.FC<SelectorProps> = ({
   const [isFocused, setIsFocused] = useState(false);
   const [internalState, setInternalState] = useState<'normal' | 'filled' | 'error' | 'disabled'>('normal');
   const [internalError, setInternalError] = useState('');
+  const [placement, setPlacement] = useState<DropdownPlacement>('bottom');
   const containerRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLUListElement>(null);
+
+  // 열리는 순간(페인트 전) 아래 공간을 재서 모자라면 위로 펼친다 — 하단 고정 푸터에 가려 스크롤해야 하는 문제
+  useLayoutEffect(() => {
+    if (!isOpen || !triggerRef.current || !listRef.current) return;
+    setPlacement(dropdownPlacement(triggerRef.current, listRef.current.offsetHeight));
+  }, [isOpen]);
 
   const selectorId = useRef(`selector-${Math.random().toString(36).substr(2, 9)}`).current;
 
@@ -172,6 +182,7 @@ const Selector: React.FC<SelectorProps> = ({
         onFocus={handleFocus}
       >
         <div
+          ref={triggerRef}
           id={selectorId}
           className={getSelectorClasses()}
           onClick={handleToggle}
@@ -198,7 +209,10 @@ const Selector: React.FC<SelectorProps> = ({
           />
         </div>
         {isOpen && options && (
-          <ul className="absolute w-full mt-2 p-1.5 bg-white rounded-[12px] shadow-[0px_2px_28px_0px_rgba(0,0,0,0.08)] max-h-60 overflow-y-auto z-[1000] top-[100%] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-gray-200 [&::-webkit-scrollbar-thumb]:rounded-full">
+          <ul
+            ref={listRef}
+            className={`absolute w-full p-1.5 ${placement === 'top' ? 'bottom-[100%] mb-2' : 'top-[100%] mt-2'} bg-white rounded-[12px] shadow-[0px_2px_28px_0px_rgba(0,0,0,0.08)] max-h-60 overflow-y-auto z-[1000] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:bg-gray-200 [&::-webkit-scrollbar-thumb]:rounded-full`}
+          >
             {options.map((option) => {
               const optValue = getOptionValue(option);
               const optLabel = getOptionLabel(option);
