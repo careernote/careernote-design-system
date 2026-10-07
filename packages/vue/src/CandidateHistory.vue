@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // React CandidateHistory 와 동일 스펙 — AI 요약 + 최근 경력(2개 이상이면 드롭다운 툴팁) + 최종 학력
-import { computed, onBeforeUnmount, ref, watch } from 'vue'
+import { computed, nextTick, onBeforeUnmount, ref, watch } from 'vue'
 import Icon from './icons/Icon.vue'
 import CareerTooltip from './CareerTooltip.vue'
 import type { CareerEntry } from './CareerTooltip.vue'
@@ -9,6 +9,38 @@ import type { EducationEntry } from './candidate-types'
 const props = defineProps<{ aiSummary?: string; careers: CareerEntry[]; education?: EducationEntry }>()
 
 const open = ref(false)
+// AI 요약 — 접힌 상태는 정확히 3줄 높이(3lh)라 카드끼리 줄이 맞는다. 넘치면 더보기/접기 (React SummaryBox 와 동일)
+const summaryRef = ref<HTMLElement | null>(null)
+const summaryExpanded = ref(false)
+const summaryOverflow = ref(false)
+let summaryObserver: ResizeObserver | null = null
+// line-clamp 가 걸린 요소는 scrollHeight 가 잘린 높이로 나온다 — 잠깐 clamp 를 풀고 전체 높이를 잰다
+function measureSummary() {
+  const el = summaryRef.value
+  if (!el || summaryExpanded.value) return
+  const clamped = el.clientHeight
+  const { height, display } = el.style
+  el.style.height = 'auto'
+  el.style.display = 'block'
+  const full = el.scrollHeight
+  el.style.height = height
+  el.style.display = display
+  summaryOverflow.value = full > clamped + 1
+}
+watch(
+  () => [props.aiSummary, summaryExpanded.value, summaryRef.value] as const,
+  async () => {
+    await nextTick()
+    measureSummary()
+    summaryObserver?.disconnect()
+    if (summaryRef.value && typeof ResizeObserver !== 'undefined') {
+      summaryObserver = new ResizeObserver(measureSummary)
+      summaryObserver.observe(summaryRef.value)
+    }
+  },
+  { immediate: true },
+)
+onBeforeUnmount(() => summaryObserver?.disconnect())
 const wrapRef = ref<HTMLElement | null>(null)
 const latest = computed(() => props.careers[0])
 const hasMore = computed(() => props.careers.length >= 2)
@@ -38,8 +70,22 @@ onBeforeUnmount(() => {
   <div class="flex flex-col gap-3">
     <div v-if="aiSummary" class="flex flex-col gap-1.5">
       <span class="text-detail font-medium text-gray700">AI 요약 레포트</span>
-      <div class="p-3 rounded-small bg-bg-gray1">
-        <p class="text-body2 text-gray800 whitespace-pre-line">{{ aiSummary }}</p>
+      <div class="relative p-3 rounded-small bg-bg-gray1">
+        <p
+          ref="summaryRef"
+          class="text-body2 text-gray800 whitespace-pre-line"
+          :class="summaryExpanded ? '' : 'line-clamp-3 overflow-hidden'"
+          :style="summaryExpanded ? undefined : { height: '3lh' }"
+        >{{ aiSummary }}</p>
+        <button
+          v-if="summaryOverflow || summaryExpanded"
+          type="button"
+          :aria-expanded="summaryExpanded"
+          class="border-0 p-0 text-detail font-medium text-gray600 hover:text-gray900"
+          :class="summaryExpanded ? 'mt-1 ml-auto block bg-transparent' : 'absolute right-3 bottom-3 bg-bg-gray1 pl-6'"
+          :style="summaryExpanded ? undefined : { maskImage: 'linear-gradient(to right, transparent, black 24px)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 24px)' }"
+          @click.stop="summaryExpanded = !summaryExpanded"
+        >{{ summaryExpanded ? '접기' : '더보기' }}</button>
       </div>
     </div>
 
