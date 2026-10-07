@@ -58,8 +58,8 @@ export function CandidateHistory({ aiSummary, careers, education, className = ''
         <div ref={wrapRef} className="relative flex items-center gap-4">
           <span className="shrink-0 text-body2 font-medium text-gray700">경력</span>
           <div className="min-w-0 flex-1 flex items-center gap-1">
-            <span className="text-body2 font-semibold text-gray900 truncate">{latest.company}</span>
-            <span className="text-body2 text-gray700 truncate">{latest.role}</span>
+            <span className="shrink-0 max-w-[60%] text-body2 font-semibold text-gray900 truncate">{latest.company}</span>
+            <span className="min-w-0 text-body2 text-gray700 truncate">{latest.role}</span>
             <span className="shrink-0 text-detail text-gray600">{latest.period}</span>
           </div>
           {hasMore && (
@@ -88,9 +88,9 @@ export function CandidateHistory({ aiSummary, careers, education, className = ''
         <div className="flex items-center gap-4">
           <span className="shrink-0 text-body2 font-medium text-gray700">학력</span>
           <div className="min-w-0 flex-1 flex items-center gap-1">
-            <span className="text-body2 font-semibold text-gray900 truncate">{education.school}</span>
-            {education.degree && <span className="text-body2 text-gray700">{education.degree}</span>}
-            {education.major && <span className="text-body2 text-gray700 truncate">{education.major}</span>}
+            <span className="shrink-0 max-w-[60%] text-body2 font-semibold text-gray900 truncate">{education.school}</span>
+            {education.degree && <span className="shrink-0 whitespace-nowrap text-body2 text-gray700">{education.degree}</span>}
+            {education.major && <span className="min-w-0 text-body2 text-gray700 truncate">{education.major}</span>}
             {education.period && <span className="shrink-0 text-detail text-gray600">{education.period}</span>}
             {education.status && <span className="shrink-0 text-detail text-gray600">{education.status}</span>}
           </div>
