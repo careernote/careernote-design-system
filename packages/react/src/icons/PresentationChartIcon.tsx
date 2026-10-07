@@ -15,7 +15,9 @@ export const PresentationChartIcon: React.FC<BaseIconProps> = ({
     viewBox="0 0 32 32"
     fill="none"
     className={className}
-    aria-label={ariaLabel || 'Presentation Chart'}
+    aria-label={ariaLabel}
+    aria-hidden={ariaLabel ? undefined : true}
+    role={ariaLabel ? 'img' : undefined}
     data-testid={testId}
   >
     <path

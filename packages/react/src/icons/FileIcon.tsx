@@ -14,7 +14,9 @@ export const FileIcon: React.FC<BaseIconProps> = ({
         height={size}
         viewBox="0 0 20 20"
         className={className}
-        aria-label={ariaLabel || "Share"}
+        aria-label={ariaLabel}
+        aria-hidden={ariaLabel ? undefined : true}
+        role={ariaLabel ? 'img' : undefined}
         data-testid={testId}
         fill="none"
     >

@@ -15,7 +15,9 @@ export const CloseIcon: React.FC<BaseIconProps> = ({
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     className={className}
-    aria-label={ariaLabel || 'Close'}
+    aria-label={ariaLabel}
+    aria-hidden={ariaLabel ? undefined : true}
+    role={ariaLabel ? 'img' : undefined}
     data-testid={testId}
   >
     <path d="M15 5L5 15" stroke={color} strokeWidth="1.67" strokeLinecap="round" strokeLinejoin="round" />

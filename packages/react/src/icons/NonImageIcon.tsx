@@ -14,7 +14,9 @@ export const NonImageIcon: React.FC<BaseIconProps> = ({
     viewBox="0 0 30 30"
     fill="none"
     className={className}
-    aria-label={ariaLabel || "NonImage"}
+    aria-label={ariaLabel}
+    aria-hidden={ariaLabel ? undefined : true}
+    role={ariaLabel ? 'img' : undefined}
     data-testid={testId}
   >
     <path

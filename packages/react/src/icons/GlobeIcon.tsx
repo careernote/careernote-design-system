@@ -15,7 +15,9 @@ export const GlobeIcon: React.FC<BaseIconProps> = ({
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     className={className}
-    aria-label={ariaLabel || 'Globe'}
+    aria-label={ariaLabel}
+    aria-hidden={ariaLabel ? undefined : true}
+    role={ariaLabel ? 'img' : undefined}
     data-testid={testId}
   >
     <circle cx="12" cy="12" r="10" stroke={color} strokeWidth="1.5" />

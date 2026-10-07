@@ -15,7 +15,9 @@ export const ClipIcon: React.FC<BaseIconProps> = ({
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     className={className}
-    aria-label={ariaLabel || 'Clip'}
+    aria-label={ariaLabel}
+    aria-hidden={ariaLabel ? undefined : true}
+    role={ariaLabel ? 'img' : undefined}
     data-testid={testId}
   >
     <path
