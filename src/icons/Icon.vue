@@ -8,6 +8,8 @@ const props = withDefaults(
     name: string
     size?: number | 'xs' | 'sm' | 'md' | 'lg' | 'xl'
     color?: string
+    /** 의미 있는 아이콘의 이름 — 없으면 장식용으로 스크린리더에서 숨긴다(React Icon 과 동일) */
+    ariaLabel?: string
   }>(),
   { size: 'md', color: 'currentColor' },
 )
@@ -55,6 +57,9 @@ const svg = computed(() => {
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     :style="{ color: resolvedColor }"
+    :role="ariaLabel ? 'img' : undefined"
+    :aria-label="ariaLabel"
+    :aria-hidden="ariaLabel ? undefined : 'true'"
     v-html="svg.body"
   />
 </template>

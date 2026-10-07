@@ -9,7 +9,8 @@ const {
   open,
   pcClass = 'max-w-[600px]',
   closeOnOutsideClick = true,
-  hideOverlay = false
+  hideOverlay = false,
+  ariaLabel
 } = defineProps<{
   open: boolean
   /** 데스크톱 모달 패널에 적용할 추가 클래스 (max-w 등) */
@@ -18,6 +19,8 @@ const {
   closeOnOutsideClick?: boolean
   /** 오버레이(배경 딤) 숨기기 (기본 false) */
   hideOverlay?: boolean
+  /** 대화상자 이름 — 스크린리더가 읽는다(보통 모달 제목). React 의 aria-label 과 같다 */
+  ariaLabel?: string
 }>()
 
 const emit = defineEmits<{
@@ -30,12 +33,19 @@ function check() {
   isMobile.value = window.innerWidth <= 850
 }
 
+// Esc 로 닫기 — 바깥 클릭으로 닫을 수 있는 모달만 (React 와 동일)
+function onKey(e: KeyboardEvent) {
+  if (open && closeOnOutsideClick && e.key === 'Escape') emit('close')
+}
+
 onMounted(() => {
   check()
   window.addEventListener('resize', check)
+  window.addEventListener('keydown', onKey)
 })
 onBeforeUnmount(() => {
   window.removeEventListener('resize', check)
+  window.removeEventListener('keydown', onKey)
 })
 
 // 배경 스크롤 잠금 — html(documentElement)만 잠근다.
@@ -75,6 +85,9 @@ function handleOverlayClick() {
           <div
             v-if="open"
             class="flex w-full max-h-[90dvh] flex-col overflow-hidden rounded-t-[16px] bg-white"
+            role="dialog"
+            aria-modal="true"
+            :aria-label="ariaLabel"
             @click.stop
           >
             <!-- 드래그 핸들 (시각적) -->
@@ -93,6 +106,9 @@ function handleOverlayClick() {
             v-if="open"
             class="relative mx-[20px] flex w-full flex-col rounded-[12px] bg-white shadow-[inset_0_0_0_1px_var(--color-border-gray)]"
             :class="pcClass"
+            role="dialog"
+            aria-modal="true"
+            :aria-label="ariaLabel"
             @click.stop
           >
             <slot />
