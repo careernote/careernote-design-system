@@ -46,8 +46,8 @@ onBeforeUnmount(() => {
     <div v-if="latest" ref="wrapRef" class="relative flex items-center gap-4">
       <span class="shrink-0 text-body2 font-medium text-gray700">경력</span>
       <div class="min-w-0 flex-1 flex items-center gap-1">
-        <span class="text-body2 font-semibold text-gray900 truncate">{{ latest.company }}</span>
-        <span class="text-body2 text-gray700 truncate">{{ latest.role }}</span>
+        <span class="shrink-0 max-w-[60%] text-body2 font-semibold text-gray900 truncate">{{ latest.company }}</span>
+        <span class="min-w-0 text-body2 text-gray700 truncate">{{ latest.role }}</span>
         <span class="shrink-0 text-detail text-gray600">{{ latest.period }}</span>
       </div>
       <button
@@ -67,9 +67,9 @@ onBeforeUnmount(() => {
     <div v-if="education" class="flex items-center gap-4">
       <span class="shrink-0 text-body2 font-medium text-gray700">학력</span>
       <div class="min-w-0 flex-1 flex items-center gap-1">
-        <span class="text-body2 font-semibold text-gray900 truncate">{{ education.school }}</span>
-        <span v-if="education.degree" class="text-body2 text-gray700">{{ education.degree }}</span>
-        <span v-if="education.major" class="text-body2 text-gray700 truncate">{{ education.major }}</span>
+        <span class="shrink-0 max-w-[60%] text-body2 font-semibold text-gray900 truncate">{{ education.school }}</span>
+        <span v-if="education.degree" class="shrink-0 whitespace-nowrap text-body2 text-gray700">{{ education.degree }}</span>
+        <span v-if="education.major" class="min-w-0 text-body2 text-gray700 truncate">{{ education.major }}</span>
         <span v-if="education.period" class="shrink-0 text-detail text-gray600">{{ education.period }}</span>
         <span v-if="education.status" class="shrink-0 text-detail text-gray600">{{ education.status }}</span>
       </div>
