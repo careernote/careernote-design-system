@@ -16,7 +16,9 @@ export const ViewCardIcon: React.FC<BaseIconProps> = ({
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     className={className}
-    aria-label={ariaLabel || 'ViewCard'}
+    aria-label={ariaLabel}
+    aria-hidden={ariaLabel ? undefined : true}
+    role={ariaLabel ? 'img' : undefined}
     data-testid={testId}
   >
     <rect x="1.385" y="1.385" width="6.923" height="6.923" rx="1" fill={color} />

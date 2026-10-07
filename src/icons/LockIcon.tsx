@@ -16,7 +16,9 @@ export const LockIcon: React.FC<BaseIconProps> = ({
         viewBox="0 0 20 20"
         fill="none"
         className={className}
-        aria-label={ariaLabel || "Lock"}
+        aria-label={ariaLabel}
+        aria-hidden={ariaLabel ? undefined : true}
+        role={ariaLabel ? 'img' : undefined}
         data-testid={testId}
     >
         <path

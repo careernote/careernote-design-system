@@ -15,7 +15,9 @@ export const ChartIcon: React.FC<BaseIconProps> = ({
         viewBox="0 0 20 20" 
         fill="none"
         className={className}
-        aria-label={ariaLabel || "Chart"}
+        aria-label={ariaLabel}
+        aria-hidden={ariaLabel ? undefined : true}
+        role={ariaLabel ? 'img' : undefined}
         data-testid={testId}
     >
         <path 

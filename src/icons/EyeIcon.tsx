@@ -19,7 +19,9 @@ export const EyeIcon: React.FC<BaseIconProps> = ({
     strokeLinecap="round"
     strokeLinejoin="round"
     className={className}
-    aria-label={ariaLabel || 'Eye'}
+    aria-label={ariaLabel}
+    aria-hidden={ariaLabel ? undefined : true}
+    role={ariaLabel ? 'img' : undefined}
     data-testid={testId}
   >
     <path stroke="none" d="M0 0h24v24H0z" fill="none" />

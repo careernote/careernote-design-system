@@ -15,7 +15,9 @@ export const MicOnlyIcon: React.FC<BaseIconProps> = ({
     viewBox="0 0 24 24"
     fill="none"
     className={className}
-    aria-label={ariaLabel || 'Mic only'}
+    aria-label={ariaLabel}
+    aria-hidden={ariaLabel ? undefined : true}
+    role={ariaLabel ? 'img' : undefined}
     data-testid={testId}
   >
     <path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3Z" stroke={color} strokeWidth={1.5} />

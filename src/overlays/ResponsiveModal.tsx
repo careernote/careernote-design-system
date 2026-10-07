@@ -21,6 +21,8 @@ interface ResponsiveModalProps {
   mobileFixedFooter?: ReactNode;
   /** children 내부에 sticky footer가 있을 때 drawer의 하단 패딩 제거 */
   noMobileBottomPadding?: boolean;
+  /** 대화상자 이름 — 스크린리더가 읽는다(보통 모달 제목) */
+  'aria-label'?: string;
 }
 
 /**
@@ -39,6 +41,7 @@ export function ResponsiveModal({
   hideOverlay = false,
   mobileFixedFooter,
   noMobileBottomPadding = false,
+  'aria-label': ariaLabel,
 }: ResponsiveModalProps) {
   const [isMobile, setIsMobile] = useState(false);
 
@@ -70,6 +73,16 @@ export function ResponsiveModal({
     };
   }, [isOpen]);
 
+  // PC 센터 모달은 Esc 로 닫는다(모바일 Drawer 는 vaul 이 처리)
+  useEffect(() => {
+    if (!isOpen || isMobile || !closeOnOutsideClick) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [isOpen, isMobile, closeOnOutsideClick, onClose]);
+
   // 모바일: vaul Drawer
   if (isMobile) {
     return (
@@ -85,7 +98,7 @@ export function ResponsiveModal({
             aria-describedby={undefined}
             data-testid={testId}
           >
-            <Drawer.Title className="sr-only">모달</Drawer.Title>
+            <Drawer.Title className="sr-only">{ariaLabel ?? '모달'}</Drawer.Title>
             <div className="bg-white rounded-t-[16px] max-h-[90dvh] flex flex-col">
               {/* 드래그 핸들 */}
               <Drawer.Handle className="mt-2 mb-1 !bg-gray400 !w-9 !h-1" />
@@ -116,6 +129,9 @@ export function ResponsiveModal({
     >
       <div
         className={`relative w-full mx-5 bg-white rounded-[12px] shadow-[inset_0_0_0_1px_theme(colors.border_gray)] flex flex-col animate-[rm-scale-in_200ms_ease-out] ${pcClassName}`}
+        role="dialog"
+        aria-modal="true"
+        aria-label={ariaLabel}
         data-testid={testId}
       >
         {children}

@@ -16,7 +16,9 @@ export const ViewKanbanIcon: React.FC<BaseIconProps> = ({
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     className={className}
-    aria-label={ariaLabel || 'ViewKanban'}
+    aria-label={ariaLabel}
+    aria-hidden={ariaLabel ? undefined : true}
+    role={ariaLabel ? 'img' : undefined}
     data-testid={testId}
   >
     <rect x="1.3" y="1.5" width="4.4" height="15" rx="1" fill={color} />

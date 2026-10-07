@@ -15,7 +15,9 @@ export const ShiningIcon: React.FC<BaseIconProps> = ({
     viewBox="0 0 18 18"
     fill="none"
     className={className}
-    aria-label={ariaLabel || "Shining"}
+    aria-label={ariaLabel}
+    aria-hidden={ariaLabel ? undefined : true}
+    role={ariaLabel ? 'img' : undefined}
     data-testid={testId}
   >
     <g clipPath="url(#clip0_2416_1737)">

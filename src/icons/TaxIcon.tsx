@@ -16,7 +16,9 @@ export const TaxIcon: React.FC<BaseIconProps> = ({
         fill="none"
         className={className}
         data-testid={testId}
-        aria-label={ariaLabel || "Tax"}
+        aria-label={ariaLabel}
+        aria-hidden={ariaLabel ? undefined : true}
+        role={ariaLabel ? 'img' : undefined}
     >
         <path
             transform="scale(0.8333333)"
