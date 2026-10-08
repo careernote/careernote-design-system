@@ -11,7 +11,7 @@ interface ProgressBarProps {
 
 /**
  * 단계 진행바 — ProgressBarItem + 점선 커넥터. (Figma 업데이트_2025 progressBar)
- * 사업자 ATS "채용 만들기" 마법사 상단바가 첫 소비처. 커넥터 색은 지난 구간 sky / 남은 구간 gray800.
+ * 사업자 ATS "채용 만들기" 마법사 상단바가 첫 소비처. 커넥터는 둥근 점선 — 완료·작성 중 단계 뒤는 sky / 남은 구간 gray800.
  */
 const ProgressBar: React.FC<ProgressBarProps> = ({ steps, current, className = '' }) => (
   <div className={`inline-flex items-center gap-7 ${className}`.trim()}>
@@ -22,11 +22,18 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ steps, current, className = '
       return (
         <Fragment key={label}>
           <ProgressBarItem status={status} text={label} number={n} />
+          {/* 둥근 점선(2 8) — Vue SubHeader 스텝과 같은 모양. 진행한 단계(완료·작성 중) 뒤 구간은 sky */}
           {!last && (
-            <i
-              aria-hidden
-              className={`h-0 w-12 shrink-0 border-t-2 border-dashed ${current > n ? 'border-sky' : 'border-gray800'}`}
-            />
+            <svg aria-hidden className="shrink-0" width="48" height="2" viewBox="0 0 48 2" fill="none">
+              <path
+                d="M0 1H48"
+                className={current >= n ? 'stroke-sky' : 'stroke-gray800'}
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeDasharray="2 8"
+                strokeDashoffset="5"
+              />
+            </svg>
           )}
         </Fragment>
       );
