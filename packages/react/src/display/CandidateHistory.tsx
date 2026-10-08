@@ -50,8 +50,23 @@ function SummaryBox({ text }: { text: string }) {
     return () => ro?.disconnect();
   }, [text, expanded]);
 
+  const toggleable = overflow || expanded;
+  const toggle = () => setExpanded((v) => !v);
+
   return (
-    <div className="relative p-3 rounded-small bg-bg_gray1">
+    // 더보기/접기가 있으면 박스 어디를 눌러도 토글. 카드 onClick(상세 열기)으로 전파 방지, 드래그로 텍스트 선택 중이면 무시
+    <div
+      className={`relative p-3 rounded-small bg-bg_gray1 ${toggleable ? 'cursor-pointer' : ''}`}
+      onClick={
+        toggleable
+          ? (e) => {
+              e.stopPropagation();
+              if (window.getSelection()?.toString()) return;
+              toggle();
+            }
+          : undefined
+      }
+    >
       {/* 높이는 3lh(현재 줄 높이 × 3) — 테마의 줄 높이가 달라도 4번째 줄이 비치지 않는다 */}
       <p
         ref={ref}
@@ -60,7 +75,7 @@ function SummaryBox({ text }: { text: string }) {
       >
         {text}
       </p>
-      {(overflow || expanded) && (
+      {toggleable && (
         <button
           type="button"
           aria-expanded={expanded}
@@ -70,8 +85,8 @@ function SummaryBox({ text }: { text: string }) {
           }`}
           style={expanded ? undefined : SUMMARY_FADE}
           onClick={(e) => {
-            e.stopPropagation(); // 카드 onClick(상세 열기)으로 전파 방지
-            setExpanded((v) => !v);
+            e.stopPropagation(); // 박스 onClick 과 이중 토글 방지
+            toggle();
           }}
         >
           {expanded ? '접기' : '더보기'}
