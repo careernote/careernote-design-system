@@ -41,6 +41,13 @@ watch(
   { immediate: true },
 )
 onBeforeUnmount(() => summaryObserver?.disconnect())
+const summaryToggleable = computed(() => summaryOverflow.value || summaryExpanded.value)
+function onSummaryBoxClick(e: MouseEvent) {
+  if (!summaryToggleable.value) return
+  e.stopPropagation()
+  if (window.getSelection()?.toString()) return
+  summaryExpanded.value = !summaryExpanded.value
+}
 const wrapRef = ref<HTMLElement | null>(null)
 const latest = computed(() => props.careers[0])
 const hasMore = computed(() => props.careers.length >= 2)
@@ -70,7 +77,12 @@ onBeforeUnmount(() => {
   <div class="flex flex-col gap-3">
     <div v-if="aiSummary" class="flex flex-col gap-1.5">
       <span class="text-detail font-medium text-gray700">AI 요약 레포트</span>
-      <div class="relative p-3 rounded-small bg-bg-gray1">
+      <!-- 더보기/접기가 있으면 박스 어디를 눌러도 토글. 카드 click 전파 방지, 드래그로 텍스트 선택 중이면 무시 -->
+      <div
+        class="relative p-3 rounded-small bg-bg-gray1"
+        :class="summaryToggleable ? 'cursor-pointer' : ''"
+        @click="onSummaryBoxClick"
+      >
         <p
           ref="summaryRef"
           class="text-body2 text-gray800 whitespace-pre-line"
@@ -78,7 +90,7 @@ onBeforeUnmount(() => {
           :style="summaryExpanded ? undefined : { height: '3lh' }"
         >{{ aiSummary }}</p>
         <button
-          v-if="summaryOverflow || summaryExpanded"
+          v-if="summaryToggleable"
           type="button"
           :aria-expanded="summaryExpanded"
           class="border-0 p-0 text-detail font-medium text-gray600 hover:text-gray900"
