@@ -39,18 +39,20 @@ export interface ActivityFeedCardProps {
 const GALLERY_H = 'h-[269px]';
 const BAR = 'rounded-xsmall bg-gray400 animate-pulse';
 
-// 본문(text-body2, 줄 높이 1.4 = 19.6px) 줄마다 14px 막대 하나
-function SkeletonLines({ widths }: { widths: string[] }) {
+// 스켈레톤 한 줄 — 실제 글과 같은 <p>·글꼴 클래스로 줄 상자를 만든다(보이지 않는 글자 1개).
+// 소비처 전역 CSS 가 p 줄 높이를 바꿔도(예: p { line-height: 1.19 }) 실제 글과 똑같이 따라가 높이가 맞는다
+function SkeletonLine({ text, width, label }: { text: string; width: string; label?: string }) {
   return (
-    <div className="flex flex-col">
-      {widths.map((w, i) => (
-        <div key={i} className="h-[19.6px] flex items-center">
-          <div className={`${BAR} h-[14px] ${w}`} />
-        </div>
-      ))}
-    </div>
+    <p className={`relative m-0 ${text}`} aria-label={label} aria-hidden={label ? undefined : true}>
+      <span className="invisible">가</span>
+      <span className="absolute inset-0 flex items-center">
+        <span className={`${BAR} h-[0.75em] ${width}`} />
+      </span>
+    </p>
   );
 }
+
+const BODY = 'text-body2 leading-[1.4]';
 
 // onClick 이 없으면(imageZoom=false) 눌러도 아무 일 없는 그림 — 클릭이 카드 onClick 으로 그대로 올라간다
 function Thumb({ src, onClick, className = '' }: { src: string; onClick?: () => void; className?: string }) {
@@ -160,12 +162,14 @@ export function ActivityFeedCard({
         {headlineLoading ? (
           // 실제 카드와 같은 틀 — 제목 1줄 · 요약 2줄 · 성과(왼쪽 선) 2줄. 줄 높이를 맞춰 글이 들어와도 카드가 덜컹이지 않는다
           <>
-            <div className="h-[22px] flex items-center" aria-label="AI 제목 생성 중">
-              <div className={`${BAR} h-[18px] w-4/5`} />
+            <SkeletonLine text="text-subtitle3 font-semibold" width="w-4/5" label="AI 제목 생성 중" />
+            <div>
+              <SkeletonLine text={BODY} width="w-full" />
+              <SkeletonLine text={BODY} width="w-3/5" />
             </div>
-            <SkeletonLines widths={['w-full', 'w-3/5']} />
             <div className="pl-3 border-l border-gray400">
-              <SkeletonLines widths={['w-full', 'w-2/3']} />
+              <SkeletonLine text={BODY} width="w-full" />
+              <SkeletonLine text={BODY} width="w-2/3" />
             </div>
           </>
         ) : (
