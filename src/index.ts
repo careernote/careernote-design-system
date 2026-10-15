@@ -13,6 +13,7 @@ export {
 } from './display';
 export type { ExperienceEntry, CareerEntry, FitnessLevel, EducationEntry } from './display';
 export { FeedCard, type FeedCardProps } from './display';
+export { ActivityFeedCard, type ActivityFeedCardProps } from './display';
 export {
   ProfileHero, ContactItem, CandidateIntro, ProfileSummary, SectionLabel, ProfileItem, HistoryEntry, ActivityDetail,
   AiEvaluationCard, FitActivityItem, RequirementCard, ApplicantEvaluationPanel,
