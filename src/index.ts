@@ -70,6 +70,8 @@ export { default as ContactItem } from './ContactItem.vue';
 export type { ContactType } from './ContactItem.vue';
 export { default as CandidateIntro } from './CandidateIntro.vue';
 export type { ContactEntry } from './CandidateIntro.vue';
+export { default as CareerOverview } from './CareerOverview.vue';
+export type { OverviewGroup, OverviewRow } from './CareerOverview.vue';
 export { default as ProfileSummary } from './ProfileSummary.vue';
 export type { SummaryItem } from './ProfileSummary.vue';
 export { default as SectionLabel } from './SectionLabel.vue';
