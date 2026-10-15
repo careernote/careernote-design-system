@@ -16,8 +16,12 @@ defineProps<{
   /** 마지막 업데이트 경과 일수 — 30일 이내 purple, 이후 black */
   updatedDaysAgo: number
   aiSummary?: string
+  /** AI 세 줄 요약 — 주면 aiSummary 대신 bullet 박스 (Figma Talentpool_card) */
+  summaryLines?: string[]
   careers: CareerEntry[]
   education?: EducationEntry
+  /** 스킬 줄 — 앞 5개 + "+ N" */
+  skills?: string[]
   experience?: ExperienceEntry
   clickable?: boolean
 }>()
@@ -39,7 +43,7 @@ const emit = defineEmits<{ (e: 'experience-click', exp: ExperienceEntry): void; 
       <hr class="border-0 border-t border-border-gray" />
     </div>
     <div class="flex flex-col gap-[17px]">
-      <CandidateHistory :ai-summary="aiSummary" :careers="careers" :education="education" />
+      <CandidateHistory :ai-summary="aiSummary" :summary-lines="summaryLines" :careers="careers" :education="education" :skills="skills" show-empty />
       <ExperienceItem v-if="experience" v-bind="experience" clickable @click="emit('experience-click', experience)" />
       <slot name="footer" />
     </div>

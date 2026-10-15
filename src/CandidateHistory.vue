@@ -1,12 +1,25 @@
 <script setup lang="ts">
-// React CandidateHistory 와 동일 스펙 — AI 요약 + 최근 경력(2개 이상이면 드롭다운 툴팁) + 최종 학력
+// React CandidateHistory 와 동일 스펙 — AI 요약(레포트 문단 또는 세 줄 bullet) + 최근 경력(2개 이상이면 드롭다운 툴팁) + 최종 학력 + 스킬
 import { computed, nextTick, onBeforeUnmount, ref, watch } from 'vue'
 import Icon from './icons/Icon.vue'
 import CareerTooltip from './CareerTooltip.vue'
 import type { CareerEntry } from './CareerTooltip.vue'
 import type { EducationEntry } from './candidate-types'
 
-const props = defineProps<{ aiSummary?: string; careers: CareerEntry[]; education?: EducationEntry }>()
+const props = defineProps<{
+  aiSummary?: string
+  /** AI 세 줄 요약 — 주면 aiSummary 대신 라벨 없는 bullet 박스 (Figma Talentpool_card) */
+  summaryLines?: string[]
+  careers: CareerEntry[]
+  education?: EducationEntry
+  /** 스킬 줄 — 앞 SKILLS_SHOWN 개를 쉼표로, 나머지는 "+ N" */
+  skills?: string[]
+  /** 경력·학력이 없어도 줄을 남기고 "-" 로 표시 (인재풀 카드) */
+  showEmpty?: boolean
+}>()
+
+/** 스킬 줄에 이름으로 보여 주는 개수 (React SKILLS_SHOWN 과 같은 값) */
+const SKILLS_SHOWN = 5
 
 const open = ref(false)
 // AI 요약 — 접힌 상태는 정확히 3줄 높이(3lh)라 카드끼리 줄이 맞는다. 넘치면 더보기/접기 (React SummaryBox 와 동일)
@@ -75,7 +88,14 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="flex flex-col gap-3">
-    <div v-if="aiSummary" class="flex flex-col gap-1.5">
+    <!-- AI 세 줄 요약 — bg-gray2 박스 · 4px 점 + 한 줄씩(넘치면 말줄임) -->
+    <ul v-if="summaryLines?.length" class="m-0 flex list-none flex-col gap-1 rounded-small bg-bg-gray2 py-3 pl-4 pr-3">
+      <li v-for="(line, i) in summaryLines" :key="i" class="flex items-center gap-3 text-body2 text-gray900">
+        <span class="h-1 w-1 shrink-0 rounded-full bg-gray900" aria-hidden="true" />
+        <span class="min-w-0 truncate">{{ line }}</span>
+      </li>
+    </ul>
+    <div v-else-if="aiSummary" class="flex flex-col gap-1.5">
       <span class="text-detail font-medium text-gray700">AI 요약 레포트</span>
       <!-- 더보기/접기가 있으면 박스 어디를 눌러도 토글. 카드 click 전파 방지, 드래그로 텍스트 선택 중이면 무시 -->
       <div
@@ -104,9 +124,9 @@ onBeforeUnmount(() => {
     <div v-if="latest" ref="wrapRef" class="relative flex items-center gap-4">
       <span class="shrink-0 text-body2 font-medium text-gray700">경력</span>
       <div class="min-w-0 flex-1 flex items-center gap-1">
-        <span class="shrink-0 max-w-[60%] text-body2 font-semibold text-gray900 truncate">{{ latest.company }}</span>
-        <span class="min-w-0 text-body2 text-gray700 truncate">{{ latest.role }}</span>
-        <span class="shrink-0 text-detail text-gray600">{{ latest.period }}</span>
+        <span class="min-w-0 max-w-[60%] text-body2 font-semibold text-gray900 truncate">{{ latest.company }}</span>
+        <span class="min-w-0 shrink-[4] text-body2 text-gray700 truncate">{{ latest.role }}</span>
+        <span class="shrink-0 whitespace-nowrap text-detail text-gray600">{{ latest.period }}</span>
       </div>
       <button
         v-if="hasMore"
@@ -121,15 +141,31 @@ onBeforeUnmount(() => {
       </button>
       <div v-if="open" class="absolute inset-x-0 top-full mt-1 z-10" @click.stop><CareerTooltip :careers="careers" /></div>
     </div>
+    <div v-else-if="showEmpty" class="flex items-center gap-4">
+      <span class="shrink-0 text-body2 font-medium text-gray700">경력</span>
+      <span class="text-body2 text-gray600">-</span>
+    </div>
 
     <div v-if="education" class="flex items-center gap-4">
       <span class="shrink-0 text-body2 font-medium text-gray700">학력</span>
       <div class="min-w-0 flex-1 flex items-center gap-1">
-        <span class="shrink-0 max-w-[60%] text-body2 font-semibold text-gray900 truncate">{{ education.school }}</span>
+        <span class="min-w-0 max-w-[60%] text-body2 font-semibold text-gray900 truncate">{{ education.school }}</span>
         <span v-if="education.degree" class="shrink-0 whitespace-nowrap text-body2 text-gray700">{{ education.degree }}</span>
-        <span v-if="education.major" class="min-w-0 text-body2 text-gray700 truncate">{{ education.major }}</span>
-        <span v-if="education.period" class="shrink-0 text-detail text-gray600">{{ education.period }}</span>
-        <span v-if="education.status" class="shrink-0 text-detail text-gray600">{{ education.status }}</span>
+        <span v-if="education.major" class="min-w-0 shrink-[4] text-body2 text-gray700 truncate">{{ education.major }}</span>
+        <span v-if="education.period" class="shrink-0 whitespace-nowrap text-detail text-gray600">{{ education.period }}</span>
+        <span v-if="education.status" class="shrink-0 whitespace-nowrap text-detail text-gray600">{{ education.status }}</span>
+      </div>
+    </div>
+    <div v-else-if="showEmpty" class="flex items-center gap-4">
+      <span class="shrink-0 text-body2 font-medium text-gray700">학력</span>
+      <span class="text-body2 text-gray600">-</span>
+    </div>
+
+    <div v-if="skills?.length" class="flex items-center gap-4">
+      <span class="shrink-0 text-body2 font-medium text-gray700">스킬</span>
+      <div class="min-w-0 flex-1 flex items-center gap-1">
+        <span class="min-w-0 truncate text-body2 font-medium text-gray800">{{ skills.slice(0, SKILLS_SHOWN).join(', ') }}</span>
+        <span v-if="skills.length > SKILLS_SHOWN" class="shrink-0 whitespace-nowrap text-body2 text-gray600">+ {{ skills.length - SKILLS_SHOWN }}</span>
       </div>
     </div>
   </div>
