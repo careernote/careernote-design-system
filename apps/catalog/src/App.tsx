@@ -836,6 +836,16 @@ function DetailSection() {
         }}
         onEditProfile={() => {}}
         summary={DETAIL_SUMMARY}
+        overview={[
+          {
+            label: '경력',
+            rows: [
+              { name: '아이엠디티', sub: '개발 팀원', period: '2024. 05 - 2026. 01 (1년 9개월)' },
+              { name: '커리어노트', sub: '백엔드 개발자', period: '2022. 03 - 2024. 04 (2년 2개월)' },
+            ],
+          },
+          { label: '학력', rows: [{ name: '홍익대학교', sub: '시각디자인 학사 졸업', period: '2016. 03 - 2021. 02' }] },
+        ]}
         histories={[
           { name: '아이엠디티', role: '개발 팀원', period: '2024. 05 - 2026. 01 · 1년 9월', activities: [activity('1', true, true), activity('2')] },
           { type: 'education', name: '홍익대학교', role: '시각디자인', period: '2024. 05 - 2026. 01 · 1년 9월', activities: [activity('3')] },
