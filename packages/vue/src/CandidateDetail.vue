@@ -9,6 +9,8 @@ import CandidateHeader from './CandidateHeader.vue'
 import type { CandidateHeaderData } from './CandidateHeader.vue'
 import ProfileSummary from './ProfileSummary.vue'
 import type { SummaryItem } from './ProfileSummary.vue'
+import CareerOverview from './CareerOverview.vue'
+import type { OverviewGroup } from './CareerOverview.vue'
 import HistoryEntry from './HistoryEntry.vue'
 import ActivityDetail from './ActivityDetail.vue'
 import type { ActivityComment } from './ActivityDetail.vue'
@@ -28,6 +30,8 @@ const props = withDefaults(
     editable?: boolean
     summary?: SummaryItem[]
     summaryTitle?: string
+    /** 경력·학력 나열 — 요약 아래·활동 상세 위 */
+    overview?: OverviewGroup[]
     histories?: HistoryData[]
     skills?: string[]
     awards?: ProfileItemEntry[]
@@ -51,6 +55,10 @@ const hasBottom = computed(() => !!(props.skills?.length || props.awards?.length
       <hr class="border-0 border-t border-border-gray" />
     </template>
     <ProfileSummary v-if="summary?.length" :title="summaryTitle" :items="summary" />
+    <template v-if="overview?.some((g) => g.rows.length)">
+      <CareerOverview :groups="overview" />
+      <hr v-if="histories.length" class="border-0 border-t border-border-gray" />
+    </template>
     <template v-for="(h, i) in histories" :key="i">
       <hr v-if="i > 0" class="border-0 border-t border-border-gray" />
       <HistoryEntry :type="h.type" :name="h.name" :role="h.role" :period="h.period" :logo-url="h.logoUrl">

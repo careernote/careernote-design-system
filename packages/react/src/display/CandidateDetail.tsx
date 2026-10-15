@@ -3,6 +3,7 @@ import { ApplicationAnswers, type AnswerEntry, type AnswerFile } from './Applica
 import { AttachmentBar, type AttachmentEntry } from './AttachmentBar';
 import { CandidateHeader, type CandidateHeaderData } from './CandidateHeader';
 import { ProfileSummary, type SummaryItem } from './ProfileSummary';
+import { CareerOverview, type OverviewGroup } from './CareerOverview';
 import { HistoryEntry } from './HistoryEntry';
 import { ActivityDetail, type ActivityComment } from './ActivityDetail';
 import { SkillSection } from './SkillSection';
@@ -42,6 +43,8 @@ interface CandidateDetailProps {
   summary?: SummaryItem[];
   /** 기본 '프로필 요약' (인재풀 상세는 '프로필 세줄 요약') */
   summaryTitle?: string;
+  /** 경력·학력 나열 — 요약 아래·활동 상세 위 (예: [{ label: '경력', rows }, { label: '학력', rows }]) */
+  overview?: OverviewGroup[];
   /** 경력 → 학력 순 */
   histories?: HistoryData[];
   skills?: string[];
@@ -63,6 +66,7 @@ export function CandidateDetail({
   onEditProfile,
   summary,
   summaryTitle,
+  overview,
   histories = [],
   skills,
   awards,
@@ -84,6 +88,12 @@ export function CandidateDetail({
         </>
       )}
       {summary && summary.length > 0 && <ProfileSummary title={summaryTitle} items={summary} />}
+      {overview?.some((g) => g.rows.length > 0) && (
+        <>
+          <CareerOverview groups={overview} />
+          {histories.length > 0 && <Divider />}
+        </>
+      )}
       {histories.map((h, i) => (
         <React.Fragment key={i}>
           {i > 0 && <Divider />}

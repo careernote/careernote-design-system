@@ -61,6 +61,7 @@ export { default as CandidateHistory } from './CandidateHistory.vue';
 export { default as ApplicantCard } from './ApplicantCard.vue';
 export { default as TalentpoolCard } from './TalentpoolCard.vue';
 export { default as FeedCard } from './FeedCard.vue';
+export { default as ActivityFeedCard } from './ActivityFeedCard.vue';
 export { default as BoardCard } from './BoardCard.vue';
 export { FITNESS_LABEL, type FitnessLevel, type EducationEntry } from './candidate-types';
 // 지원자/인재 상세페이지 + 평가 모달
@@ -69,6 +70,8 @@ export { default as ContactItem } from './ContactItem.vue';
 export type { ContactType } from './ContactItem.vue';
 export { default as CandidateIntro } from './CandidateIntro.vue';
 export type { ContactEntry } from './CandidateIntro.vue';
+export { default as CareerOverview } from './CareerOverview.vue';
+export type { OverviewGroup, OverviewRow } from './CareerOverview.vue';
 export { default as ProfileSummary } from './ProfileSummary.vue';
 export type { SummaryItem } from './ProfileSummary.vue';
 export { default as SectionLabel } from './SectionLabel.vue';

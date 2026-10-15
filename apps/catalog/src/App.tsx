@@ -12,6 +12,8 @@ import lottieCheck from '@careernote/assets/lottie/check.json';
 import lottieEvaluation from '@careernote/assets/lottie/evaluation.json';
 import lottieSearch from '@careernote/assets/lottie/search.json';
 import lottieLoadingDots from '@careernote/assets/lottie/LoadingDots.json';
+import placeholderBulb from '@careernote/assets/placeholder/bulb.png';
+import placeholderPencil from '@careernote/assets/placeholder/pencil.png';
 
 const {
   Button,
@@ -48,6 +50,7 @@ const {
   TalentpoolCard,
   BoardCard,
   FeedCard,
+  ActivityFeedCard,
   PillTabs,
   LevelSelector,
   SegmentedControl,
@@ -621,15 +624,16 @@ function CandidateCardSection() {
           />
         </div>
         <div className="w-[500px] flex flex-col gap-2">
-          <h3 className="text-subtitle3 font-semibold text-gray800">TalentpoolCard — 인재풀</h3>
+          <h3 className="text-subtitle3 font-semibold text-gray800">TalentpoolCard — 인재풀 (세 줄 요약 + 스킬 · 아래는 레포트 문단형)</h3>
           <TalentpoolCard
             name="김민준"
             careerLabel="경력 8년"
             job="프론트엔드"
             updatedDaysAgo={20}
-            aiSummary={CANDIDATE_SUMMARY}
+            summaryLines={['AI 투자 콘텐츠 서비스 기획·개발', '업무 자동화로 성과를 만든 문제 해결가', '금융 영업과 자산운용 실무 역량']}
             careers={CANDIDATE_CAREERS}
             education={CANDIDATE_EDUCATION}
+            skills={['Jira', 'Figma', 'C', 'C++', 'Claude', ...Array.from({ length: 15 }, (_, i) => `skill${i + 1}`)]}
             experience={CANDIDATE_EXPERIENCES[0]}
             onExperienceClick={() => {}}
           />
@@ -673,10 +677,21 @@ const FEED_DESC =
 const FEED_RESULT =
   '커뮤니케이션 속도가 향상되고 주문 처리 과정에서의 오류가 줄어드는 성과를 거두었습니다. 현장 상황에 신속하게 대응할 수 있는 체계가 마련되어 업무 효율성이 크게 개선되었습니다.';
 const feedImg = (seed: string) => `https://picsum.photos/seed/${seed}/600/400`;
+const ACTIVITY_SUMMARY =
+  '삼성역 옥외광고 집행을 위한 기획 프로젝트를 진행했습니다.\n현장 특성과 시간대별 유동 인구 흐름, 매체 노출 환경을 분석해 광고 콘셉트와 핵심 메시지를 설계했습니다.';
 
 function FeedSection() {
   const [tab, setTab] = useState('feed');
   const base = { name: '김민준', careerLabel: '경력 8년', job: '프론트엔드', updatedDaysAgo: 20, title: '켈리 삼성역 옥외광고 진행', description: FEED_DESC };
+  const activityBase = {
+    name: '김민준',
+    job: '프런트 엔드',
+    careerLabel: '6년차',
+    headline: '간단한 변화로 고객 만족도 향상을 이끌어 냈습니다.',
+    summary: ACTIVITY_SUMMARY,
+    result: FEED_RESULT,
+    date: '2026.05.24',
+  };
   return (
     <Section title="ATS · Feed — 인재 피드 (Figma 03 인재풀)">
       <p className="text-body2 text-gray700 mb-4">
@@ -685,8 +700,8 @@ function FeedSection() {
       </p>
       <PillTabs
         items={[
-          { value: 'feed', label: '인재 피드' },
-          { value: 'pool', label: '인재풀', count: 12 },
+          { value: 'feed', label: '인재피드', icon: 'user2' },
+          { value: 'pool', label: '인재풀', icon: 'user2', count: 17 },
         ]}
         value={tab}
         onChange={setTab}
@@ -704,6 +719,21 @@ function FeedSection() {
         <div className="flex flex-col gap-5">
           <FeedCard {...base} images={[feedImg('d1'), feedImg('d2'), feedImg('d3')]} result={FEED_RESULT} onClick={() => {}} />
         </div>
+      </div>
+
+      <p className="text-body2 text-gray700 mt-10 mb-4">
+        <code className="font-mono text-sky">ActivityFeedCard</code> — 활동 1건 = 카드 1장 (Figma 업데이트_2025 인재피드). 갤러리 높이 269 고정,
+        이미지 0장이면 <code className="font-mono text-sky">placeholderImage</code>(@careernote/assets/placeholder/*.png) 를 어두운 박스 가운데에.
+        AI 1줄 제목 · 2줄 요약 · 성과(왼쪽 선, 없으면 미표출) · 등록일. <code className="font-mono text-sky">headlineLoading</code> 은 제목 생성 중 스켈레톤,
+        <code className="font-mono text-sky">imageZoom={'{false}'}</code>(3번째 카드)면 사진 클릭도 카드 클릭으로 간다
+      </p>
+      <div className="grid grid-cols-3 gap-x-6 gap-y-11 items-start">
+        <ActivityFeedCard {...activityBase} images={[feedImg('a1'), feedImg('a2'), feedImg('a3')]} onClick={() => {}} />
+        <ActivityFeedCard {...activityBase} images={[feedImg('c1')]} onClick={() => {}} />
+        <ActivityFeedCard {...activityBase} images={[feedImg('d1'), feedImg('d2'), feedImg('d3'), feedImg('d4')]} imageZoom={false} onClick={() => {}} />
+        <ActivityFeedCard {...activityBase} placeholderImage={placeholderBulb} result={undefined} onClick={() => {}} />
+        <ActivityFeedCard {...activityBase} images={[feedImg('b1'), feedImg('b2')]} onClick={() => {}} />
+        <ActivityFeedCard {...activityBase} placeholderImage={placeholderPencil} headlineLoading onClick={() => {}} />
       </div>
     </Section>
   );
@@ -806,6 +836,16 @@ function DetailSection() {
         }}
         onEditProfile={() => {}}
         summary={DETAIL_SUMMARY}
+        overview={[
+          {
+            label: '경력',
+            rows: [
+              { name: '아이엠디티', sub: '개발 팀원', period: '2024. 05 - 2026. 01 (1년 9개월)' },
+              { name: '커리어노트', sub: '백엔드 개발자', period: '2022. 03 - 2024. 04 (2년 2개월)' },
+            ],
+          },
+          { label: '학력', rows: [{ name: '홍익대학교', sub: '시각디자인 학사 졸업', period: '2016. 03 - 2021. 02' }] },
+        ]}
         histories={[
           { name: '아이엠디티', role: '개발 팀원', period: '2024. 05 - 2026. 01 · 1년 9월', activities: [activity('1', true, true), activity('2')] },
           { type: 'education', name: '홍익대학교', role: '시각디자인', period: '2024. 05 - 2026. 01 · 1년 9월', activities: [activity('3')] },
