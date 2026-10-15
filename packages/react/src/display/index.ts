@@ -50,3 +50,4 @@ export { SkillSection } from './SkillSection';
 export { ProfileItemSection, type ProfileItemEntry } from './ProfileItemSection';
 export { CandidateDetail, type ActivityData, type HistoryData } from './CandidateDetail';
 export { FeedCard, type FeedCardProps } from './FeedCard';
+export { ActivityFeedCard, type ActivityFeedCardProps } from './ActivityFeedCard';

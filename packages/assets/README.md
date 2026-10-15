@@ -36,3 +36,19 @@ import symbolData from '@careernote/assets/logo/careernote-symbol.base64.json' /
 | check.json | 완료 체크 |
 | search.json | 분석/검색 연출 |
 | evaluation.json | 평가 연출 |
+
+## 빈 이미지 대체 아이콘 (3D)
+
+이미지가 없는 카드(인재 피드 활동 카드 등)에 `bg-gray800` 위 90×90 으로 띄우는 3D 아이콘. 180×180 PNG(2x).
+DS 컴포넌트는 자산을 직접 import 하지 않는다 — 소비자가 import 해 prop(`placeholderImage` 등)으로 넣는다.
+
+| 파일 | 모양 |
+|---|---|
+| `placeholder/pencil.png` | 연필 |
+| `placeholder/bulb.png` | 전구 |
+| `placeholder/folder.png` | 폴더 |
+| `placeholder/fire.png` | 불꽃 |
+
+```ts
+import pencil from '@careernote/assets/placeholder/pencil.png'
+```

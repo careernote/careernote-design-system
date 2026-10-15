@@ -6,7 +6,7 @@ import {
   SubHeader, NextStepFooter, SearchInput, TextLink, Spinner, Checkbox, LottieLoadingDots, ConfirmModal, ResponsiveModal,
   TextInput, Textarea, Selector, Modal, InHeader, HeaderMenuItem, ProgressBarItem, ProgressBar, Panel,
   Icon, ICON_NAME_MAP,
-  ApplicantCard, TalentpoolCard, BoardCard, ExperienceItem, CareerTooltip, ProfileAvatar, FeedCard, PillTabs, SegmentedControl, FilterChips, UnderlineTabs, LevelSelector,
+  ApplicantCard, TalentpoolCard, BoardCard, ExperienceItem, CareerTooltip, ProfileAvatar, FeedCard, ActivityFeedCard, PillTabs, SegmentedControl, FilterChips, UnderlineTabs, LevelSelector,
   Sidebar, SidebarMenuItem, SidebarAccount,
   CandidateDetail, ApplicantEvaluationPanel,
 } from '@careernote/vue'
@@ -20,6 +20,8 @@ import lottieLoadingDots from '@careernote/assets/lottie/LoadingDots.json'
 import symbol from '@careernote/assets/logo/careernote-symbol.svg'
 import logoLight from '@careernote/assets/logo/careernote-logo.png'
 import logoDark from '@careernote/assets/logo/careernote-logo-on-dark.png'
+import placeholderBulb from '@careernote/assets/placeholder/bulb.png'
+import placeholderPencil from '@careernote/assets/placeholder/pencil.png'
 
 const SYMBOL_SIZES = [20, 24, 32, 48, 64]
 
@@ -33,6 +35,14 @@ const FEED_DESC =
 const FEED_RESULT =
   '커뮤니케이션 속도가 향상되고 주문 처리 과정에서의 오류가 줄어드는 성과를 거두었습니다. 현장 상황에 신속하게 대응할 수 있는 체계가 마련되어 업무 효율성이 크게 개선되었습니다.'
 const feedImg = (seed: string) => `https://picsum.photos/seed/${seed}/600/400`
+const ACTIVITY_BASE = {
+  name: '김민준',
+  job: '프런트 엔드',
+  careerLabel: '6년차',
+  headline: '간단한 변화로 고객 만족도 향상을 이끌어 냈습니다.',
+  summary: '삼성역 옥외광고 집행을 위한 기획 프로젝트를 진행했습니다.\n현장 특성과 시간대별 유동 인구 흐름, 매체 노출 환경을 분석해 광고 콘셉트와 핵심 메시지를 설계했습니다.',
+  date: '2026.05.24',
+}
 const FEED_BASE = { name: '김민준', careerLabel: '경력 8년', job: '프론트엔드', updatedDaysAgo: 20, title: '켈리 삼성역 옥외광고 진행', description: FEED_DESC }
 const LOGO_SIZES = [22, 34, 48, 68]
 
@@ -705,6 +715,21 @@ import symbolData from '@careernote/assets/logo/careernote-symbol.base64.json'</
           <div class="flex flex-col gap-5">
             <FeedCard v-bind="FEED_BASE" :images="[feedImg('d1'), feedImg('d2'), feedImg('d3')]" :result="FEED_RESULT" clickable />
           </div>
+        </div>
+
+        <p class="text-body2 text-gray700 mt-10 mb-4">
+          <code class="font-mono text-sky">ActivityFeedCard</code> — 활동 1건 = 카드 1장 (Figma 업데이트_2025 인재피드). 갤러리 높이 269 고정,
+          이미지 0장이면 <code class="font-mono text-sky">placeholder-image</code>(@careernote/assets/placeholder/*.png) 를 어두운 박스 가운데에.
+          AI 1줄 제목 · 2줄 요약 · 성과(왼쪽 선, 없으면 미표출) · 등록일. <code class="font-mono text-sky">headline-loading</code> 은 제목 생성 중 스켈레톤,
+          <code class="font-mono text-sky">:image-zoom="false"</code>(3번째 카드)면 사진 클릭도 카드 클릭으로 간다
+        </p>
+        <div class="grid grid-cols-3 gap-x-6 gap-y-11 items-start">
+          <ActivityFeedCard v-bind="ACTIVITY_BASE" :result="FEED_RESULT" :images="[feedImg('a1'), feedImg('a2'), feedImg('a3')]" clickable />
+          <ActivityFeedCard v-bind="ACTIVITY_BASE" :result="FEED_RESULT" :images="[feedImg('c1')]" clickable />
+          <ActivityFeedCard v-bind="ACTIVITY_BASE" :result="FEED_RESULT" :images="[feedImg('d1'), feedImg('d2'), feedImg('d3'), feedImg('d4')]" :image-zoom="false" clickable />
+          <ActivityFeedCard v-bind="ACTIVITY_BASE" :placeholder-image="placeholderBulb" clickable />
+          <ActivityFeedCard v-bind="ACTIVITY_BASE" :result="FEED_RESULT" :images="[feedImg('b1'), feedImg('b2')]" clickable />
+          <ActivityFeedCard v-bind="ACTIVITY_BASE" :result="FEED_RESULT" :placeholder-image="placeholderPencil" headline-loading clickable />
         </div>
       </section>
 
