@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Icon from './Icon';
 import { CareerTooltip, type CareerEntry } from './CareerTooltip';
 
-// 카드 본문 — AI 요약 레포트 + 최근 경력(2개 이상이면 드롭다운) + 최종 학력 (Figma 1-3, 1-4)
+// 카드 본문 — AI 요약(레포트 문단 또는 세 줄 bullet) + 최근 경력(2개 이상이면 드롭다운) + 최종 학력 + 스킬 (Figma 1-3, 1-4, Talentpool_card)
 export interface EducationEntry {
   school: string;
   /** 학사 / 석사 … */
@@ -17,10 +17,43 @@ export interface EducationEntry {
 interface CandidateHistoryProps {
   /** 없으면 AI 요약 블록 미표출 */
   aiSummary?: string;
+  /** AI 세 줄 요약 — 주면 aiSummary 대신 라벨 없는 bullet 박스로 그린다 (Figma Talentpool_card) */
+  summaryLines?: string[];
   /** 최신순. 첫 항목이 표출되고 2개 이상이면 arrow → 전체 툴팁 */
   careers: CareerEntry[];
   education?: EducationEntry;
+  /** 스킬 줄 — 앞 SKILLS_SHOWN 개를 쉼표로, 나머지는 "+ N". 없거나 비면 미표출 */
+  skills?: string[];
+  /** 경력·학력이 없어도 줄을 남기고 "-" 로 표시 (인재풀 카드 — 카드끼리 줄 높이를 맞춘다) */
+  showEmpty?: boolean;
   className?: string;
+}
+
+/** 값이 없는 줄 — "경력  -" */
+function EmptyRow({ label }: { label: string }) {
+  return (
+    <div className="flex items-center gap-4">
+      <span className="shrink-0 text-body2 font-medium text-gray700">{label}</span>
+      <span className="text-body2 text-gray600">-</span>
+    </div>
+  );
+}
+
+/** 스킬 줄에 이름으로 보여 주는 개수 */
+export const SKILLS_SHOWN = 5;
+
+/** AI 세 줄 요약 — bg_gray2 박스 · 4px 점 + 한 줄씩(넘치면 말줄임) */
+function SummaryBullets({ lines }: { lines: string[] }) {
+  return (
+    <ul className="m-0 flex list-none flex-col gap-1 rounded-small bg-bg_gray2 py-3 pl-4 pr-3">
+      {lines.map((line, i) => (
+        <li key={i} className="flex items-center gap-3 text-body2 text-gray900">
+          <span className="h-1 w-1 shrink-0 rounded-full bg-gray900" aria-hidden />
+          <span className="min-w-0 truncate">{line}</span>
+        </li>
+      ))}
+    </ul>
+  );
 }
 
 /** AI 요약 — 접힌 상태는 정확히 3줄 높이(3lh)라 카드끼리 줄이 맞는다. 넘치면 더보기/접기 */
@@ -96,7 +129,7 @@ function SummaryBox({ text }: { text: string }) {
   );
 }
 
-export function CandidateHistory({ aiSummary, careers, education, className = '' }: CandidateHistoryProps) {
+export function CandidateHistory({ aiSummary, summaryLines, careers, education, skills, showEmpty = false, className = '' }: CandidateHistoryProps) {
   const [open, setOpen] = useState(false);
   const wrapRef = useRef<HTMLDivElement>(null);
   const latest = careers[0];
@@ -118,20 +151,22 @@ export function CandidateHistory({ aiSummary, careers, education, className = ''
 
   return (
     <div className={`flex flex-col gap-3 ${className}`.trim()}>
-      {aiSummary && (
+      {summaryLines?.length ? (
+        <SummaryBullets lines={summaryLines} />
+      ) : aiSummary ? (
         <div className="flex flex-col gap-1.5">
           <span className="text-detail font-medium text-gray700">AI 요약 레포트</span>
           <SummaryBox text={aiSummary} />
         </div>
-      )}
+      ) : null}
 
-      {latest && (
+      {latest ? (
         <div ref={wrapRef} className="relative flex items-center gap-4">
           <span className="shrink-0 text-body2 font-medium text-gray700">경력</span>
           <div className="min-w-0 flex-1 flex items-center gap-1">
-            <span className="shrink-0 max-w-[60%] text-body2 font-semibold text-gray900 truncate">{latest.company}</span>
-            <span className="min-w-0 text-body2 text-gray700 truncate">{latest.role}</span>
-            <span className="shrink-0 text-detail text-gray600">{latest.period}</span>
+            <span className="min-w-0 max-w-[60%] text-body2 font-semibold text-gray900 truncate">{latest.company}</span>
+            <span className="min-w-0 shrink-[4] text-body2 text-gray700 truncate">{latest.role}</span>
+            <span className="shrink-0 whitespace-nowrap text-detail text-gray600">{latest.period}</span>
           </div>
           {hasMore && (
             <button
@@ -153,17 +188,33 @@ export function CandidateHistory({ aiSummary, careers, education, className = ''
             </div>
           )}
         </div>
-      )}
+      ) : showEmpty ? (
+        <EmptyRow label="경력" />
+      ) : null}
 
-      {education && (
+      {education ? (
         <div className="flex items-center gap-4">
           <span className="shrink-0 text-body2 font-medium text-gray700">학력</span>
           <div className="min-w-0 flex-1 flex items-center gap-1">
-            <span className="shrink-0 max-w-[60%] text-body2 font-semibold text-gray900 truncate">{education.school}</span>
+            <span className="min-w-0 max-w-[60%] text-body2 font-semibold text-gray900 truncate">{education.school}</span>
             {education.degree && <span className="shrink-0 whitespace-nowrap text-body2 text-gray700">{education.degree}</span>}
-            {education.major && <span className="min-w-0 text-body2 text-gray700 truncate">{education.major}</span>}
-            {education.period && <span className="shrink-0 text-detail text-gray600">{education.period}</span>}
-            {education.status && <span className="shrink-0 text-detail text-gray600">{education.status}</span>}
+            {education.major && <span className="min-w-0 shrink-[4] text-body2 text-gray700 truncate">{education.major}</span>}
+            {education.period && <span className="shrink-0 whitespace-nowrap text-detail text-gray600">{education.period}</span>}
+            {education.status && <span className="shrink-0 whitespace-nowrap text-detail text-gray600">{education.status}</span>}
+          </div>
+        </div>
+      ) : showEmpty ? (
+        <EmptyRow label="학력" />
+      ) : null}
+
+      {skills && skills.length > 0 && (
+        <div className="flex items-center gap-4">
+          <span className="shrink-0 text-body2 font-medium text-gray700">스킬</span>
+          <div className="min-w-0 flex-1 flex items-center gap-1">
+            <span className="min-w-0 truncate text-body2 font-medium text-gray800">{skills.slice(0, SKILLS_SHOWN).join(', ')}</span>
+            {skills.length > SKILLS_SHOWN && (
+              <span className="shrink-0 whitespace-nowrap text-body2 text-gray600">+ {skills.length - SKILLS_SHOWN}</span>
+            )}
           </div>
         </div>
       )}

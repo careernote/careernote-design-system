@@ -14,8 +14,12 @@ interface TalentpoolCardProps {
   updatedDaysAgo: number;
   /** 프로필 전체 한줄 요약 — 없으면 미표출 */
   aiSummary?: string;
+  /** AI 세 줄 요약 — 주면 aiSummary 대신 bullet 박스 (Figma Talentpool_card) */
+  summaryLines?: string[];
   careers: CareerEntry[];
   education?: EducationEntry;
+  /** 스킬 줄 — 앞 5개 + "+ N" */
+  skills?: string[];
   /** 대표 활동 1개 */
   experience?: ExperienceEntry;
   onExperienceClick?: (exp: ExperienceEntry) => void;
@@ -35,8 +39,10 @@ export function TalentpoolCard({
   job,
   updatedDaysAgo,
   aiSummary,
+  summaryLines,
   careers,
   education,
+  skills,
   experience,
   onExperienceClick,
   aside,
@@ -63,7 +69,7 @@ export function TalentpoolCard({
         <hr className="border-0 border-t border-border_gray" />
       </div>
       <div className="flex flex-col gap-[17px]">
-        <CandidateHistory aiSummary={aiSummary} careers={careers} education={education} />
+        <CandidateHistory aiSummary={aiSummary} summaryLines={summaryLines} careers={careers} education={education} skills={skills} showEmpty />
         {experience && (
           <ExperienceItem {...experience} onClick={onExperienceClick ? () => onExperienceClick(experience) : undefined} />
         )}
