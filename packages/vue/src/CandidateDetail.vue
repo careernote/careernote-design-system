@@ -38,8 +38,10 @@ const props = withDefaults(
     certifications?: ProfileItemEntry[]
     languages?: ProfileItemEntry[]
     activityIdPrefix?: string
+    /** true 면 활동 본문을 모두 펼친다(더보기 없음) — 인쇄용 */
+    expandAll?: boolean
   }>(),
-  { editable: false, histories: () => [], activityIdPrefix: 'activity-' },
+  { editable: false, histories: () => [], activityIdPrefix: 'activity-', expandAll: false },
 )
 const emit = defineEmits<{ (e: 'edit-profile'): void; (e: 'attachment-click', item: AttachmentEntry, index: number): void; (e: 'answer-file-click', file: AnswerFile): void }>()
 const hasBottom = computed(() => !!(props.skills?.length || props.awards?.length || props.certifications?.length || props.languages?.length))
@@ -64,7 +66,7 @@ const hasBottom = computed(() => !!(props.skills?.length || props.awards?.length
       <HistoryEntry :type="h.type" :name="h.name" :role="h.role" :period="h.period" :logo-url="h.logoUrl">
         <template v-for="(a, j) in h.activities ?? []" :key="a.id ?? j">
           <hr v-if="j > 0" />
-          <div :id="a.id ? `${activityIdPrefix}${a.id}` : undefined"><ActivityDetail v-bind="a" /></div>
+          <div :id="a.id ? `${activityIdPrefix}${a.id}` : undefined"><ActivityDetail v-bind="a" :expanded="expandAll" /></div>
         </template>
       </HistoryEntry>
     </template>
