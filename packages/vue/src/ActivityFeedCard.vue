@@ -110,20 +110,24 @@ function onThumb(e: MouseEvent, i: number) {
         <slot name="aside" />
       </div>
 
-      <!-- 실제 카드와 같은 틀 — 제목 1줄 · 요약 2줄 · 성과(왼쪽 선) 2줄. 줄 높이를 맞춰 글이 들어와도 카드가 덜컹이지 않는다 -->
+      <!-- 실제 카드와 같은 틀 — 제목 1줄 · 요약 2줄 · 성과(왼쪽 선) 2줄.
+           줄 상자는 실제 글과 같은 <p>·글꼴 클래스(보이지 않는 글자 1개)라, 소비처 전역 CSS 가 p 줄 높이를 바꿔도 똑같이 따라간다 -->
       <template v-if="headlineLoading">
-        <div class="h-[22px] flex items-center" aria-label="AI 제목 생성 중">
-          <div class="rounded-xsmall bg-gray400 animate-pulse h-[18px] w-4/5" />
+        <p class="relative m-0 text-subtitle3 font-semibold" aria-label="AI 제목 생성 중">
+          <span class="invisible">가</span>
+          <span class="absolute inset-0 flex items-center"><span class="rounded-xsmall bg-gray400 animate-pulse h-[0.75em] w-4/5" /></span>
+        </p>
+        <div>
+          <p v-for="w in ['w-full', 'w-3/5']" :key="w" class="relative m-0 text-body2 leading-[1.4]" aria-hidden="true">
+            <span class="invisible">가</span>
+            <span class="absolute inset-0 flex items-center"><span class="rounded-xsmall bg-gray400 animate-pulse h-[0.75em]" :class="w" /></span>
+          </p>
         </div>
-        <div class="flex flex-col">
-          <div v-for="w in ['w-full', 'w-3/5']" :key="w" class="h-[19.6px] flex items-center">
-            <div class="rounded-xsmall bg-gray400 animate-pulse h-[14px]" :class="w" />
-          </div>
-        </div>
-        <div class="pl-3 border-l border-gray400 flex flex-col">
-          <div v-for="w in ['w-full', 'w-2/3']" :key="w" class="h-[19.6px] flex items-center">
-            <div class="rounded-xsmall bg-gray400 animate-pulse h-[14px]" :class="w" />
-          </div>
+        <div class="pl-3 border-l border-gray400">
+          <p v-for="w in ['w-full', 'w-2/3']" :key="w" class="relative m-0 text-body2 leading-[1.4]" aria-hidden="true">
+            <span class="invisible">가</span>
+            <span class="absolute inset-0 flex items-center"><span class="rounded-xsmall bg-gray400 animate-pulse h-[0.75em]" :class="w" /></span>
+          </p>
         </div>
       </template>
       <template v-else>
