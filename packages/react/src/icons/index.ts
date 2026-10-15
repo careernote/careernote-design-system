@@ -70,6 +70,7 @@ export { ExpandIcon } from './ExpandIcon';
 // System Icons
 export { HashIcon } from './HashIcon';
 export { LinkIcon } from './LinkIcon';
+export { PrinterIcon } from './PrinterIcon';
 export { ShareIcon } from './ShareIcon';
 
 // Ticket & Trend Icons
@@ -104,6 +105,7 @@ import { SpotIcon } from './SpotIcon';
 import { CopyIcon } from './CopyIcon';
 import { ReplyIcon } from './ReplyIcon';
 import { LinkIcon } from './LinkIcon';
+import { PrinterIcon } from './PrinterIcon';
 import { ShoppingIcon } from './ShoppingIcon';
 import { LogoutIcon } from './LogoutIcon';
 import { CheckIcon } from './CheckIcon';
@@ -208,6 +210,7 @@ export const iconMap: Record<string, React.ComponentType<BaseIconProps>> = {
   copy: CopyIcon,
   reply: ReplyIcon,
   link: LinkIcon,
+  printer: PrinterIcon,
   shopping: ShoppingIcon,
   download: DownloadIcon,
   user: UserIcon,

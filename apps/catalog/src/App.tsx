@@ -38,6 +38,7 @@ const {
   Selector,
   Checkbox,
   Alert,
+  LottieLoadingDots,
   Modal,
   ModalHeader,
   Information,
@@ -370,6 +371,12 @@ function FeedbackSection() {
               <span className="text-detail text-gray700 font-mono">{l.name}.json</span>
             </div>
           ))}
+          <div className="flex flex-col items-center gap-1">
+            <div className="flex h-[80px] items-center">
+              <LottieLoadingDots animationData={lottieLoadingDots} />
+            </div>
+            <span className="text-detail text-gray700 font-mono">LottieLoadingDots (DS 컴포넌트)</span>
+          </div>
         </div>
       </div>
       <div className="flex flex-col gap-3 max-w-[560px]">

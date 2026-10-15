@@ -1,16 +1,27 @@
 <script setup lang="ts">
 // React ActivityDetail 과 동일 스펙 — 활동 상세 (이미지 · 제목/기간 · 스킬 · 본문 3줄+더보기 · Result · 동료 코멘트)
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import Chip from './Chip.vue'
 import Icon from './icons/Icon.vue'
 import ImageLightbox from './ImageLightbox.vue'
 export interface ActivityComment { role: string; text: string }
-withDefaults(
-  defineProps<{ title: string; period?: string; images?: string[]; skills?: string[]; body?: string; result?: string; comments?: ActivityComment[] }>(),
-  { images: () => [], skills: () => [], comments: () => [] },
+const props = withDefaults(
+  defineProps<{
+    title: string
+    period?: string
+    images?: string[]
+    skills?: string[]
+    body?: string
+    result?: string
+    comments?: ActivityComment[]
+    /** true 면 본문을 처음부터 다 펼친다(더보기 없음) — 인쇄용 */
+    expanded?: boolean
+  }>(),
+  { images: () => [], skills: () => [], comments: () => [], expanded: false },
 )
 const emit = defineEmits<{ (e: 'image-click', index: number): void }>()
-const expanded = ref(false)
+const opened = ref(false)
+const expanded = computed(() => props.expanded || opened.value)
 const lightbox = ref<number | null>(null)
 </script>
 
@@ -42,7 +53,7 @@ const lightbox = ref<number | null>(null)
     </div>
     <div v-if="body" class="flex flex-col gap-1">
       <p class="text-body2 text-gray700 whitespace-pre-line" :class="expanded ? '' : 'line-clamp-3'">{{ body }}</p>
-      <button v-if="!expanded" type="button" class="self-start text-body2 text-gray700 underline" @click="expanded = true">더보기</button>
+      <button v-if="!expanded" type="button" class="self-start text-body2 text-gray700 underline" @click="opened = true">더보기</button>
     </div>
     <div v-if="result" class="px-4 py-3 rounded-xlarge bg-bg-gray1">
       <p class="text-body2 leading-5 text-gray800">{{ result }}</p>

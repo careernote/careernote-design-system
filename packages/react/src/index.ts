@@ -23,7 +23,7 @@ export type { OverviewGroup, OverviewRow } from './display';
 export type { AnswerEntry, AnswerFile, ContactType, ContactEntry, SummaryItem, ActivityComment, RequirementItem, FitActivity, AttachmentEntry, CandidateHeaderData, ProfileItemEntry, ActivityData, HistoryData } from './display';
 
 // Feedback
-export { Alert } from './feedback';
+export { Alert, LottieLoadingDots, type LottieLoadingDotsProps } from './feedback';
 export * from './feedback/Snackbar';
 
 // Overlays

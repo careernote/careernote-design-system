@@ -53,6 +53,8 @@ interface CandidateDetailProps {
   languages?: ProfileItemEntry[];
   /** 활동 블록에 붙일 id 접두 — 평가 모달의 Fit 활동 클릭 시 스크롤 타깃 (`${prefix}${activity.id}`) */
   activityIdPrefix?: string;
+  /** true 면 활동 본문을 모두 펼친다(더보기 없음) — 인쇄용 */
+  expandAll?: boolean;
   className?: string;
 }
 
@@ -73,6 +75,7 @@ export function CandidateDetail({
   certifications,
   languages,
   activityIdPrefix = 'activity-',
+  expandAll = false,
   className = '',
 }: CandidateDetailProps) {
   const hasBottom = !!(skills?.length || awards?.length || certifications?.length || languages?.length);
@@ -100,7 +103,7 @@ export function CandidateDetail({
           <HistoryEntry type={h.type} name={h.name} role={h.role} period={h.period} logoUrl={h.logoUrl}>
             {h.activities?.map((a, j) => (
               <div key={a.id ?? j} id={a.id ? `${activityIdPrefix}${a.id}` : undefined}>
-                <ActivityDetail {...a} />
+                <ActivityDetail {...a} expanded={expandAll} />
               </div>
             ))}
           </HistoryEntry>
