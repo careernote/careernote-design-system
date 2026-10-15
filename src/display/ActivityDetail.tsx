@@ -24,11 +24,25 @@ interface ActivityDetailProps {
   comments?: ActivityComment[];
   /** 썸네일 클릭 — 기본은 내장 라이트박스로 원본 보기 */
   onImageClick?: (index: number) => void;
+  /** true 면 본문을 처음부터 다 펼친다(더보기 없음) — 인쇄용 */
+  expanded?: boolean;
   className?: string;
 }
 
-export function ActivityDetail({ title, period, images = [], skills = [], body, result, comments = [], onImageClick, className = '' }: ActivityDetailProps) {
-  const [expanded, setExpanded] = useState(false);
+export function ActivityDetail({
+  title,
+  period,
+  images = [],
+  skills = [],
+  body,
+  result,
+  comments = [],
+  onImageClick,
+  expanded: forceExpanded = false,
+  className = '',
+}: ActivityDetailProps) {
+  const [opened, setOpened] = useState(false);
+  const expanded = forceExpanded || opened;
   const [lightbox, setLightbox] = useState<number | null>(null);
   return (
     <div className={`flex flex-col gap-3 ${className}`.trim()}>
@@ -73,7 +87,7 @@ export function ActivityDetail({ title, period, images = [], skills = [], body, 
         <div className="flex flex-col gap-1">
           <p className={`text-body2 text-gray700 whitespace-pre-line ${expanded ? '' : 'line-clamp-3'}`}>{body}</p>
           {!expanded && (
-            <button type="button" onClick={() => setExpanded(true)} className="self-start text-body2 text-gray700 underline">
+            <button type="button" onClick={() => setOpened(true)} className="self-start text-body2 text-gray700 underline">
               더보기
             </button>
           )}
