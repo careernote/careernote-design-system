@@ -702,7 +702,7 @@ import symbolData from '@careernote/assets/logo/careernote-symbol.base64.json'</
           <code class="font-mono text-sky">PillTabs</code> 로 피드/목록 전환, <code class="font-mono text-sky">FeedCard</code> 는 대표 활동 1건을
           갤러리(0 · 1 · 2 · 3+장 레이아웃 자동) + 제목/설명 + STAR 성과 박스로 보여준다. 썸네일 클릭 시 내장 ImageLightbox
         </p>
-        <PillTabs v-model="feedTab" :items="[{ value: 'feed', label: '인재 피드' }, { value: 'pool', label: '인재풀', count: 12 }]" class="mb-6" />
+        <PillTabs v-model="feedTab" :items="[{ value: 'feed', label: '인재피드', icon: 'user2' }, { value: 'pool', label: '인재풀', icon: 'user2', count: 17 }]" class="mb-6" />
         <div class="grid grid-cols-3 gap-4 items-start p-6 rounded-xlarge bg-bg-gray1">
           <div class="flex flex-col gap-5">
             <FeedCard v-bind="FEED_BASE" :images="[feedImg('a1'), feedImg('a2'), feedImg('a3'), feedImg('a4'), feedImg('a5')]" :result="FEED_RESULT" clickable />

@@ -700,8 +700,8 @@ function FeedSection() {
       </p>
       <PillTabs
         items={[
-          { value: 'feed', label: '인재 피드' },
-          { value: 'pool', label: '인재풀', count: 12 },
+          { value: 'feed', label: '인재피드', icon: 'user2' },
+          { value: 'pool', label: '인재풀', icon: 'user2', count: 17 },
         ]}
         value={tab}
         onChange={setTab}
