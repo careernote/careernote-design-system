@@ -34,6 +34,7 @@ export { BoardCard } from './BoardCard';
 export { ProfileHero } from './ProfileHero';
 export { ContactItem, type ContactType } from './ContactItem';
 export { CandidateIntro, type ContactEntry } from './CandidateIntro';
+export { CareerOverview, type OverviewGroup, type OverviewRow } from './CareerOverview';
 export { ProfileSummary, type SummaryItem } from './ProfileSummary';
 export { SectionLabel } from './SectionLabel';
 export { ProfileItem } from './ProfileItem';
