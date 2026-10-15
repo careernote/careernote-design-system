@@ -648,10 +648,12 @@ import symbolData from '@careernote/assets/logo/careernote-symbol.base64.json'</
             />
           </div>
           <div class="w-[500px] flex flex-col gap-2">
-            <h3 class="text-subtitle3 font-semibold text-gray800">TalentpoolCard — 인재풀</h3>
+            <h3 class="text-subtitle3 font-semibold text-gray800">TalentpoolCard — 인재풀 (세 줄 요약 + 스킬 · 아래는 레포트 문단형)</h3>
             <TalentpoolCard
               name="김민준" career-label="경력 8년" job="프론트엔드" :updated-days-ago="20"
-              :ai-summary="CANDIDATE_SUMMARY" :careers="CANDIDATE_CAREERS" :education="CANDIDATE_EDUCATION"
+:summary-lines="['AI 투자 콘텐츠 서비스 기획·개발', '업무 자동화로 성과를 만든 문제 해결가', '금융 영업과 자산운용 실무 역량']"
+              :careers="CANDIDATE_CAREERS" :education="CANDIDATE_EDUCATION"
+              :skills="['Jira', 'Figma', 'C', 'C++', 'Claude', ...Array.from({ length: 15 }, (_, i) => `skill${i + 1}`)]"
               :experience="CANDIDATE_EXPERIENCES[0]"
             />
             <TalentpoolCard
