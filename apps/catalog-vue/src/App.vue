@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import {
   Button, ButtonRound, ToggleButton, AddDashedButton, IconButton,
   Chip, CategoryChip, SelectCard, SelectableChip, PlanCard, PlanFeature, RibbonBadge, StarGrid, Badge, NumberBadge, Tooltip, Information, ActivityCard,
-  SubHeader, NextStepFooter, SearchInput, TextLink, Spinner, Checkbox, LottieLoadingDots, ConfirmModal, ResponsiveModal,
+  SubHeader, NextStepFooter, SearchInput, TextLink, Spinner, Checkbox, LottieLoadingDots, LottieLoadingLogo, ConfirmModal, ResponsiveModal,
   TextInput, Textarea, Selector, Modal, InHeader, HeaderMenuItem, ProgressBarItem, ProgressBar, Panel,
   Icon, ICON_NAME_MAP,
   ApplicantCard, TalentpoolCard, BoardCard, ExperienceItem, CareerTooltip, ProfileAvatar, FeedCard, ActivityFeedCard, PillTabs, SegmentedControl, FilterChips, UnderlineTabs, LevelSelector,
@@ -17,6 +17,7 @@ import lottieCheck from '@careernote/assets/lottie/check.json'
 import lottieEvaluation from '@careernote/assets/lottie/evaluation.json'
 import lottieSearch from '@careernote/assets/lottie/search.json'
 import lottieLoadingDots from '@careernote/assets/lottie/LoadingDots.json'
+import lottieLoadingLogo from '@careernote/assets/lottie/LoadingLogo.json'
 import symbol from '@careernote/assets/logo/careernote-symbol.svg'
 import logoLight from '@careernote/assets/logo/careernote-logo.png'
 import logoDark from '@careernote/assets/logo/careernote-logo-on-dark.png'
@@ -482,6 +483,14 @@ import symbolData from '@careernote/assets/logo/careernote-symbol.base64.json'</
           <div class="flex flex-col items-center gap-1">
             <div class="flex h-[80px] items-center"><LottieLoadingDots :animation-data="lottieLoadingDots" /></div>
             <span class="text-detail text-gray700 font-mono">LottieLoadingDots (DS 컴포넌트)</span>
+          </div>
+          <div class="flex flex-col items-center gap-1">
+            <div class="flex h-[80px] items-center gap-4">
+              <LottieLoadingLogo :animation-data="lottieLoadingLogo" :size="24" />
+              <LottieLoadingLogo :animation-data="lottieLoadingLogo" />
+              <LottieLoadingLogo :animation-data="lottieLoadingLogo" :size="72" />
+            </div>
+            <span class="text-detail text-gray700 font-mono">LottieLoadingLogo (DS 컴포넌트 · size 24/48/72)</span>
           </div>
         </div>
         <ConfirmModal
