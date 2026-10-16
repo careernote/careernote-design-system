@@ -12,6 +12,7 @@ import lottieCheck from '@careernote/assets/lottie/check.json';
 import lottieEvaluation from '@careernote/assets/lottie/evaluation.json';
 import lottieSearch from '@careernote/assets/lottie/search.json';
 import lottieLoadingDots from '@careernote/assets/lottie/LoadingDots.json';
+import lottieLoadingLogo from '@careernote/assets/lottie/LoadingLogo.json';
 import placeholderBulb from '@careernote/assets/placeholder/bulb.png';
 import placeholderPencil from '@careernote/assets/placeholder/pencil.png';
 
@@ -39,6 +40,7 @@ const {
   Checkbox,
   Alert,
   LottieLoadingDots,
+  LottieLoadingLogo,
   Modal,
   ModalHeader,
   Information,
@@ -376,6 +378,14 @@ function FeedbackSection() {
               <LottieLoadingDots animationData={lottieLoadingDots} />
             </div>
             <span className="text-detail text-gray700 font-mono">LottieLoadingDots (DS 컴포넌트)</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <div className="flex h-[80px] items-center gap-4">
+              <LottieLoadingLogo animationData={lottieLoadingLogo} size={24} />
+              <LottieLoadingLogo animationData={lottieLoadingLogo} />
+              <LottieLoadingLogo animationData={lottieLoadingLogo} size={72} />
+            </div>
+            <span className="text-detail text-gray700 font-mono">LottieLoadingLogo (DS 컴포넌트 · size 24/48/72)</span>
           </div>
         </div>
       </div>
