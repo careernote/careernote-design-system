@@ -27,10 +27,11 @@ import symbolData from '@careernote/assets/logo/careernote-symbol.base64.json' /
 ## 로티 애니메이션
 
 로티(JSON) 애니메이션 정본. 소비: `import anim from '@careernote/assets/lottie/LoadingDots.json'`
-플레이어는 각 앱의 lottie-web(pencil) / lottie-react(web) 사용 — Vue 는 `@careernote/vue` 의 `LottieLoadingDots` 참조.
+플레이어는 각 앱의 lottie-web(pencil) / lottie-react(web) 사용 — React·Vue 는 `LottieLoadingLogo`·`LottieLoadingDots` 컴포넌트 참조.
 
 | 파일 | 용도 |
 |---|---|
+| LoadingLogo.json | 커리어노트 로고 로딩 — 불러오는 중 기본 표시 (`LottieLoadingLogo`) |
 | LoadingDots.json | 진행중 점 3개 (프롬프트 로딩 스텝) |
 | ai.json | AI 생성 연출 |
 | check.json | 완료 체크 |
