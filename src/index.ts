@@ -47,6 +47,7 @@ export { default as SearchInput } from './SearchInput.vue';
 export { default as TextLink } from './TextLink.vue';
 export { default as Spinner } from './Spinner.vue';
 export { default as LottieLoadingDots } from './LottieLoadingDots.vue';
+export { default as LottieLoadingLogo } from './LottieLoadingLogo.vue';
 export { default as Checkbox } from './Checkbox.vue';
 // 채용/인재풀 카드 (Figma 채용/인재풀 카드 컴포넌트)
 export { default as ProfileAvatar } from './ProfileAvatar.vue';
