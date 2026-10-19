@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Chip from './Chip';
 import Icon from './Icon';
 import { ImageLightbox } from '../overlays/ImageLightbox';
 
-// 활동 상세 (Figma "container" 컴포넌트) — 이미지 슬롯 · 제목/기간 · 스킬 칩 · 본문(3줄 말줄임+더보기, 다시 접기 없음) · Result · 동료 코멘트
+// 활동 상세 (Figma "container" 컴포넌트) — 이미지 슬롯 · 제목/기간 · 스킬 칩 · 본문(3줄 말줄임, 넘칠 때만 더보기, 다시 접기 없음) · Result · 동료 코멘트
 export interface ActivityComment {
   /** 직무 (이름은 표시하지 않음) */
   role: string;
@@ -44,6 +44,26 @@ export function ActivityDetail({
   const [opened, setOpened] = useState(false);
   const expanded = forceExpanded || opened;
   const [lightbox, setLightbox] = useState<number | null>(null);
+  const bodyRef = useRef<HTMLParagraphElement>(null);
+  const [overflow, setOverflow] = useState(false);
+
+  // 3줄을 넘을 때만 더보기 — CandidateHistory SummaryBox 와 같은 측정. line-clamp 중엔 scrollHeight 가 잘린 높이라 잠깐 풀고 잰다
+  useEffect(() => {
+    const el = bodyRef.current;
+    if (!el || expanded) return;
+    const measure = () => {
+      const clamped = el.clientHeight;
+      const { display } = el.style;
+      el.style.display = 'block';
+      const full = el.scrollHeight;
+      el.style.display = display;
+      setOverflow(full > clamped + 1);
+    };
+    measure();
+    const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(measure) : null;
+    ro?.observe(el);
+    return () => ro?.disconnect();
+  }, [body, expanded]);
   return (
     <div className={`flex flex-col gap-3 ${className}`.trim()}>
       {images.length > 0 && (
@@ -85,8 +105,10 @@ export function ActivityDetail({
       )}
       {body && (
         <div className="flex flex-col gap-1">
-          <p className={`text-body2 text-gray700 whitespace-pre-line ${expanded ? '' : 'line-clamp-3'}`}>{body}</p>
-          {!expanded && (
+          <p ref={bodyRef} className={`text-body2 leading-[1.4] text-gray700 whitespace-pre-line ${expanded ? '' : 'line-clamp-3'}`}>
+            {body}
+          </p>
+          {!expanded && overflow && (
             <button type="button" onClick={() => setOpened(true)} className="self-start text-body2 text-gray700 underline">
               더보기
             </button>
@@ -95,7 +117,7 @@ export function ActivityDetail({
       )}
       {result && (
         <div className="px-4 py-3 rounded-xlarge bg-bg_gray1">
-          <p className="text-body2 leading-5 text-gray800">{result}</p>
+          <p className="text-body2 leading-[1.4] text-gray800">{result}</p>
         </div>
       )}
       {comments.length > 0 && (

@@ -19,7 +19,7 @@ import ProfileItemSection from './ProfileItemSection.vue'
 import type { ProfileItemEntry } from './ProfileItemSection.vue'
 
 export interface ActivityData { id?: string; title: string; period?: string; images?: string[]; skills?: string[]; body?: string; result?: string; comments?: ActivityComment[] }
-export interface HistoryData { type?: 'career' | 'education'; name: string; role?: string; period?: string; logoUrl?: string; activities?: ActivityData[] }
+export interface HistoryData { type?: 'career' | 'education' | 'etc'; name: string; role?: string; period?: string; logoUrl?: string; activities?: ActivityData[] }
 
 const props = withDefaults(
   defineProps<{

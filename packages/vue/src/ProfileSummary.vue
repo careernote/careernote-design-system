@@ -13,7 +13,7 @@ withDefaults(defineProps<{ title?: string; items: SummaryItem[]; variant?: 'gray
           <span class="shrink-0 w-1 h-1 rounded-full bg-gray900" />
           <span class="text-body2 font-medium text-gray900">{{ it.title }}</span>
         </div>
-        <p v-if="it.description" class="pl-3 text-detail leading-[17px] text-gray700">{{ it.description }}</p>
+        <p v-if="it.description" class="pl-3 text-body2 leading-[20px] text-gray700">{{ it.description }}</p>
       </li>
     </ul>
   </div>

@@ -68,6 +68,8 @@ module.exports = {
         "orange10": "#FFF3E5",
         "red_soft": "#E5484D",
         "purple10": "#D9D6FF",
+        "purple": "#B100ED",
+        "purple_bg": "#F9E7FF",
         "amber10": "#FFF6E5",
         "amber_deep": "#8A5A00",
         "white10": "rgba(255, 255, 255, 0.1)",

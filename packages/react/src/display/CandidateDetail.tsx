@@ -23,7 +23,8 @@ export interface ActivityData {
 }
 
 export interface HistoryData {
-  type?: 'career' | 'education';
+  /** etc = 기타 활동(전구 아이콘) */
+  type?: 'career' | 'education' | 'etc';
   name: string;
   role?: string;
   period?: string;
