@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // React PillTabs 와 동일 스펙 — 알약형 탭 (Figma 업데이트_2025 9492:20768, 인재피드 / 인재풀 전환)
-// 높이 44 · 둥근 끝 · border-gray 1px. 선택 gray900 + 흰 글씨, 비선택 bg-gray1 + gray900 글씨.
+// 높이 44 · 둥근 끝 · border-gray 1px. 선택 gray900 + 흰 글씨, 비선택 white100 + gray900 글씨.
 // [아이콘 18 · 라벨 Body1 bold · 개수 Body1 regular] 간격 4
 import Icon from './icons/Icon.vue'
 
@@ -26,7 +26,7 @@ const emit = defineEmits<{ (e: 'update:modelValue', value: string): void }>()
       role="tab"
       :aria-selected="it.value === modelValue"
       class="inline-flex items-center gap-1 h-11 py-[11px] pl-[19px] pr-[23px] rounded-full border border-border-gray cursor-pointer text-body1 font-bold transition-colors"
-      :class="it.value === modelValue ? 'bg-gray900 text-white100' : 'bg-bg-gray1 text-gray900 hover:bg-border-gray'"
+      :class="it.value === modelValue ? 'bg-gray900 text-white100' : 'bg-white100 text-gray900 hover:bg-bg-gray1'"
       @click="emit('update:modelValue', it.value)"
     >
       <Icon v-if="it.icon" :name="it.icon" :size="18" />

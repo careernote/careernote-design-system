@@ -3,7 +3,7 @@ import Icon from '../display/Icon';
 import type { IconName } from '../icons';
 
 // 알약형 탭 (Figma 업데이트_2025 9492:20768 — 인재피드 / 인재풀 전환).
-// 높이 44 · 둥근 끝 · border_gray 1px. 선택 gray900 + 흰 글씨, 비선택 bg_gray1 + gray900 글씨.
+// 높이 44 · 둥근 끝 · border_gray 1px. 선택 gray900 + 흰 글씨, 비선택 white100 + gray900 글씨.
 // [아이콘 18 · 라벨 Body1 bold · 개수 Body1 regular] 간격 4
 export interface PillTabItem<T extends string = string> {
   value: T;
@@ -35,7 +35,7 @@ export function PillTabs<T extends string>({ items, value, onChange, className =
             onClick={() => onChange(it.value)}
             // Figma 안쪽 선 기준 패딩 12/24/12/20 — CSS 선은 바깥에 더해지므로 1px 씩 뺀다
             className={`inline-flex items-center gap-1 h-11 py-[11px] pl-[19px] pr-[23px] rounded-full border border-border_gray cursor-pointer text-body1 font-bold transition-colors ${
-              active ? 'bg-gray900 text-white100' : 'bg-bg_gray1 text-gray900 hover:bg-border_gray'
+              active ? 'bg-gray900 text-white100' : 'bg-white100 text-gray900 hover:bg-bg_gray1'
             }`}
           >
             {it.icon && <Icon name={it.icon} size={18} />}

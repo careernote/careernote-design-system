@@ -32,7 +32,7 @@ const emit = defineEmits<{ (e: 'experience-click', exp: ExperienceEntry): void; 
 <template>
   <div
     class="w-full flex flex-col gap-4 p-5 bg-white100 border border-border-gray rounded-xlarge shadow-wide-light"
-    :class="clickable ? 'cursor-pointer transition-colors hover:border-gray400' : ''"
+    :class="clickable ? 'cursor-pointer transition-colors hover:border-sky60' : ''"
     @click="clickable && emit('click')"
   >
     <div class="flex flex-col gap-4">
@@ -42,9 +42,10 @@ const emit = defineEmits<{ (e: 'experience-click', exp: ExperienceEntry): void; 
       </CandidateProfile>
       <hr class="border-0 border-t border-border-gray" />
     </div>
-    <div class="flex flex-col gap-[17px]">
+    <!-- 본문이 남은 높이를 채우고 대표 활동은 mt-auto 로 카드 하단에 고정 -->
+    <div class="flex-1 flex flex-col gap-[17px]">
       <CandidateHistory :ai-summary="aiSummary" :summary-lines="summaryLines" :careers="careers" :education="education" :skills="skills" show-empty />
-      <ExperienceItem v-if="experience" v-bind="experience" clickable @click="emit('experience-click', experience)" />
+      <ExperienceItem v-if="experience" v-bind="experience" class="mt-auto" clickable @click="emit('experience-click', experience)" />
       <slot name="footer" />
     </div>
   </div>
