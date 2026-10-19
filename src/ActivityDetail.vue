@@ -1,6 +1,6 @@
 <script setup lang="ts">
-// React ActivityDetail 과 동일 스펙 — 활동 상세 (이미지 · 제목/기간 · 스킬 · 본문 3줄+더보기 · Result · 동료 코멘트)
-import { computed, ref } from 'vue'
+// React ActivityDetail 과 동일 스펙 — 활동 상세 (이미지 · 제목/기간 · 스킬 · 본문 3줄+넘칠 때만 더보기 · Result · 동료 코멘트)
+import { computed, nextTick, onBeforeUnmount, ref, watch } from 'vue'
 import Chip from './Chip.vue'
 import Icon from './icons/Icon.vue'
 import ImageLightbox from './ImageLightbox.vue'
@@ -23,6 +23,34 @@ const emit = defineEmits<{ (e: 'image-click', index: number): void }>()
 const opened = ref(false)
 const expanded = computed(() => props.expanded || opened.value)
 const lightbox = ref<number | null>(null)
+// 3줄을 넘을 때만 더보기 — CandidateHistory 요약 박스와 같은 측정. line-clamp 중엔 scrollHeight 가 잘린 높이라 잠깐 풀고 잰다
+const bodyRef = ref<HTMLElement | null>(null)
+const overflow = ref(false)
+let observer: ResizeObserver | null = null
+function measureBody() {
+  const el = bodyRef.value
+  if (!el || expanded.value) return
+  const clamped = el.clientHeight
+  const { display } = el.style
+  el.style.display = 'block'
+  const full = el.scrollHeight
+  el.style.display = display
+  overflow.value = full > clamped + 1
+}
+watch(
+  () => [props.body, expanded.value, bodyRef.value] as const,
+  async () => {
+    await nextTick()
+    measureBody()
+    observer?.disconnect()
+    if (bodyRef.value && typeof ResizeObserver !== 'undefined') {
+      observer = new ResizeObserver(measureBody)
+      observer.observe(bodyRef.value)
+    }
+  },
+  { immediate: true },
+)
+onBeforeUnmount(() => observer?.disconnect())
 </script>
 
 <template>
@@ -52,11 +80,11 @@ const lightbox = ref<number | null>(null)
       <Chip v-for="s in skills" :key="s" size="L" variant="soft" color="basic" class="font-normal">{{ s }}</Chip>
     </div>
     <div v-if="body" class="flex flex-col gap-1">
-      <p class="text-body2 text-gray700 whitespace-pre-line" :class="expanded ? '' : 'line-clamp-3'">{{ body }}</p>
-      <button v-if="!expanded" type="button" class="self-start text-body2 text-gray700 underline" @click="opened = true">더보기</button>
+      <p ref="bodyRef" class="text-body2 leading-[1.4] text-gray700 whitespace-pre-line" :class="expanded ? '' : 'line-clamp-3'">{{ body }}</p>
+      <button v-if="!expanded && overflow" type="button" class="self-start text-body2 text-gray700 underline" @click="opened = true">더보기</button>
     </div>
     <div v-if="result" class="px-4 py-3 rounded-xlarge bg-bg-gray1">
-      <p class="text-body2 leading-5 text-gray800">{{ result }}</p>
+      <p class="text-body2 leading-[1.4] text-gray800">{{ result }}</p>
     </div>
     <div v-if="comments.length" class="flex items-start gap-3 px-5 py-4 rounded-xlarge bg-bg-gray2">
       <Chip size="S" variant="solid" color="sky" class="shrink-0 mt-0.5">동료 코멘트</Chip>
