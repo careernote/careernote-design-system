@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { ProfileAvatar } from './ProfileAvatar';
 import { ImageLightbox } from '../overlays/ImageLightbox';
 
@@ -39,6 +39,16 @@ export interface ActivityFeedCardProps {
 const GALLERY_H = 'h-[269px]';
 const BAR = 'rounded-xsmall bg-gray400 animate-pulse';
 
+// 직무 "PD·연출" — 가운뎃점을 따로 떼어 좌우 4px 띄운다
+function jobParts(job: string) {
+  return job.split('·').map((part, i) => (
+    <Fragment key={i}>
+      {i > 0 && <span className="mx-1">·</span>}
+      {part.trim()}
+    </Fragment>
+  ));
+}
+
 // 스켈레톤 한 줄 — 실제 글과 같은 <p>·글꼴 클래스로 줄 상자를 만든다(보이지 않는 글자 1개).
 // 소비처 전역 CSS 가 p 줄 높이를 바꿔도(예: p { line-height: 1.19 }) 실제 글과 똑같이 따라가 높이가 맞는다
 function SkeletonLine({ text, width, label }: { text: string; width: string; label?: string }) {
@@ -52,13 +62,16 @@ function SkeletonLine({ text, width, label }: { text: string; width: string; lab
   );
 }
 
-const BODY = 'text-body2 leading-[1.4]';
+// 설명·성과 본문 줄 높이 20px(디자인 기준)
+const BODY = 'text-body2 leading-[20px]';
 
 // onClick 이 없으면(imageZoom=false) 눌러도 아무 일 없는 그림 — 클릭이 카드 onClick 으로 그대로 올라간다
 function Thumb({ src, onClick, className = '' }: { src: string; onClick?: () => void; className?: string }) {
   // 피드는 카드가 수백 장 — 화면 근처에서만 받고, 디코딩은 메인 스레드 밖에서
   const img = <img src={src} alt="" loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover" />;
-  const box = 'relative min-w-0 rounded-[7px] bg-gray800 overflow-hidden';
+  // 안쪽 1px 선(black10) — 흰 사진도 배경과 구분된다. 사진 위에 얹는 ::after 라 클릭은 막지 않는다
+  const box =
+    'relative min-w-0 rounded-[7px] bg-gray800 overflow-hidden after:absolute after:inset-0 after:rounded-[inherit] after:ring-1 after:ring-inset after:ring-black10 after:pointer-events-none';
   if (!onClick) return <div className={`${box} ${className}`.trim()}>{img}</div>;
   return (
     <button
@@ -153,7 +166,7 @@ export function ActivityFeedCard({
           <ProfileAvatar name={name} imageUrl={imageUrl} size={28} />
           <div className="min-w-0 flex-1 flex items-center gap-1 text-body2 truncate">
             <span className="font-medium text-gray900">{name}</span>
-            {job && <span className="text-gray700 truncate">{job}</span>}
+            {job && <span className="text-gray700 truncate">{jobParts(job)}</span>}
             {careerLabel && <span className="shrink-0 text-gray700">{careerLabel}</span>}
           </div>
           {aside}
@@ -177,13 +190,13 @@ export function ActivityFeedCard({
             <p className={`text-subtitle3 font-semibold text-gray900 truncate ${onClick ? 'group-hover:underline underline-offset-2' : ''}`.trim()}>
               {headline}
             </p>
-            {summary && <p className="text-body2 leading-[1.4] text-gray700 line-clamp-2 whitespace-pre-line">{summary}</p>}
+            {summary && <p className={`${BODY} text-gray700 line-clamp-2 whitespace-pre-line`}>{summary}</p>}
           </>
         )}
 
         {!headlineLoading && result && (
           <div className="pl-3 border-l border-gray900">
-            <p className="text-body2 leading-[1.4] text-gray900 line-clamp-4">{result}</p>
+            <p className={`${BODY} text-gray900 line-clamp-4`}>{result}</p>
           </div>
         )}
       </div>
