@@ -20,7 +20,7 @@ const colorStyles = {
     red: 'bg-red text-white',
     blue: 'bg-blue200 text-white',
     green: 'bg-green100 text-white',
-    purple: 'bg-[#B100ED] text-white',
+    purple: 'bg-purple text-white',
     amber: 'bg-amber_deep text-white',
   },
   soft: {
@@ -30,7 +30,7 @@ const colorStyles = {
     red: 'bg-red10 text-red',
     blue: 'bg-blue10 text-blue100',
     green: 'bg-green10 text-green100',
-    purple: 'bg-[#F9E7FF] text-[#B100ED]',
+    purple: 'bg-purple_bg text-purple',
     amber: 'bg-amber10 text-amber_deep',
   },
 };
