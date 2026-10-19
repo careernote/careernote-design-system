@@ -25,7 +25,7 @@ export function ProfileSummary({ title = '프로필 요약', items, variant = 'g
               <span className="shrink-0 w-1 h-1 rounded-full bg-gray900" />
               <span className="text-body2 font-medium text-gray900">{it.title}</span>
             </div>
-            {it.description && <p className="pl-3 text-detail leading-[17px] text-gray700">{it.description}</p>}
+            {it.description && <p className="pl-3 text-body2 leading-[20px] text-gray700">{it.description}</p>}
           </li>
         ))}
       </ul>

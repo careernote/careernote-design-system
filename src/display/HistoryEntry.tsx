@@ -2,8 +2,14 @@ import React from 'react';
 import Icon from './Icon';
 
 // 경력/학력 엔트리 (Figma "experience-entry") — 로고 칸 + 기업명/학교명 · 기간 · 직무/학과, 아래에 활동 상세(children)
+export type HistoryType = 'career' | 'education' | 'etc';
+
+/** 로고가 없을 때 아이콘 — 경력 회사 · 학력 학사모 · 기타 활동 전구 */
+const TYPE_ICON = { career: 'company', education: 'graduation_hat', etc: 'bulb' } as const;
+
 interface HistoryEntryProps {
-  type?: 'career' | 'education';
+  /** etc = 경력·학력에 묶이지 않은 기타 활동 */
+  type?: HistoryType;
   /** 기업명 / 학교명 */
   name: string;
   /** 직무 / 학과 */
@@ -24,7 +30,7 @@ export function HistoryEntry({ type = 'career', name, role, period, logoUrl, chi
         {logoUrl ? (
           <img src={logoUrl} alt="" className="w-full h-full object-cover" />
         ) : (
-          <Icon name={type === 'career' ? 'company' : 'graduation_hat'} size={24} color="#727180" />
+          <Icon name={TYPE_ICON[type]} size={24} color="#727180" />
         )}
       </div>
       <div className="min-w-0 flex-1 flex flex-col gap-6">

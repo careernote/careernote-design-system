@@ -54,7 +54,7 @@ export function TalentpoolCard({
     <div
       onClick={onClick}
       className={`w-full flex flex-col gap-4 p-5 bg-white100 border border-border_gray rounded-xlarge shadow-wide-light ${
-        onClick ? 'cursor-pointer transition-colors hover:border-gray400' : ''
+        onClick ? 'cursor-pointer transition-colors hover:border-sky60' : ''
       } ${className}`.trim()}
     >
       <div className="flex flex-col gap-4">
@@ -68,10 +68,15 @@ export function TalentpoolCard({
         />
         <hr className="border-0 border-t border-border_gray" />
       </div>
-      <div className="flex flex-col gap-[17px]">
+      {/* 본문이 남은 높이를 채우고 대표 활동은 mt-auto 로 카드 하단에 고정 — 그리드 행 높이가 달라도 활동 박스 위치가 맞는다 */}
+      <div className="flex-1 flex flex-col gap-[17px]">
         <CandidateHistory aiSummary={aiSummary} summaryLines={summaryLines} careers={careers} education={education} skills={skills} showEmpty />
         {experience && (
-          <ExperienceItem {...experience} onClick={onExperienceClick ? () => onExperienceClick(experience) : undefined} />
+          <ExperienceItem
+            {...experience}
+            className="mt-auto"
+            onClick={onExperienceClick ? () => onExperienceClick(experience) : undefined}
+          />
         )}
         {footer}
       </div>
