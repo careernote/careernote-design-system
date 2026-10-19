@@ -44,11 +44,14 @@ function open(i: number) {
   if (props.externalLightbox) emit('image-click', i)
   else lightbox.value = i
 }
+// 안쪽 1px 선(black10) — 흰 사진도 배경과 구분된다. 사진 위에 얹는 ::after 라 클릭은 막지 않는다
+const THUMB_BOX =
+  'relative min-w-0 rounded-[7px] bg-gray800 overflow-hidden after:absolute after:inset-0 after:rounded-[inherit] after:ring-1 after:ring-inset after:ring-black10 after:pointer-events-none'
 const thumb = computed(() =>
-  props.imageZoom
-    ? 'relative min-w-0 rounded-[7px] bg-gray800 overflow-hidden border-0 p-0 cursor-zoom-in transition-opacity hover:opacity-90'
-    : 'relative min-w-0 rounded-[7px] bg-gray800 overflow-hidden',
+  props.imageZoom ? `${THUMB_BOX} border-0 p-0 cursor-zoom-in transition-opacity hover:opacity-90` : THUMB_BOX,
 )
+// 직무 "PD·연출" — 가운뎃점을 따로 떼어 좌우 4px 띄운다
+const jobParts = computed(() => (props.job ? props.job.split('·').map((part) => part.trim()) : []))
 const thumbTag = computed(() => (props.imageZoom ? 'button' : 'div'))
 const thumbType = computed(() => (props.imageZoom ? 'button' : undefined))
 // 확대가 꺼져 있으면 아무것도 하지 않고 클릭을 카드로 올려 보낸다
@@ -104,7 +107,9 @@ function onThumb(e: MouseEvent, i: number) {
         <ProfileAvatar :name="name" :image-url="imageUrl" :size="28" />
         <div class="min-w-0 flex-1 flex items-center gap-1 text-body2 truncate">
           <span class="font-medium text-gray900">{{ name }}</span>
-          <span v-if="job" class="text-gray700 truncate">{{ job }}</span>
+          <span v-if="job" class="text-gray700 truncate"
+            ><template v-for="(part, i) in jobParts" :key="i"><span v-if="i > 0" class="mx-1">·</span>{{ part }}</template></span
+          >
           <span v-if="careerLabel" class="shrink-0 text-gray700">{{ careerLabel }}</span>
         </div>
         <slot name="aside" />
@@ -118,13 +123,13 @@ function onThumb(e: MouseEvent, i: number) {
           <span class="absolute inset-0 flex items-center"><span class="rounded-xsmall bg-gray400 animate-pulse h-[0.75em] w-4/5" /></span>
         </p>
         <div>
-          <p v-for="w in ['w-full', 'w-3/5']" :key="w" class="relative m-0 text-body2 leading-[1.4]" aria-hidden="true">
+          <p v-for="w in ['w-full', 'w-3/5']" :key="w" class="relative m-0 text-body2 leading-[20px]" aria-hidden="true">
             <span class="invisible">가</span>
             <span class="absolute inset-0 flex items-center"><span class="rounded-xsmall bg-gray400 animate-pulse h-[0.75em]" :class="w" /></span>
           </p>
         </div>
         <div class="pl-3 border-l border-gray400">
-          <p v-for="w in ['w-full', 'w-2/3']" :key="w" class="relative m-0 text-body2 leading-[1.4]" aria-hidden="true">
+          <p v-for="w in ['w-full', 'w-2/3']" :key="w" class="relative m-0 text-body2 leading-[20px]" aria-hidden="true">
             <span class="invisible">가</span>
             <span class="absolute inset-0 flex items-center"><span class="rounded-xsmall bg-gray400 animate-pulse h-[0.75em]" :class="w" /></span>
           </p>
@@ -134,11 +139,11 @@ function onThumb(e: MouseEvent, i: number) {
         <p class="text-subtitle3 font-semibold text-gray900 truncate" :class="clickable ? 'group-hover:underline underline-offset-2' : ''">
           {{ headline }}
         </p>
-        <p v-if="summary" class="text-body2 leading-[1.4] text-gray700 line-clamp-2 whitespace-pre-line">{{ summary }}</p>
+        <p v-if="summary" class="text-body2 leading-[20px] text-gray700 line-clamp-2 whitespace-pre-line">{{ summary }}</p>
       </template>
 
       <div v-if="!headlineLoading && result" class="pl-3 border-l border-gray900">
-        <p class="text-body2 leading-[1.4] text-gray900 line-clamp-4">{{ result }}</p>
+        <p class="text-body2 leading-[20px] text-gray900 line-clamp-4">{{ result }}</p>
       </div>
     </div>
 
