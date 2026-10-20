@@ -27,8 +27,10 @@ export {
   Alert,
   LottieLoadingDots,
   LottieLoadingLogo,
+  EmptyState,
   type LottieLoadingDotsProps,
   type LottieLoadingLogoProps,
+  type EmptyStateProps,
 } from './feedback';
 export * from './feedback/Snackbar';
 
