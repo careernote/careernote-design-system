@@ -15,6 +15,7 @@ import lottieLoadingDots from '@careernote/assets/lottie/LoadingDots.json';
 import lottieLoadingLogo from '@careernote/assets/lottie/LoadingLogo.json';
 import placeholderBulb from '@careernote/assets/placeholder/bulb.png';
 import placeholderPencil from '@careernote/assets/placeholder/pencil.png';
+import placeholderFolder from '@careernote/assets/placeholder/folder.png';
 
 const {
   Button,
@@ -41,6 +42,7 @@ const {
   Alert,
   LottieLoadingDots,
   LottieLoadingLogo,
+  EmptyState,
   Modal,
   ModalHeader,
   Information,
@@ -386,6 +388,27 @@ function FeedbackSection() {
               <LottieLoadingLogo animationData={lottieLoadingLogo} size={72} />
             </div>
             <span className="text-detail text-gray700 font-mono">LottieLoadingLogo (DS 컴포넌트 · size 24/48/72)</span>
+          </div>
+        </div>
+      </div>
+      <div className="mb-6">
+        <span className="text-detail text-gray700">EmptyState — md(화면·목록) / sm(패널·팝오버)</span>
+        <div className="mt-2 grid max-w-[960px] grid-cols-2 gap-4">
+          <div className="rounded-medium bg-white">
+            <EmptyState
+              icon={placeholderFolder}
+              title="아직 올린 공고가 없어요"
+              description="공고를 만들면 지원자와 진행 상황을 이곳에서 볼 수 있어요."
+              action={<Button size="md" color="sky">공고 만들기</Button>}
+            />
+          </div>
+          <div className="flex flex-col gap-4">
+            <div className="rounded-medium bg-white">
+              <EmptyState icon={placeholderFolder} title="조건에 맞는 인재가 없어요" description="검색어나 필터를 바꿔 보세요." />
+            </div>
+            <div className="rounded-medium bg-white">
+              <EmptyState size="sm" title="새 알림이 없어요" />
+            </div>
           </div>
         </div>
       </div>
