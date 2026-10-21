@@ -37,6 +37,7 @@ import symbolData from '@careernote/assets/logo/careernote-symbol.base64.json' /
 | check.json | 완료 체크 |
 | search.json | 분석/검색 연출 |
 | evaluation.json | 평가 연출 |
+| reading.json | 문서 스캔 — 홈페이지·문서를 읽는 중 (LottieFiles "scan document", Alex Lbc, Lottie Simple License, 2026-10-21) |
 
 ## 빈 이미지 대체 아이콘 (3D)
 
