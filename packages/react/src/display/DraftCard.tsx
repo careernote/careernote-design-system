@@ -66,7 +66,7 @@ export function DraftCard({
         </span>
       </div>
       <div className="flex items-center gap-2.5">
-        <Button size="sm" color="black" onClick={onAction}>
+        <Button size="sm" color="sky" onClick={onAction}>
           {actionLabel}
         </Button>
         {onDelete && (

@@ -39,7 +39,7 @@ const bars = computed(() => Array.from({ length: Math.max(1, props.stepCount) },
       <span class="ml-1.5">{{ step }} / {{ stepCount }}<template v-if="stepLabel"> · {{ stepLabel }}</template></span>
     </div>
     <div class="flex items-center gap-2.5">
-      <Button size="sm" color="black" @click="emit('action')">{{ actionLabel }}</Button>
+      <Button size="sm" color="sky" @click="emit('action')">{{ actionLabel }}</Button>
       <Button v-if="deletable" size="sm" color="white" @click="emit('delete')">{{ deleteLabel }}</Button>
     </div>
   </div>
