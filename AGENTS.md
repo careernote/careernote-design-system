@@ -61,6 +61,8 @@ AI 에이전트로 프론트엔드 코드를 작성할 때 아래 규칙을 따�
 - buttons: `Button`(5 color × 3 size), `ToggleButton`
 - inputs: `TextInput`(size small/medium/large + `helperText`), `Textarea`, `Selector`
 - display: `Chip`(8 color × 4 size × 2 variant), `CategoryChip`(solid/soft × sm/md 선택지 알약), `Panel`(흰 서피스 카드 — radius 16 + shadow/wide), `ProChip`, `TemplateChips`, `Icon`, `Tooltip`, `Information`, `NumberBadge`
+- ATS 카드: `DraftCard`(작성 중·임시저장 카드 — 점선 테두리 + 단계 바 + 이어서 만들기/삭제, 공고 현황 목록 첫 칸) — 카탈로그 "ATS · Cards" 탭
+- 피드백·오버레이: `ConfirmModal` 은 `note`(회색 안내 박스)·`secondaryAction`/`secondary-label`(버튼 위 밑줄 링크, 세 번째 선택지)·children/slot 을 받는다(2026-10-22, ATS 공고 만들기 나가기 모달). `NoticeBar` 는 목록 위 한 줄 안내 + 행동 버튼(ATS 공고 현황 "작성 중인 공고" 배너) — 카탈로그 "Feedback & Overlays" 탭
 - ATS 평가 기준: `LevelSelector`(하/중하/중/중상/상 5단계 비중) — 카탈로그 "Inputs" 탭
 - 공고 지원자 상세: `ApplicationAnswers`(지원서 답변 — 단문·장문·선택지·첨부파일). `CandidateDetail` 의 `answers` 로 헤더 바로 아래에 붙는다
 - ATS 네비: `UnderlineTabs`(공고 상세 탭), `SegmentedControl`(카드/칸반/표 뷰 전환 — `items[].icon` + `labelMode="selected"` 로 Figma selectBttn2 아이콘형), `FilterChips`(단계 필터) — 카탈로그 "Navigation" 탭. `ApplicantCard` 는 `onClick`(카드 전체 클릭) 지원

@@ -3,10 +3,10 @@ import { ref } from 'vue'
 import {
   Button, ButtonRound, ToggleButton, AddDashedButton, IconButton,
   Chip, CategoryChip, SelectCard, SelectableChip, PlanCard, PlanFeature, RibbonBadge, StarGrid, Badge, NumberBadge, Tooltip, Information, ActivityCard,
-  SubHeader, NextStepFooter, SearchInput, TextLink, Spinner, Checkbox, LottieLoadingDots, LottieLoadingLogo, EmptyState, ConfirmModal, ResponsiveModal,
+  SubHeader, NextStepFooter, SearchInput, TextLink, Spinner, Checkbox, LottieLoadingDots, LottieLoadingLogo, EmptyState, NoticeBar, ConfirmModal, ResponsiveModal,
   TextInput, Textarea, Selector, Modal, InHeader, HeaderMenuItem, ProgressBarItem, ProgressBar, Panel,
   Icon, ICON_NAME_MAP,
-  ApplicantCard, TalentpoolCard, BoardCard, ExperienceItem, CareerTooltip, ProfileAvatar, FeedCard, ActivityFeedCard, PillTabs, SegmentedControl, FilterChips, UnderlineTabs, LevelSelector,
+  ApplicantCard, TalentpoolCard, BoardCard, DraftCard, ExperienceItem, CareerTooltip, ProfileAvatar, FeedCard, ActivityFeedCard, PillTabs, SegmentedControl, FilterChips, UnderlineTabs, LevelSelector,
   Sidebar, SidebarMenuItem, SidebarAccount,
   CandidateDetail, ApplicantEvaluationPanel,
 } from '@careernote/vue'
@@ -190,6 +190,8 @@ const inputVal = ref('')
 const selVal = ref('')
 const modalOpen = ref(false)
 const confirmOpen = ref(false)
+const leaveOpen = ref(false)
+const noticeShown = ref(true)
 const responsiveOpen = ref(false)
 const iconNames = Object.keys(ICON_NAME_MAP)
 </script>
@@ -446,8 +448,37 @@ import symbolData from '@careernote/assets/logo/careernote-symbol.base64.json'</
         <div class="flex items-center gap-3 mb-6">
           <Button color="sky" @click="modalOpen = true">Modal 열기</Button>
         <Button color="white" @click="confirmOpen = true">ConfirmModal 열기</Button>
+        <Button color="white" @click="leaveOpen = true">ConfirmModal (안내 + 링크) 열기</Button>
         <Button color="black" @click="responsiveOpen = true">ResponsiveModal 열기</Button>
         </div>
+        <!-- NoticeBar — 목록 위 한 줄 안내 + 행동 버튼 (ATS 공고 현황 "작성 중인 공고" 배너) -->
+        <div class="mb-6 flex flex-col gap-3">
+          <NoticeBar
+            v-if="noticeShown"
+            detail="2026. 10. 22. 오후 4:58 저장"
+            action-label="이어서 만들기"
+            dismiss-label="삭제"
+            @action="() => {}"
+            @dismiss="noticeShown = false"
+          >
+            작성 중인 공고가 있어요. <b class="font-semibold">프로덕트 디자이너</b>
+          </NoticeBar>
+          <Button v-else size="sm" color="white" @click="noticeShown = true">NoticeBar 다시 보기</Button>
+        </div>
+        <ConfirmModal
+          :open="leaveOpen"
+          title="채용 만들기를 중단할까요?"
+          description="지금까지 입력한 내용을 임시저장하면, 나중에 [공고 / 채용 현황]에서 이어서 만들 수 있어요."
+          note="임시저장은 1건만 보관돼요. 이전에 임시저장한 공고가 있다면 지금 내용으로 덮어써져요."
+          secondary-label="저장하지 않고 나가기"
+          cancel-text="계속 작성"
+          confirm-text="저장하고 나가기"
+          dismissable
+          @close="leaveOpen = false"
+          @confirm="leaveOpen = false"
+          @secondary="leaveOpen = false"
+          @dismiss="leaveOpen = false"
+        />
         <Modal
           :is-open="modalOpen" title="모달 제목" subtitle="모달 서브타이틀" description="모달 설명 텍스트입니다."
           secondary-label="취소" @close="modalOpen = false" @primary="modalOpen = false" @secondary="modalOpen = false"
@@ -720,6 +751,11 @@ import symbolData from '@careernote/assets/logo/careernote-symbol.base64.json'</
           <BoardCard name="박지우" career-label="경력 5년" fitness="normal" clickable />
           <BoardCard name="최하늘" career-label="신입" fitness="low" clickable />
           <BoardCard name="김민준" career-label="경력 8년" fitness="high" rejected clickable />
+        </div>
+        <!-- DraftCard — 공고 현황 목록 첫 칸 '작성 중' 카드 -->
+        <h3 class="text-subtitle3 font-semibold text-gray800 mt-8 mb-2">DraftCard — 작성 중인 공고(임시저장)</h3>
+        <div class="w-[520px]">
+          <DraftCard title="프로덕트 디자이너" saved-at-text="2026. 10. 22. 오후 4:58 임시저장" :step="2" :step-count="4" step-label="팀 · 복지까지 입력" @action="() => {}" @delete="() => {}" />
         </div>
 
         <h3 class="text-subtitle3 font-semibold text-gray800 mt-8 mb-2">부품 — ExperienceItem · CareerTooltip · ProfileAvatar</h3>

@@ -20,11 +20,15 @@ const props = withDefaults(
     /** true 면 바깥 클릭/ESC 시 dismiss 이벤트 발생 (기본 false — 기존 소비처 동작 유지) */
     dismissable?: boolean
     isLoading?: boolean
+    /** 설명 아래 회색 안내 박스 한 줄 */
+    note?: string
+    /** 버튼 위 밑줄 텍스트 링크 — 세 번째 선택지. 누르면 secondary 이벤트 */
+    secondaryLabel?: string
   }>(),
   { cancelText: '취소', confirmText: '확인', dismissable: false, isLoading: false },
 )
 
-const emit = defineEmits<{ (e: 'close'): void; (e: 'confirm'): void; (e: 'dismiss'): void }>()
+const emit = defineEmits<{ (e: 'close'): void; (e: 'confirm'): void; (e: 'dismiss'): void; (e: 'secondary'): void }>()
 
 function onOpenChange(v: boolean) {
   if (!v && props.dismissable && !props.isLoading) emit('dismiss')
@@ -45,6 +49,17 @@ function onOpenChange(v: boolean) {
           <AlertDialogDescription class="w-full text-[14px] font-normal leading-[18px] whitespace-pre-line text-gray700">
             {{ description }}
           </AlertDialogDescription>
+          <p v-if="note" class="m-0 w-full break-keep rounded-small bg-bg-gray1 px-3.5 py-3 text-[13px] leading-[20px] text-gray800">{{ note }}</p>
+          <slot />
+          <button
+            v-if="secondaryLabel"
+            type="button"
+            :disabled="isLoading"
+            class="mt-1 text-[13px] leading-[18px] text-gray600 underline underline-offset-[3px] hover:text-gray800 disabled:cursor-not-allowed disabled:opacity-50"
+            @click="emit('secondary')"
+          >
+            {{ secondaryLabel }}
+          </button>
         </div>
         <div class="flex h-[46px] w-full items-center justify-end gap-3">
           <button

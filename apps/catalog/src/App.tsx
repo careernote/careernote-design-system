@@ -42,6 +42,7 @@ const {
   LottieLoadingDots,
   LottieLoadingLogo,
   EmptyState,
+  NoticeBar,
   Modal,
   ModalHeader,
   Information,
@@ -53,6 +54,7 @@ const {
   ApplicantCard,
   TalentpoolCard,
   BoardCard,
+  DraftCard,
   FeedCard,
   ActivityFeedCard,
   PillTabs,
@@ -313,13 +315,43 @@ function FeedbackSection() {
   const [alertOpen, setAlertOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
+  const [leaveOpen, setLeaveOpen] = useState(false);
+  const [noticeShown, setNoticeShown] = useState(true);
   return (
     <Section title="Feedback & Overlays">
       <div className="flex items-center gap-3 mb-6">
         <Button color="black" onClick={() => setAlertOpen(true)}>Alert 열기</Button>
         <Button color="sky" onClick={() => setModalOpen(true)}>Modal 열기</Button>
         <Button color="white" onClick={() => setConfirmOpen(true)}>ConfirmModal 열기</Button>
+        <Button color="white" onClick={() => setLeaveOpen(true)}>ConfirmModal (안내 + 링크) 열기</Button>
       </div>
+      {/* NoticeBar — 목록 위 한 줄 안내 + 행동 버튼 (ATS 공고 현황 "작성 중인 공고" 배너) */}
+      <div className="mb-6 flex flex-col gap-3">
+        {noticeShown ? (
+          <NoticeBar
+            message={<>작성 중인 공고가 있어요. <b className="font-semibold">프로덕트 디자이너</b></>}
+            detail="2026. 10. 22. 오후 4:58 저장"
+            actionLabel="이어서 만들기"
+            onAction={() => alert('이어서 만들기')}
+            dismissLabel="삭제"
+            onDismiss={() => setNoticeShown(false)}
+          />
+        ) : (
+          <Button size="sm" color="white" onClick={() => setNoticeShown(true)}>NoticeBar 다시 보기</Button>
+        )}
+      </div>
+      <ConfirmModal
+        isOpen={leaveOpen}
+        onClose={() => setLeaveOpen(false)}
+        onConfirm={() => setLeaveOpen(false)}
+        onDismiss={() => setLeaveOpen(false)}
+        title="채용 만들기를 중단할까요?"
+        description="지금까지 입력한 내용을 임시저장하면, 나중에 [공고 / 채용 현황]에서 이어서 만들 수 있어요."
+        note="임시저장은 1건만 보관돼요. 이전에 임시저장한 공고가 있다면 지금 내용으로 덮어써져요."
+        secondaryAction={{ label: '저장하지 않고 나가기', onClick: () => setLeaveOpen(false) }}
+        cancelText="계속 작성"
+        confirmText="저장하고 나가기"
+      />
       {alertOpen && (
         <Alert
           type="confirm"
@@ -691,6 +723,11 @@ function CandidateCardSection() {
       <div className="flex flex-row flex-wrap gap-4">
         <BoardCard name="김민준" careerLabel="경력 8년" fitness="high" onClick={() => {}} />
         <BoardCard name="박지우" careerLabel="경력 5년" fitness="normal" onClick={() => {}} />
+      </div>
+      {/* DraftCard — 공고 현황 목록 첫 칸 '작성 중' 카드 */}
+      <h3 className="mt-8 mb-2 text-subtitle3 font-semibold text-gray800">DraftCard — 작성 중인 공고(임시저장)</h3>
+      <div className="w-[520px]">
+        <DraftCard title="프로덕트 디자이너" savedAtText="2026. 10. 22. 오후 4:58 임시저장" step={2} stepCount={4} stepLabel="팀 · 복지까지 입력" onAction={() => alert('이어서 만들기')} onDelete={() => alert('삭제')} />
         <BoardCard name="최하늘" careerLabel="신입" fitness="low" onClick={() => {}} />
         <BoardCard name="김민준" careerLabel="경력 8년" fitness="high" rejected onClick={() => {}} />
       </div>
