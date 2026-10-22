@@ -13,6 +13,12 @@ interface ConfirmModalProps {
   onDismiss?: () => void;
   /** 대기 중 두 버튼 비활성화 */
   isLoading?: boolean;
+  /** 설명 아래 회색 안내 박스 한 줄(예: "임시저장은 1건만 보관돼요") */
+  note?: string;
+  /** 버튼 위 밑줄 텍스트 링크 — 세 번째 선택지(예: "저장하지 않고 나가기"). 위험한 선택을 주 버튼과 떨어뜨려 둔다 */
+  secondaryAction?: { label: string; onClick: () => void };
+  /** 설명·안내 아래 임의 내용 */
+  children?: React.ReactNode;
 }
 
 /**
@@ -30,6 +36,9 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
   confirmText = '확인',
   onDismiss,
   isLoading = false,
+  note,
+  secondaryAction,
+  children,
 }) => {
   const handleDismiss = onDismiss && !isLoading ? onDismiss : undefined;
   return (
@@ -47,6 +56,20 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
             <AlertDialogPrimitive.Description className="text-[14px] font-normal leading-[18px] text-gray700 w-full whitespace-pre-line">
               {description}
             </AlertDialogPrimitive.Description>
+            {note && (
+              <p className="m-0 w-full rounded-small bg-bg_gray1 px-3.5 py-3 text-[13px] leading-[20px] text-gray800 break-keep">{note}</p>
+            )}
+            {children}
+            {secondaryAction && (
+              <button
+                type="button"
+                onClick={secondaryAction.onClick}
+                disabled={isLoading}
+                className="mt-1 text-[13px] leading-[18px] text-gray600 underline underline-offset-[3px] hover:text-gray800 disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                {secondaryAction.label}
+              </button>
+            )}
           </div>
           <div className="flex gap-3 h-[46px] items-center justify-end w-full">
             <button

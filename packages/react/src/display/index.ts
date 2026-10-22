@@ -29,6 +29,7 @@ export { CandidateHistory, type EducationEntry } from './CandidateHistory';
 export { ApplicantCard } from './ApplicantCard';
 export { TalentpoolCard } from './TalentpoolCard';
 export { BoardCard } from './BoardCard';
+export { DraftCard, type DraftCardProps } from './DraftCard';
 
 // 지원자/인재 상세페이지 + 평가 모달 (Figma 지원자/인재 상세페이지 컴포넌트)
 export { ProfileHero } from './ProfileHero';

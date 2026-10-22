@@ -9,9 +9,9 @@ export { Chip, CategoryChip, Panel, SelectCard, SelectableChip, PlanCard, PlanFe
 export type { IconProps, BaseIconProps } from './display';
 export {
   ProfileAvatar, ExperienceItem, CareerTooltip, CandidateProfile, FitnessChip, UpdatedChip, FITNESS_LABEL,
-  CandidateHistory, ApplicantCard, TalentpoolCard, BoardCard,
+  CandidateHistory, ApplicantCard, TalentpoolCard, BoardCard, DraftCard,
 } from './display';
-export type { ExperienceEntry, CareerEntry, FitnessLevel, EducationEntry } from './display';
+export type { ExperienceEntry, CareerEntry, FitnessLevel, EducationEntry, DraftCardProps } from './display';
 export { FeedCard, type FeedCardProps } from './display';
 export { ActivityFeedCard, type ActivityFeedCardProps } from './display';
 export {
@@ -28,9 +28,11 @@ export {
   LottieLoadingDots,
   LottieLoadingLogo,
   EmptyState,
+  NoticeBar,
   type LottieLoadingDotsProps,
   type LottieLoadingLogoProps,
   type EmptyStateProps,
+  type NoticeBarProps,
 } from './feedback';
 export * from './feedback/Snackbar';
 

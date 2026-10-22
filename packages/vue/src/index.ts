@@ -49,6 +49,7 @@ export { default as Spinner } from './Spinner.vue';
 export { default as LottieLoadingDots } from './LottieLoadingDots.vue';
 export { default as LottieLoadingLogo } from './LottieLoadingLogo.vue';
 export { default as EmptyState } from './EmptyState.vue';
+export { default as NoticeBar } from './NoticeBar.vue';
 export { default as Checkbox } from './Checkbox.vue';
 // 채용/인재풀 카드 (Figma 채용/인재풀 카드 컴포넌트)
 export { default as ProfileAvatar } from './ProfileAvatar.vue';
@@ -65,6 +66,7 @@ export { default as TalentpoolCard } from './TalentpoolCard.vue';
 export { default as FeedCard } from './FeedCard.vue';
 export { default as ActivityFeedCard } from './ActivityFeedCard.vue';
 export { default as BoardCard } from './BoardCard.vue';
+export { default as DraftCard } from './DraftCard.vue';
 export { FITNESS_LABEL, type FitnessLevel, type EducationEntry } from './candidate-types';
 // 지원자/인재 상세페이지 + 평가 모달
 export { default as ProfileHero } from './ProfileHero.vue';
