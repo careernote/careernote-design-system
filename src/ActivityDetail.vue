@@ -26,6 +26,34 @@ const lightbox = ref<number | null>(null)
 // 3줄을 넘을 때만 더보기 — CandidateHistory 요약 박스와 같은 측정. line-clamp 중엔 scrollHeight 가 잘린 높이라 잠깐 풀고 잰다
 const bodyRef = ref<HTMLElement | null>(null)
 const overflow = ref(false)
+// 가로 갤러리: 넘치는 쪽에 64px 페이드(mask-image), 안 넘치면 없음 — React useOverflowMask 와 동일(10/19 수정사항 #8)
+const galleryEl = ref<HTMLElement | null>(null)
+const galleryEdge = ref<'none' | 'left' | 'right' | 'both'>('none')
+const measureGallery = () => {
+  const el = galleryEl.value
+  if (!el) return
+  const over = el.scrollWidth > el.clientWidth + 2
+  if (!over) { galleryEdge.value = 'none'; return }
+  const left = el.scrollLeft > 2
+  const right = el.scrollLeft + el.clientWidth < el.scrollWidth - 2
+  galleryEdge.value = left && right ? 'both' : left ? 'left' : right ? 'right' : 'none'
+}
+const galleryMask = computed(() => {
+  const e = galleryEdge.value
+  const mask = e === 'both' ? 'linear-gradient(90deg, transparent, #000 64px, #000 calc(100% - 64px), transparent)' : e === 'left' ? 'linear-gradient(90deg, transparent, #000 64px)' : e === 'right' ? 'linear-gradient(90deg, #000 calc(100% - 64px), transparent)' : ''
+  return mask ? { maskImage: mask, WebkitMaskImage: mask } : {}
+})
+let galleryRo: ResizeObserver | null = null
+watch(galleryEl, (el, prev) => {
+  prev?.removeEventListener('scroll', measureGallery)
+  galleryRo?.disconnect()
+  if (!el) return
+  el.addEventListener('scroll', measureGallery, { passive: true })
+  galleryRo = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(measureGallery) : null
+  galleryRo?.observe(el)
+  nextTick(measureGallery)
+})
+onBeforeUnmount(() => galleryRo?.disconnect())
 let observer: ResizeObserver | null = null
 function measureBody() {
   const el = bodyRef.value
@@ -55,7 +83,7 @@ onBeforeUnmount(() => observer?.disconnect())
 
 <template>
   <div class="flex flex-col gap-3">
-    <div v-if="images.length" class="flex gap-3 overflow-x-auto">
+    <div v-if="images.length" ref="galleryEl" :style="galleryMask" class="flex gap-3 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
       <button
         v-for="(src, i) in images"
         :key="i"

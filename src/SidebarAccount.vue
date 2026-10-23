@@ -15,5 +15,7 @@ const emit = defineEmits<{ (e: 'click'): void }>()
       <span class="text-body2 font-semibold text-white100 truncate">{{ name }}</span>
       <span class="text-detail text-gray600 truncate">{{ email }}</span>
     </div>
+    <!-- 행 오른쪽 28px 자리(알림 버튼 등) -->
+    <div v-if="$slots.trailing" class="shrink-0 flex items-center"><slot name="trailing" /></div>
   </component>
 </template>
