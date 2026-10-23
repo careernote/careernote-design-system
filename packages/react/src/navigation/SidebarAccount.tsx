@@ -6,9 +6,11 @@ interface SidebarAccountProps {
   email: string;
   onClick?: () => void;
   className?: string;
+  /** 행 오른쪽 28px 자리(알림 버튼 등). 2026-10-23 10/19 수정사항 #1 */
+  trailing?: React.ReactNode;
 }
 
-export function SidebarAccount({ name, email, onClick, className = '' }: SidebarAccountProps) {
+export function SidebarAccount({ name, email, onClick, className = '', trailing }: SidebarAccountProps) {
   const Tag = onClick ? 'button' : 'div';
   return (
     <Tag
@@ -20,6 +22,7 @@ export function SidebarAccount({ name, email, onClick, className = '' }: Sidebar
         <span className="text-body2 font-semibold text-white100 truncate">{name}</span>
         <span className="text-detail text-gray600 truncate">{email}</span>
       </div>
+      {trailing && <div className="shrink-0 flex items-center">{trailing}</div>}
     </Tag>
   );
 }
