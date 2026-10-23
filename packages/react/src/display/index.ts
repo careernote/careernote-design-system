@@ -40,7 +40,7 @@ export { ProfileSummary, type SummaryItem } from './ProfileSummary';
 export { SectionLabel } from './SectionLabel';
 export { ProfileItem } from './ProfileItem';
 export { HistoryEntry } from './HistoryEntry';
-export { ActivityDetail, type ActivityComment } from './ActivityDetail';
+export { ActivityDetail, useOverflowMask, type ActivityComment } from './ActivityDetail';
 export { AiEvaluationCard } from './AiEvaluationCard';
 export { FitActivityItem } from './FitActivityItem';
 export { RequirementCard, type RequirementItem } from './RequirementCard';

@@ -3,6 +3,40 @@ import Chip from './Chip';
 import Icon from './Icon';
 import { ImageLightbox } from '../overlays/ImageLightbox';
 
+/** 가로 갤러리: 스크롤 위치에 따라 넘치는 쪽에 64px 페이드(mask-image). 안 넘치면 마스크 없음(2026-10-23 10/19 수정사항 #8) */
+export function useOverflowMask(ref: React.RefObject<HTMLElement | null>, deps: unknown[] = []): React.CSSProperties {
+  const [edge, setEdge] = useState<'none' | 'left' | 'right' | 'both'>('none');
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const measure = () => {
+      const over = el.scrollWidth > el.clientWidth + 2;
+      if (!over) return setEdge('none');
+      const left = el.scrollLeft > 2;
+      const right = el.scrollLeft + el.clientWidth < el.scrollWidth - 2;
+      setEdge(left && right ? 'both' : left ? 'left' : right ? 'right' : 'none');
+    };
+    measure();
+    el.addEventListener('scroll', measure, { passive: true });
+    const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(measure) : null;
+    ro?.observe(el);
+    return () => {
+      el.removeEventListener('scroll', measure);
+      ro?.disconnect();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- 이미지 수가 바뀔 때만 다시 잰다
+  }, deps);
+  const mask =
+    edge === 'both'
+      ? 'linear-gradient(90deg, transparent, #000 64px, #000 calc(100% - 64px), transparent)'
+      : edge === 'left'
+        ? 'linear-gradient(90deg, transparent, #000 64px)'
+        : edge === 'right'
+          ? 'linear-gradient(90deg, #000 calc(100% - 64px), transparent)'
+          : undefined;
+  return mask ? { maskImage: mask, WebkitMaskImage: mask } : {};
+}
+
 // 활동 상세 (Figma "container" 컴포넌트) — 이미지 슬롯 · 제목/기간 · 스킬 칩 · 본문(3줄 말줄임, 넘칠 때만 더보기, 다시 접기 없음) · Result · 동료 코멘트
 export interface ActivityComment {
   /** 직무 (이름은 표시하지 않음) */
@@ -46,6 +80,8 @@ export function ActivityDetail({
   const [lightbox, setLightbox] = useState<number | null>(null);
   const bodyRef = useRef<HTMLParagraphElement>(null);
   const [overflow, setOverflow] = useState(false);
+  const galleryRef = useRef<HTMLDivElement>(null);
+  const galleryMask = useOverflowMask(galleryRef, [images.length]);
 
   // 3줄을 넘을 때만 더보기 — CandidateHistory SummaryBox 와 같은 측정. line-clamp 중엔 scrollHeight 가 잘린 높이라 잠깐 풀고 잰다
   useEffect(() => {
@@ -67,7 +103,7 @@ export function ActivityDetail({
   return (
     <div className={`flex flex-col gap-3 ${className}`.trim()}>
       {images.length > 0 && (
-        <div className="flex gap-3 overflow-x-auto">
+        <div ref={galleryRef} style={galleryMask} className="flex gap-3 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {images.map((src, i) => (
             <button
               key={i}

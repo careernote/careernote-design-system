@@ -870,7 +870,7 @@ const DETAIL_SUMMARY = [
   { title: '업무 자동화로 성과를 만든 문제 해결가', description: '업무 자동화를 활용해 데이터 정제와 거래내역 처리 시간을 단축하고 추가 수탁 100억 원 유치에 기여했어요.' },
   { title: '금융 영업과 자산운용 실무 역량', description: '기업금융과 자산운용 업무를 수행하며 고객 영업, 세미나 기획, 투자자문 및 운용지원 경험을 쌓았어요.' },
 ];
-const DETAIL_IMAGES = ['', '', '', ''];
+const DETAIL_IMAGES = ['', '', '', '', '', '', '', '']; // 8장 — 가로로 넘쳐 양쪽 페이드가 보인다(10/19 #8)
 
 function DetailSection() {
   const activity = (id: string, withImages = false, withComments = false) => ({

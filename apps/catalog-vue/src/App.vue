@@ -107,7 +107,7 @@ const DETAIL_ACTIVITY = (id: string, withImages = false, withComments = false) =
   id,
   title: '켈리 삼성역 옥외광고 진행',
   period: '2024. 05 - 2026. 01',
-  images: withImages ? ['', '', '', ''] : undefined,
+  images: withImages ? ['', '', '', '', '', '', '', ''] : undefined, // 8장 — 양쪽 페이드 확인용(10/19 #8)
   skills: DETAIL_SKILLS,
   body: DETAIL_BODY,
   result: DETAIL_RESULT,
