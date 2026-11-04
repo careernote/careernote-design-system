@@ -144,7 +144,9 @@ const Button = ({
       `}
     >
       {leftIcon}
-      {children}
+      {/* 문자열 자식은 span 으로 감싼다 — 브라우저 자동 번역(Chrome/Edge)이 텍스트 노드를 <font>로 옮긴 뒤
+          leftIcon/rightIcon 이 바뀌면 React 가 insertBefore/removeChild 로 죽는다(React #11538). React 전용 결함이라 Vue 는 손대지 않음 */}
+      {typeof children === 'string' || typeof children === 'number' ? <span>{children}</span> : children}
       {rightIcon}
     </button>
   );
