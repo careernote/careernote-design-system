@@ -22,6 +22,7 @@ const {
   IconButton,
   Icon,
   ActivityCard,
+  CompanyCard,
   ToggleButton,
   Chip,
   CategoryChip,
@@ -606,6 +607,31 @@ function CardSection() {
         <ActivityCard selected media={<Icon name="image" size="lg" color="#C3C3CD" />}>
           <p className="text-subtitle2 font-semibold text-gray900">선택된 카드 (selected)</p>
         </ActivityCard>
+      </div>
+      <h3 className="text-subtitle3 font-semibold text-gray800 mt-8 mb-2">CompanyCard — 인재풀 회사 카드 (소개 3줄+더보기 · 강점 박스 · actions)</h3>
+      <div className="grid grid-cols-2 gap-4 max-w-[860px] mobile:grid-cols-1">
+        <CompanyCard
+          name="(주)리브레스"
+          meta="경기 · 패션 · 2021년 설립"
+          intro="오래되거나 입지 않는 옷을 새 제품으로 바꾸는 의류 리폼 솔루션을 제공합니다."
+          tags={['AI', '친환경']}
+          highlights={['AI 의류 리폼 서비스 개발 경험', '친환경 기업과 업무협약']}
+          actions={
+            <>
+              <Button size="md" color="white" className="flex-1 !px-3">기업 사이트 보기</Button>
+              <Button size="md" color="black" className="flex-1 !px-3">인재풀 등록</Button>
+            </>
+          }
+          data-testid="catalog-company-card"
+        />
+        <CompanyCard
+          name="커리어노트"
+          logoUrl={symbol}
+          meta="서울"
+          fitLabel="내 활동과 맞아요"
+          intro="AI 포트폴리오와 채용 홈페이지를 만듭니다. 구직자는 활동을 정리해 포트폴리오를 만들고, 기업은 인재풀에서 맞는 사람을 먼저 찾습니다. 소개가 세 줄을 넘으면 셋째 줄 끝에 더보기가 붙고, 올리면 전문이 툴팁으로 보입니다."
+          highlights={[]}
+        />
       </div>
       <h3 className="text-subtitle3 font-semibold text-gray800 mt-8 mb-2">SelectCard — 체크서클 선택 카드 (직업 선택 플로우)</h3>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-[12px] max-w-[720px]">

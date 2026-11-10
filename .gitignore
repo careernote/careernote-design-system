@@ -5,3 +5,4 @@ dist-app/
 
 # 카탈로그 빌드 산출물
 apps/*/dist/
+test-image/

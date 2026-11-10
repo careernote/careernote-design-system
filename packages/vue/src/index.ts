@@ -17,6 +17,7 @@ export { default as NumberBadge } from './NumberBadge.vue';
 export { default as Tooltip } from './Tooltip.vue';
 export { default as Information } from './Information.vue';
 export { default as ActivityCard } from './ActivityCard.vue';
+export { default as CompanyCard } from './CompanyCard.vue';
 export { default as TextInput } from './TextInput.vue';
 export { default as Textarea } from './Textarea.vue';
 export { default as Selector } from './Selector.vue';
