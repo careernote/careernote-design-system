@@ -30,6 +30,8 @@ export { ApplicantCard } from './ApplicantCard';
 export { TalentpoolCard } from './TalentpoolCard';
 export { BoardCard } from './BoardCard';
 export { DraftCard, type DraftCardProps } from './DraftCard';
+// 인재풀 회사 카드 (careernote-web 인재풀 등록하기 · career-pencil 등록 모달)
+export { CompanyCard, companyInitial, type CompanyCardProps } from './CompanyCard';
 
 // 지원자/인재 상세페이지 + 평가 모달 (Figma 지원자/인재 상세페이지 컴포넌트)
 export { ProfileHero } from './ProfileHero';
