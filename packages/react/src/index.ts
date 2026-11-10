@@ -12,6 +12,7 @@ export {
   CandidateHistory, ApplicantCard, TalentpoolCard, BoardCard, DraftCard,
 } from './display';
 export type { ExperienceEntry, CareerEntry, FitnessLevel, EducationEntry, DraftCardProps } from './display';
+export { CompanyCard, companyInitial, type CompanyCardProps } from './display';
 export { FeedCard, type FeedCardProps } from './display';
 export { ActivityFeedCard, type ActivityFeedCardProps } from './display';
 export {
