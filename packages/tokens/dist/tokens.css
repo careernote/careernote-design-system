@@ -11,6 +11,8 @@
   --cn-color-sky-selected: #F7FCFF;
   --cn-color-sky-navy: #0A3D62;
   --cn-color-sky-pressed: #007ACC;
+  --cn-color-sky-soft: #E5F6FF;
+  --cn-color-sky-soft-hover: #D4F0FF;
   --cn-color-gray900: #222222;
   --cn-color-gray800: #4B4D57;
   --cn-color-gray700: #727180;
@@ -46,6 +48,8 @@
   --cn-color-purple10: #D9D6FF;
   --cn-color-purple: #B100ED;
   --cn-color-purple-bg: #F9E7FF;
+  --cn-color-lavender: #9B78FF;
+  --cn-color-lavender-bg: #F0EBFF;
   --cn-color-amber10: #FFF6E5;
   --cn-color-amber-deep: #8A5A00;
   --cn-color-white10: rgba(255, 255, 255, 0.1);
