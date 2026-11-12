@@ -35,6 +35,8 @@ module.exports = {
         "sky_selected": "#F7FCFF",
         "sky_navy": "#0A3D62",
         "sky_pressed": "#007ACC",
+        "sky_soft": "#E5F6FF",
+        "sky_soft_hover": "#D4F0FF",
         "gray900": "#222222",
         "gray800": "#4B4D57",
         "gray700": "#727180",
