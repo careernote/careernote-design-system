@@ -24,6 +24,7 @@ export { default as Selector } from './Selector.vue';
 export { default as LevelSelector } from './LevelSelector.vue';
 export { default as Modal } from './Modal.vue';
 export { default as ResponsiveModal } from './ResponsiveModal.vue';
+export { default as TemplatePagesPreview } from './TemplatePagesPreview.vue';
 export { default as ImageLightbox } from './ImageLightbox.vue';
 export { default as InHeader } from './InHeader.vue';
 export { default as HeaderMenuItem } from './HeaderMenuItem.vue';

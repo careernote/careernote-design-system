@@ -30,6 +30,7 @@ const {
   SelectableChip,
   TextLink,
   ConfirmModal,
+  TemplatePagesPreview,
   PlanCard,
   PlanFeature,
   RibbonBadge,
@@ -312,11 +313,19 @@ function CheckboxToggleDemo() {
   return <Checkbox checked={on} onChange={setOn} />;
 }
 
+// 데모용 미리보기 이미지 — 1280×720 페이지 3장, 사이 간격 100(실제 preview.png 와 같은 배치)
+const DEMO_TEMPLATE_PREVIEW = `data:image/svg+xml;utf8,${encodeURIComponent(
+  `<svg xmlns='http://www.w3.org/2000/svg' width='1280' height='2360'>${['#00A3FF', '#222632', '#ECFBEE']
+    .map((c, i) => `<rect y='${i * 820}' width='1280' height='720' fill='${c}'/><text x='640' y='${i * 820 + 380}' font-size='96' text-anchor='middle' fill='${i === 1 ? '#fff' : '#222'}'>PAGE ${i + 1}</text>`)
+    .join('')}</svg>`,
+)}`;
+
 function FeedbackSection() {
   const [alertOpen, setAlertOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [leaveOpen, setLeaveOpen] = useState(false);
+  const [pagesOpen, setPagesOpen] = useState(false);
   const [noticeShown, setNoticeShown] = useState(true);
   return (
     <Section title="Feedback & Overlays">
@@ -325,7 +334,10 @@ function FeedbackSection() {
         <Button color="sky" onClick={() => setModalOpen(true)}>Modal 열기</Button>
         <Button color="white" onClick={() => setConfirmOpen(true)}>ConfirmModal 열기</Button>
         <Button color="white" onClick={() => setLeaveOpen(true)}>ConfirmModal (안내 + 링크) 열기</Button>
+        <Button color="white" onClick={() => setPagesOpen(true)}>TemplatePagesPreview 열기</Button>
       </div>
+      {/* TemplatePagesPreview — 세로로 이어진 템플릿 미리보기 이미지를 페이지별로 넘겨 보기(CSS 자르기, CORS 무관) */}
+      <TemplatePagesPreview isOpen={pagesOpen} onClose={() => setPagesOpen(false)} imageUrl={DEMO_TEMPLATE_PREVIEW} />
       {/* NoticeBar — 목록 위 한 줄 안내 + 행동 버튼 (ATS 공고 현황 "작성 중인 공고" 배너) */}
       <div className="mb-6 flex flex-col gap-3">
         {noticeShown ? (
