@@ -9,7 +9,7 @@ const emit = defineEmits<{ (e: 'edit'): void }>()
 </script>
 
 <template>
-  <div class="flex items-stretch gap-5">
+  <div class="flex items-stretch gap-5 mobile:flex-col">
     <ProfileHero :name="name" :role="role" :image-url="imageUrl" :editable="editable" @edit="emit('edit')" />
     <CandidateIntro :slogan="slogan" :introduction="introduction" :contacts="contacts" />
   </div>

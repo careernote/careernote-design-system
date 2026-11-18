@@ -100,8 +100,8 @@ onBeforeUnmount(() => observer?.disconnect())
       </button>
       <ImageLightbox :images="images.filter(Boolean)" :index="lightbox" @close="lightbox = null" />
     </div>
-    <div class="flex items-center gap-3">
-      <span class="min-w-0 flex-1 text-body1 font-semibold text-gray900 truncate">{{ title }}</span>
+    <div class="flex items-center gap-3 mobile:flex-wrap mobile:gap-y-1">
+      <span class="min-w-0 flex-1 text-body1 font-semibold text-gray900 truncate mobile:basis-full mobile:whitespace-normal">{{ title }}</span>
       <span v-if="period" class="shrink-0 text-body2 text-gray600">{{ period }}</span>
       <!-- 제목 줄 오른쪽 버튼 자리(수정·삭제 등). 인쇄에서는 숨긴다 — React actions 와 같다 -->
       <div v-if="$slots.actions" class="shrink-0 flex items-center gap-1 print:hidden"><slot name="actions" /></div>
