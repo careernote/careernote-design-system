@@ -58,7 +58,7 @@ const bottomPrintClass = computed(() => (props.skills?.length || props.awards?.l
 </script>
 
 <template>
-  <div class="w-[940px] max-w-full flex flex-col gap-7 px-8 pt-8 pb-10 bg-white100 rounded-xlarge">
+  <div class="w-[940px] max-w-full flex flex-col gap-7 px-8 pt-8 pb-10 mobile:gap-6 mobile:px-5 mobile:pt-6 mobile:pb-8 bg-white100 rounded-xlarge">
     <AttachmentBar v-if="attachments?.length" :items="attachments" @click="(it, i) => emit('attachment-click', it, i)" />
     <CandidateHeader v-bind="header" :editable="editable" @edit="emit('edit-profile')" />
     <hr class="border-0 border-t border-border-gray" />

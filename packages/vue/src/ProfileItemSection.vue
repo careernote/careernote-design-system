@@ -15,7 +15,7 @@ const emit = defineEmits<{ (e: 'edit'): void }>()
       {{ label }}
       <template v-if="editable" #action><SectionEditButton :label="label" @click="emit('edit')" /></template>
     </SectionLabel>
-    <div class="grid grid-cols-2 gap-2">
+    <div class="grid grid-cols-2 mobile:grid-cols-1 gap-2">
       <ProfileItem v-for="(it, i) in items" :key="i" v-bind="it" />
     </div>
   </div>

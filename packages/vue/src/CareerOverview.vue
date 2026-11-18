@@ -25,8 +25,8 @@ const shown = computed(() => props.groups.filter((g) => g.rows.length > 0))
     <div v-for="g in shown" :key="g.label" class="flex gap-4">
       <span class="shrink-0 w-10 text-body2 font-semibold text-gray900">{{ g.label }}</span>
       <ul class="m-0 p-0 list-none min-w-0 flex-1 flex flex-col gap-2">
-        <li v-for="(r, i) in g.rows" :key="i" class="min-w-0 flex items-baseline justify-between gap-4">
-          <span class="min-w-0 truncate text-body2" :title="[r.name, r.sub].filter(Boolean).join(' ')">
+        <li v-for="(r, i) in g.rows" :key="i" class="min-w-0 flex items-baseline justify-between gap-4 mobile:flex-col mobile:gap-0.5">
+          <span class="min-w-0 truncate mobile:whitespace-normal text-body2" :title="[r.name, r.sub].filter(Boolean).join(' ')">
             <span class="font-medium text-gray900">{{ r.name }}</span>
             <span v-if="r.sub" class="text-gray700"> {{ r.sub }}</span>
           </span>

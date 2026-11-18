@@ -129,8 +129,8 @@ export function ActivityDetail({
           {!onImageClick && <ImageLightbox images={images.filter(Boolean)} index={lightbox} onClose={() => setLightbox(null)} />}
         </div>
       )}
-      <div className="flex items-center gap-3">
-        <span className="min-w-0 flex-1 text-body1 font-semibold text-gray900 truncate">{title}</span>
+      <div className="flex items-center gap-3 mobile:flex-wrap mobile:gap-y-1">
+        <span className="min-w-0 flex-1 text-body1 font-semibold text-gray900 truncate mobile:basis-full mobile:whitespace-normal">{title}</span>
         {period && <span className="shrink-0 text-body2 text-gray600">{period}</span>}
         {actions && <div className="shrink-0 flex items-center gap-1 print:hidden">{actions}</div>}
       </div>

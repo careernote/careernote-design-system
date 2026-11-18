@@ -26,7 +26,7 @@ export function ProfileItemSection({ icon, label, items, onEdit, className = '' 
       <SectionLabel icon={icon} action={onEdit && <SectionEditButton label={label} onClick={onEdit} />}>
         {label}
       </SectionLabel>
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid grid-cols-2 mobile:grid-cols-1 gap-2">
         {items.map((it, i) => (
           <ProfileItem key={i} {...it} />
         ))}
