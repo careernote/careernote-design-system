@@ -42,13 +42,19 @@ const props = withDefaults(
     activityIdPrefix?: string
     /** 활동 제목 줄에 수정·삭제 버튼(id 있는 활동만) — React onEditActivity/onDeleteActivity 와 같다. 본인 프로필 화면용 */
     activityEditable?: boolean
+    /** 스킬·수상·자격증·외국어 섹션에 편집 버튼, 비어 있어도 섹션을 보여 준다(빈 섹션은 인쇄에서 숨김) — React onEditSkills 등과 같다 */
+    sectionsEditable?: boolean
     /** true 면 활동 본문을 모두 펼친다(더보기 없음) — 인쇄용 */
     expandAll?: boolean
   }>(),
-  { editable: false, histories: () => [], activityIdPrefix: 'activity-', expandAll: false, activityEditable: false },
+  { editable: false, histories: () => [], activityIdPrefix: 'activity-', expandAll: false, activityEditable: false, sectionsEditable: false },
 )
-const emit = defineEmits<{ (e: 'edit-profile'): void; (e: 'attachment-click', item: AttachmentEntry, index: number): void; (e: 'answer-file-click', file: AnswerFile): void; (e: 'edit-activity', activityId: string): void; (e: 'delete-activity', activityId: string): void }>()
-const hasBottom = computed(() => !!(props.skills?.length || props.awards?.length || props.certifications?.length || props.languages?.length))
+const emit = defineEmits<{ (e: 'edit-profile'): void; (e: 'attachment-click', item: AttachmentEntry, index: number): void; (e: 'answer-file-click', file: AnswerFile): void; (e: 'edit-activity', activityId: string): void; (e: 'delete-activity', activityId: string): void; (e: 'edit-skills'): void; (e: 'edit-awards'): void; (e: 'edit-certifications'): void; (e: 'edit-languages'): void }>()
+// 내용이 있거나 편집할 수 있으면 섹션을 그린다. 편집용으로만 보이는 빈 섹션은 인쇄에서 뺀다
+const show = (items?: unknown[]) => !!items?.length || props.sectionsEditable
+const printClass = (items?: unknown[]) => (items?.length ? '' : 'print:hidden')
+const hasBottom = computed(() => show(props.skills) || show(props.awards) || show(props.certifications) || show(props.languages))
+const bottomPrintClass = computed(() => (props.skills?.length || props.awards?.length || props.certifications?.length || props.languages?.length ? '' : 'print:hidden'))
 </script>
 
 <template>
@@ -82,12 +88,12 @@ const hasBottom = computed(() => !!(props.skills?.length || props.awards?.length
       </HistoryEntry>
     </template>
     <template v-if="hasBottom">
-      <hr class="border-0 border-t border-border-gray" />
-      <div class="flex flex-col gap-10">
-        <SkillSection v-if="skills?.length" :skills="skills" />
-        <ProfileItemSection v-if="awards?.length" icon="trophy" label="수상경력 및 수료" :items="awards" />
-        <ProfileItemSection v-if="certifications?.length" icon="certification" label="자격증" :items="certifications" />
-        <ProfileItemSection v-if="languages?.length" icon="translate" label="외국어" :items="languages" />
+      <hr :class="['border-0 border-t border-border-gray', bottomPrintClass]" />
+      <div :class="['flex flex-col gap-10', bottomPrintClass]">
+        <SkillSection v-if="show(skills)" :skills="skills ?? []" :editable="sectionsEditable" :class="printClass(skills)" @edit="emit('edit-skills')" />
+        <ProfileItemSection v-if="show(awards)" icon="trophy" label="수상경력 및 수료" :items="awards ?? []" :editable="sectionsEditable" :class="printClass(awards)" @edit="emit('edit-awards')" />
+        <ProfileItemSection v-if="show(certifications)" icon="certification" label="자격증" :items="certifications ?? []" :editable="sectionsEditable" :class="printClass(certifications)" @edit="emit('edit-certifications')" />
+        <ProfileItemSection v-if="show(languages)" icon="translate" label="외국어" :items="languages ?? []" :editable="sectionsEditable" :class="printClass(languages)" @edit="emit('edit-languages')" />
       </div>
     </template>
   </div>
