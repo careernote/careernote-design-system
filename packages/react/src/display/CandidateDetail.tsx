@@ -60,12 +60,17 @@ interface CandidateDetailProps {
   onEditActivity?: (activityId: string) => void;
   /** 활동 삭제 — 주면 활동 제목 줄에 삭제 버튼(id 있는 활동만) */
   onDeleteActivity?: (activityId: string) => void;
+  /** 스킬·수상·자격증·외국어 편집 — 주면 섹션 라벨에 편집 버튼, 비어 있어도 섹션을 보여 준다(빈 섹션은 인쇄에서 숨김) */
+  onEditSkills?: () => void;
+  onEditAwards?: () => void;
+  onEditCertifications?: () => void;
+  onEditLanguages?: () => void;
   /** true 면 활동 본문을 모두 펼친다(더보기 없음) — 인쇄용 */
   expandAll?: boolean;
   className?: string;
 }
 
-const Divider = () => <hr className="border-0 border-t border-border_gray" />;
+const Divider = ({ className = '' }: { className?: string }) => <hr className={`border-0 border-t border-border_gray ${className}`.trim()} />;
 
 export function CandidateDetail({
   attachments,
@@ -84,6 +89,10 @@ export function CandidateDetail({
   activityIdPrefix = 'activity-',
   onEditActivity,
   onDeleteActivity,
+  onEditSkills,
+  onEditAwards,
+  onEditCertifications,
+  onEditLanguages,
   expandAll = false,
   className = '',
 }: CandidateDetailProps) {
@@ -102,7 +111,12 @@ export function CandidateDetail({
         )}
       </>
     ) : undefined;
-  const hasBottom = !!(skills?.length || awards?.length || certifications?.length || languages?.length);
+  // 내용이 있거나 편집할 수 있으면 섹션을 그린다. 편집용으로만 보이는 빈 섹션은 인쇄에서 뺀다
+  const show = (items: unknown[] | undefined, onEdit?: () => void) => !!items?.length || !!onEdit;
+  const printClass = (items: unknown[] | undefined) => (items?.length ? '' : 'print:hidden');
+  const hasBottom =
+    show(skills, onEditSkills) || show(awards, onEditAwards) || show(certifications, onEditCertifications) || show(languages, onEditLanguages);
+  const bottomPrintClass = skills?.length || awards?.length || certifications?.length || languages?.length ? '' : 'print:hidden';
   return (
     <div className={`w-[940px] max-w-full flex flex-col gap-7 px-8 pt-8 pb-10 bg-white100 rounded-xlarge ${className}`.trim()}>
       {attachments && attachments.length > 0 && <AttachmentBar items={attachments} />}
@@ -135,12 +149,18 @@ export function CandidateDetail({
       ))}
       {hasBottom && (
         <>
-          <Divider />
-          <div className="flex flex-col gap-10">
-            {skills && skills.length > 0 && <SkillSection skills={skills} />}
-            {awards && awards.length > 0 && <ProfileItemSection icon="trophy" label="수상경력 및 수료" items={awards} />}
-            {certifications && certifications.length > 0 && <ProfileItemSection icon="certification" label="자격증" items={certifications} />}
-            {languages && languages.length > 0 && <ProfileItemSection icon="translate" label="외국어" items={languages} />}
+          <Divider className={bottomPrintClass} />
+          <div className={`flex flex-col gap-10 ${bottomPrintClass}`.trim()}>
+            {show(skills, onEditSkills) && <SkillSection skills={skills ?? []} onEdit={onEditSkills} className={printClass(skills)} />}
+            {show(awards, onEditAwards) && (
+              <ProfileItemSection icon="trophy" label="수상경력 및 수료" items={awards ?? []} onEdit={onEditAwards} className={printClass(awards)} />
+            )}
+            {show(certifications, onEditCertifications) && (
+              <ProfileItemSection icon="certification" label="자격증" items={certifications ?? []} onEdit={onEditCertifications} className={printClass(certifications)} />
+            )}
+            {show(languages, onEditLanguages) && (
+              <ProfileItemSection icon="translate" label="외국어" items={languages ?? []} onEdit={onEditLanguages} className={printClass(languages)} />
+            )}
           </div>
         </>
       )}
