@@ -18,7 +18,7 @@ export function ContactItem({ type, value, href, className = '' }: ContactItemPr
   return (
     <Tag href={href} className={`inline-flex items-center gap-2 text-gray800 ${className}`.trim()}>
       <Icon name={CONTACT_ICON[type]} size={18} color="gray800" />
-      <span className="text-body2 leading-5">{value}</span>
+      <span className="min-w-0 text-body2 leading-5 break-all">{value}</span>
     </Tag>
   );
 }

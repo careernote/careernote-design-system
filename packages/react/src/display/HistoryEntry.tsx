@@ -26,7 +26,7 @@ export function HistoryEntry({ type = 'career', name, role, period, logoUrl, chi
   const items = React.Children.toArray(children);
   return (
     <div className={`flex items-start gap-4 ${className}`.trim()}>
-      <div className="shrink-0 w-12 h-12 flex items-center justify-center rounded-medium bg-bg_gray1 border border-border_gray overflow-hidden">
+      <div className="shrink-0 w-12 h-12 mobile:hidden flex items-center justify-center rounded-medium bg-bg_gray1 border border-border_gray overflow-hidden">
         {logoUrl ? (
           <img src={logoUrl} alt="" className="w-full h-full object-cover" />
         ) : (
@@ -35,8 +35,8 @@ export function HistoryEntry({ type = 'career', name, role, period, logoUrl, chi
       </div>
       <div className="min-w-0 flex-1 flex flex-col gap-6">
         <div className="flex flex-col gap-1">
-          <div className="flex items-center justify-between gap-3">
-            <span className="text-subtitle3 font-bold text-gray900 truncate">{name}</span>
+          <div className="flex items-center justify-between gap-3 mobile:flex-col mobile:items-start mobile:gap-0.5">
+            <span className="text-subtitle3 font-bold text-gray900 truncate mobile:whitespace-normal">{name}</span>
             {period && <span className="shrink-0 text-body2 text-gray600">{period}</span>}
           </div>
           {role && <span className="text-body1 font-medium text-gray700">{role}</span>}

@@ -9,6 +9,6 @@ defineProps<{ type: ContactType; value: string; href?: string }>()
 <template>
   <component :is="href ? 'a' : 'div'" :href="href" class="inline-flex items-center gap-2 text-gray800">
     <Icon :name="CONTACT_ICON[type]" :size="18" color="gray800" />
-    <span class="text-body2 leading-5">{{ value }}</span>
+    <span class="min-w-0 text-body2 leading-5 break-all">{{ value }}</span>
   </component>
 </template>

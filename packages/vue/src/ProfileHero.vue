@@ -6,7 +6,7 @@ const emit = defineEmits<{ (e: 'edit'): void }>()
 </script>
 
 <template>
-  <div class="relative shrink-0 w-[172px] h-[180px] rounded-large overflow-hidden bg-gray800">
+  <div class="relative shrink-0 w-[172px] h-[180px] mobile:w-full rounded-large overflow-hidden bg-gray800">
     <img v-if="imageUrl" :src="imageUrl" :alt="name" class="absolute inset-0 w-full h-full object-cover" />
     <button v-if="editable" type="button" aria-label="프로필 편집" class="absolute top-3 right-3 p-2 rounded-medium bg-black50 text-white100" @click="emit('edit')">
       <Icon name="edit" :size="20" color="white" />

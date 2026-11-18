@@ -13,7 +13,7 @@ interface ProfileHeroProps {
 
 export function ProfileHero({ name, role, imageUrl, onEdit, className = '' }: ProfileHeroProps) {
   return (
-    <div className={`relative shrink-0 w-[172px] h-[180px] rounded-large overflow-hidden bg-gray800 ${className}`.trim()}>
+    <div className={`relative shrink-0 w-[172px] h-[180px] mobile:w-full rounded-large overflow-hidden bg-gray800 ${className}`.trim()}>
       {imageUrl && <img src={imageUrl} alt={name} className="absolute inset-0 w-full h-full object-cover" />}
       {onEdit && (
         <button

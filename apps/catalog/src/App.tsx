@@ -937,6 +937,12 @@ function DetailSection() {
           ],
         }}
         onEditProfile={() => {}}
+        onEditActivity={() => {}}
+        onDeleteActivity={() => {}}
+        onEditSkills={() => {}}
+        onEditAwards={() => {}}
+        onEditCertifications={() => {}}
+        onEditLanguages={() => {}}
         summary={DETAIL_SUMMARY}
         overview={[
           {
