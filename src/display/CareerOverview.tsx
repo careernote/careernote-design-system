@@ -31,8 +31,8 @@ export function CareerOverview({ groups, className = '' }: CareerOverviewProps) 
           <span className="shrink-0 w-10 text-body2 font-semibold text-gray900">{g.label}</span>
           <ul className="m-0 p-0 list-none min-w-0 flex-1 flex flex-col gap-2">
             {g.rows.map((r, i) => (
-              <li key={i} className="min-w-0 flex items-baseline justify-between gap-4">
-                <span className="min-w-0 truncate text-body2" title={[r.name, r.sub].filter(Boolean).join(' ')}>
+              <li key={i} className="min-w-0 flex items-baseline justify-between gap-4 mobile:flex-col mobile:gap-0.5">
+                <span className="min-w-0 truncate mobile:whitespace-normal text-body2" title={[r.name, r.sub].filter(Boolean).join(' ')}>
                   <span className="font-medium text-gray900">{r.name}</span>
                   {r.sub && <span className="text-gray700"> {r.sub}</span>}
                 </span>

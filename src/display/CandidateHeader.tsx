@@ -19,7 +19,7 @@ interface CandidateHeaderProps extends CandidateHeaderData {
 
 export function CandidateHeader({ name, role, imageUrl, onEdit, slogan, introduction, contacts, className = '' }: CandidateHeaderProps) {
   return (
-    <div className={`flex items-stretch gap-5 ${className}`.trim()}>
+    <div className={`flex items-stretch gap-5 mobile:flex-col ${className}`.trim()}>
       <ProfileHero name={name} role={role} imageUrl={imageUrl} onEdit={onEdit} />
       <CandidateIntro slogan={slogan} introduction={introduction} contacts={contacts} />
     </div>
