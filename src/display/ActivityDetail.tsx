@@ -60,6 +60,8 @@ interface ActivityDetailProps {
   onImageClick?: (index: number) => void;
   /** true 면 본문을 처음부터 다 펼친다(더보기 없음) — 인쇄용 */
   expanded?: boolean;
+  /** 제목 줄 오른쪽 버튼 자리(수정·삭제 등). 인쇄에서는 숨긴다 */
+  actions?: React.ReactNode;
   className?: string;
 }
 
@@ -73,6 +75,7 @@ export function ActivityDetail({
   comments = [],
   onImageClick,
   expanded: forceExpanded = false,
+  actions,
   className = '',
 }: ActivityDetailProps) {
   const [opened, setOpened] = useState(false);
@@ -129,6 +132,7 @@ export function ActivityDetail({
       <div className="flex items-center gap-3">
         <span className="min-w-0 flex-1 text-body1 font-semibold text-gray900 truncate">{title}</span>
         {period && <span className="shrink-0 text-body2 text-gray600">{period}</span>}
+        {actions && <div className="shrink-0 flex items-center gap-1 print:hidden">{actions}</div>}
       </div>
       {skills.length > 0 && (
         <div className="flex flex-wrap items-center gap-1.5">

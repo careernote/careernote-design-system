@@ -8,6 +8,8 @@ import { HistoryEntry } from './HistoryEntry';
 import { ActivityDetail, type ActivityComment } from './ActivityDetail';
 import { SkillSection } from './SkillSection';
 import { ProfileItemSection, type ProfileItemEntry } from './ProfileItemSection';
+import Icon from './Icon';
+import { IconButton } from '../buttons/IconButton';
 
 // 지원자/인재 상세페이지 조립체 (Figma "상세페이지") — 데이터만 넘기면 섹션 순서·구분선·간격을 여기서 맞춘다.
 // 세부 커스텀이 필요하면 아래 부품(AttachmentBar·CandidateHeader·ProfileSummary·HistoryEntry·ActivityDetail·SkillSection·ProfileItemSection)을 직접 조립한다.
@@ -54,6 +56,10 @@ interface CandidateDetailProps {
   languages?: ProfileItemEntry[];
   /** 활동 블록에 붙일 id 접두 — 평가 모달의 Fit 활동 클릭 시 스크롤 타깃 (`${prefix}${activity.id}`) */
   activityIdPrefix?: string;
+  /** 활동 수정 — 주면 활동 제목 줄에 수정 버튼(id 있는 활동만). 본인 프로필 화면용 */
+  onEditActivity?: (activityId: string) => void;
+  /** 활동 삭제 — 주면 활동 제목 줄에 삭제 버튼(id 있는 활동만) */
+  onDeleteActivity?: (activityId: string) => void;
   /** true 면 활동 본문을 모두 펼친다(더보기 없음) — 인쇄용 */
   expandAll?: boolean;
   className?: string;
@@ -76,9 +82,26 @@ export function CandidateDetail({
   certifications,
   languages,
   activityIdPrefix = 'activity-',
+  onEditActivity,
+  onDeleteActivity,
   expandAll = false,
   className = '',
 }: CandidateDetailProps) {
+  const activityActions = (a: ActivityData) =>
+    a.id && (onEditActivity || onDeleteActivity) ? (
+      <>
+        {onEditActivity && (
+          <IconButton variant="ghost" aria-label={`${a.title} 수정`} onClick={() => onEditActivity(a.id!)} data-testid="candidate-activity-edit">
+            <Icon name="edit" size={18} />
+          </IconButton>
+        )}
+        {onDeleteActivity && (
+          <IconButton variant="ghost" aria-label={`${a.title} 삭제`} onClick={() => onDeleteActivity(a.id!)} data-testid="candidate-activity-delete">
+            <Icon name="delete" size={18} />
+          </IconButton>
+        )}
+      </>
+    ) : undefined;
   const hasBottom = !!(skills?.length || awards?.length || certifications?.length || languages?.length);
   return (
     <div className={`w-[940px] max-w-full flex flex-col gap-7 px-8 pt-8 pb-10 bg-white100 rounded-xlarge ${className}`.trim()}>
@@ -104,7 +127,7 @@ export function CandidateDetail({
           <HistoryEntry type={h.type} name={h.name} role={h.role} period={h.period} logoUrl={h.logoUrl}>
             {h.activities?.map((a, j) => (
               <div key={a.id ?? j} id={a.id ? `${activityIdPrefix}${a.id}` : undefined}>
-                <ActivityDetail {...a} expanded={expandAll} />
+                <ActivityDetail {...a} expanded={expandAll} actions={activityActions(a)} />
               </div>
             ))}
           </HistoryEntry>
