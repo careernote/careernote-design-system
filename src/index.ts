@@ -38,7 +38,7 @@ export {
 export * from './feedback/Snackbar';
 
 // Overlays
-export { Modal, ModalHeader, ResponsiveModal, ConfirmModal, ImageLightbox } from './overlays';
+export { Modal, ModalHeader, ResponsiveModal, ConfirmModal, ImageLightbox, TemplatePagesPreview, templatePageCount } from './overlays';
 
 // Navigation
 export { SubHeader, ProgressBarItem, ProgressBar, HeaderMenuItem, InHeader, Sidebar, SidebarMenuItem, SidebarAccount, PillTabs, type PillTabItem, SegmentedControl, type SegmentItem, FilterChips, type FilterChipItem, UnderlineTabs, type UnderlineTabItem } from './navigation';

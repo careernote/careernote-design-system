@@ -3,3 +3,4 @@ export { ModalHeader } from './ModalHeader';
 export { ResponsiveModal } from './ResponsiveModal';
 export { ConfirmModal } from './ConfirmModal';
 export { ImageLightbox } from './ImageLightbox';
+export { TemplatePagesPreview, templatePageCount } from './TemplatePagesPreview';
