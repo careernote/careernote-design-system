@@ -937,6 +937,8 @@ function DetailSection() {
           ],
         }}
         onEditProfile={() => {}}
+        onEditActivity={() => {}}
+        onDeleteActivity={() => {}}
         summary={DETAIL_SUMMARY}
         overview={[
           {

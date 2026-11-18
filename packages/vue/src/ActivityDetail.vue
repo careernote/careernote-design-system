@@ -103,6 +103,8 @@ onBeforeUnmount(() => observer?.disconnect())
     <div class="flex items-center gap-3">
       <span class="min-w-0 flex-1 text-body1 font-semibold text-gray900 truncate">{{ title }}</span>
       <span v-if="period" class="shrink-0 text-body2 text-gray600">{{ period }}</span>
+      <!-- 제목 줄 오른쪽 버튼 자리(수정·삭제 등). 인쇄에서는 숨긴다 — React actions 와 같다 -->
+      <div v-if="$slots.actions" class="shrink-0 flex items-center gap-1 print:hidden"><slot name="actions" /></div>
     </div>
     <div v-if="skills.length" class="flex flex-wrap items-center gap-1.5">
       <Chip v-for="s in skills" :key="s" size="L" variant="soft" color="basic" class="font-normal">{{ s }}</Chip>

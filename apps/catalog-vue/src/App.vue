@@ -844,7 +844,7 @@ import symbolData from '@careernote/assets/logo/careernote-symbol.base64.json'</
         </p>
         <CandidateDetail
           class="border border-border-gray"
-          :attachments="DETAIL_ATTACHMENTS" :answers="DETAIL_ANSWERS" :header="DETAIL_HEADER" editable :summary="DETAIL_SUMMARY" :overview="DETAIL_OVERVIEW" :histories="DETAIL_HISTORIES"
+          :attachments="DETAIL_ATTACHMENTS" :answers="DETAIL_ANSWERS" :header="DETAIL_HEADER" editable activity-editable :summary="DETAIL_SUMMARY" :overview="DETAIL_OVERVIEW" :histories="DETAIL_HISTORIES"
           :skills="['Photoshop', 'SQL', 'C#', 'Photoshop', 'Figma']" :awards="DETAIL_AWARDS" :certifications="DETAIL_CERTS" :languages="DETAIL_LANGS"
         />
 

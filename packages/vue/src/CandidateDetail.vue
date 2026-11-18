@@ -15,6 +15,8 @@ import HistoryEntry from './HistoryEntry.vue'
 import ActivityDetail from './ActivityDetail.vue'
 import type { ActivityComment } from './ActivityDetail.vue'
 import SkillSection from './SkillSection.vue'
+import IconButton from './IconButton.vue'
+import Icon from './icons/Icon.vue'
 import ProfileItemSection from './ProfileItemSection.vue'
 import type { ProfileItemEntry } from './ProfileItemSection.vue'
 
@@ -38,12 +40,14 @@ const props = withDefaults(
     certifications?: ProfileItemEntry[]
     languages?: ProfileItemEntry[]
     activityIdPrefix?: string
+    /** 활동 제목 줄에 수정·삭제 버튼(id 있는 활동만) — React onEditActivity/onDeleteActivity 와 같다. 본인 프로필 화면용 */
+    activityEditable?: boolean
     /** true 면 활동 본문을 모두 펼친다(더보기 없음) — 인쇄용 */
     expandAll?: boolean
   }>(),
-  { editable: false, histories: () => [], activityIdPrefix: 'activity-', expandAll: false },
+  { editable: false, histories: () => [], activityIdPrefix: 'activity-', expandAll: false, activityEditable: false },
 )
-const emit = defineEmits<{ (e: 'edit-profile'): void; (e: 'attachment-click', item: AttachmentEntry, index: number): void; (e: 'answer-file-click', file: AnswerFile): void }>()
+const emit = defineEmits<{ (e: 'edit-profile'): void; (e: 'attachment-click', item: AttachmentEntry, index: number): void; (e: 'answer-file-click', file: AnswerFile): void; (e: 'edit-activity', activityId: string): void; (e: 'delete-activity', activityId: string): void }>()
 const hasBottom = computed(() => !!(props.skills?.length || props.awards?.length || props.certifications?.length || props.languages?.length))
 </script>
 
@@ -66,7 +70,14 @@ const hasBottom = computed(() => !!(props.skills?.length || props.awards?.length
       <HistoryEntry :type="h.type" :name="h.name" :role="h.role" :period="h.period" :logo-url="h.logoUrl">
         <template v-for="(a, j) in h.activities ?? []" :key="a.id ?? j">
           <hr v-if="j > 0" />
-          <div :id="a.id ? `${activityIdPrefix}${a.id}` : undefined"><ActivityDetail v-bind="a" :expanded="expandAll" /></div>
+          <div :id="a.id ? `${activityIdPrefix}${a.id}` : undefined">
+            <ActivityDetail v-bind="a" :expanded="expandAll">
+              <template v-if="activityEditable && a.id" #actions>
+                <IconButton variant="ghost" :aria-label="`${a.title} 수정`" data-testid="candidate-activity-edit" @click="emit('edit-activity', a.id!)"><Icon name="edit" :size="18" /></IconButton>
+                <IconButton variant="ghost" :aria-label="`${a.title} 삭제`" data-testid="candidate-activity-delete" @click="emit('delete-activity', a.id!)"><Icon name="delete" :size="18" /></IconButton>
+              </template>
+            </ActivityDetail>
+          </div>
         </template>
       </HistoryEntry>
     </template>
