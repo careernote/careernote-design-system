@@ -41,12 +41,17 @@ export function HistoryEntry({ type = 'career', name, role, period, logoUrl, chi
           </div>
           {role && <span className="text-body1 font-medium text-gray700">{role}</span>}
         </div>
-        {items.map((child, i) => (
-          <React.Fragment key={i}>
-            {i > 0 && <hr className="border-0 border-t border-border_gray" />}
-            {child}
-          </React.Fragment>
-        ))}
+        {/* 활동은 회사명보다 한 단계 더 들여 쓴다(pl-4) — 회사와 활동이 한눈에 갈리게. 경력기술서 PDF 도 같은 값 */}
+        {items.length > 0 && (
+          <div className="flex flex-col gap-6 pl-4">
+            {items.map((child, i) => (
+              <React.Fragment key={i}>
+                {i > 0 && <hr className="border-0 border-t border-border_gray" />}
+                {child}
+              </React.Fragment>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

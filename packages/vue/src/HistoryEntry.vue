@@ -12,7 +12,7 @@ withDefaults(defineProps<{ type?: 'career' | 'education' | 'etc'; name: string; 
       <img v-if="logoUrl" :src="logoUrl" alt="" class="w-full h-full object-cover" />
       <Icon v-else :name="TYPE_ICON[type]" :size="24" color="#727180" />
     </div>
-    <div class="min-w-0 flex-1 flex flex-col gap-6 [&>hr]:border-0 [&>hr]:border-t [&>hr]:border-border-gray">
+    <div class="min-w-0 flex-1 flex flex-col gap-6">
       <div class="flex flex-col gap-1">
         <div class="flex items-center justify-between gap-3 mobile:flex-col mobile:items-start mobile:gap-0.5">
           <span class="text-subtitle3 font-bold text-gray900 truncate mobile:whitespace-normal">{{ name }}</span>
@@ -20,7 +20,10 @@ withDefaults(defineProps<{ type?: 'career' | 'education' | 'etc'; name: string; 
         </div>
         <span v-if="role" class="text-body1 font-medium text-gray700">{{ role }}</span>
       </div>
-      <slot />
+      <!-- 활동은 회사명보다 한 단계 더 들여 쓴다(pl-4) — React 와 같다. 경력기술서 PDF 도 같은 값 -->
+      <div v-if="$slots.default" class="flex flex-col gap-6 pl-4 [&>hr]:border-0 [&>hr]:border-t [&>hr]:border-border-gray">
+        <slot />
+      </div>
     </div>
   </div>
 </template>
