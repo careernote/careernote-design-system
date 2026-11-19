@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import {
   Button, ButtonRound, ToggleButton, AddDashedButton, IconButton,
   Chip, CategoryChip, SelectCard, SelectableChip, PlanCard, PlanFeature, RibbonBadge, StarGrid, Badge, NumberBadge, Tooltip, Information, ActivityCard, CompanyCard,
-  SubHeader, NextStepFooter, SearchInput, TextLink, Spinner, Checkbox, LottieLoadingDots, LottieLoadingLogo, EmptyState, NoticeBar, ConfirmModal, ResponsiveModal,
+  SubHeader, NextStepFooter, SearchInput, TextLink, Spinner, Checkbox, LottieLoadingDots, LottieLoadingLogo, EmptyState, NoticeBar, ConfirmModal, ResponsiveModal, TemplatePagesPreview,
   TextInput, Textarea, Selector, Modal, InHeader, HeaderMenuItem, ProgressBarItem, ProgressBar, Panel,
   Icon, ICON_NAME_MAP,
   ApplicantCard, TalentpoolCard, BoardCard, DraftCard, ExperienceItem, CareerTooltip, ProfileAvatar, FeedCard, ActivityFeedCard, PillTabs, SegmentedControl, FilterChips, UnderlineTabs, LevelSelector,
@@ -193,6 +193,14 @@ const confirmOpen = ref(false)
 const leaveOpen = ref(false)
 const noticeShown = ref(true)
 const responsiveOpen = ref(false)
+const pagesOpen = ref(false)
+// 데모용 미리보기 이미지 — 1280×720 페이지 3장, 사이 간격 100(실제 preview.png 와 같은 배치)
+const DEMO_TEMPLATE_PREVIEW = `data:image/svg+xml;utf8,${encodeURIComponent(
+  `<svg xmlns='http://www.w3.org/2000/svg' width='1280' height='2360'>${['#00A3FF', '#222632', '#ECFBEE']
+    .map((c, i) => `<rect y='${i * 820}' width='1280' height='720' fill='${c}'/><text x='640' y='${i * 820 + 380}' font-size='96' text-anchor='middle' fill='${i === 1 ? '#fff' : '#222'}'>PAGE ${i + 1}</text>`)
+    .join('')}</svg>`,
+)}`
+
 const iconNames = Object.keys(ICON_NAME_MAP)
 </script>
 
@@ -450,7 +458,10 @@ import symbolData from '@careernote/assets/logo/careernote-symbol.base64.json'</
         <Button color="white" @click="confirmOpen = true">ConfirmModal 열기</Button>
         <Button color="white" @click="leaveOpen = true">ConfirmModal (안내 + 링크) 열기</Button>
         <Button color="black" @click="responsiveOpen = true">ResponsiveModal 열기</Button>
+        <Button color="white" @click="pagesOpen = true">TemplatePagesPreview 열기</Button>
         </div>
+        <!-- TemplatePagesPreview — 세로로 이어진 템플릿 미리보기 이미지를 페이지별로 넘겨 보기(CSS 자르기, CORS 무관) -->
+        <TemplatePagesPreview :open="pagesOpen" :image-url="DEMO_TEMPLATE_PREVIEW" @close="pagesOpen = false" />
         <!-- NoticeBar — 목록 위 한 줄 안내 + 행동 버튼 (ATS 공고 현황 "작성 중인 공고" 배너) -->
         <div class="mb-6 flex flex-col gap-3">
           <NoticeBar
